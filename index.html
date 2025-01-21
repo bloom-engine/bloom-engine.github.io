@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bloom AI - Spreadsheets into Action</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/styles.css">
+  <script src="https://kit.fontawesome.com/390d6573af.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+
+<body>
+
+  <!-- Nav Start -->
+  <div class="ham-menu" style="display: none;">
+    <div class="close-btn">
+      <svg fill="#808080" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 492 492" xml:space="preserve" stroke="#808080">
+
+        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+        <g id="SVGRepo_iconCarrier">
+          <g>
+            <g>
+              <path
+                d="M300.188,246L484.14,62.04c5.06-5.064,7.852-11.82,7.86-19.024c0-7.208-2.792-13.972-7.86-19.028L468.02,7.872 c-5.068-5.076-11.824-7.856-19.036-7.856c-7.2,0-13.956,2.78-19.024,7.856L246.008,191.82L62.048,7.872 c-5.06-5.076-11.82-7.856-19.028-7.856c-7.2,0-13.96,2.78-19.02,7.856L7.872,23.988c-10.496,10.496-10.496,27.568,0,38.052 L191.828,246L7.872,429.952c-5.064,5.072-7.852,11.828-7.852,19.032c0,7.204,2.788,13.96,7.852,19.028l16.124,16.116 c5.06,5.072,11.824,7.856,19.02,7.856c7.208,0,13.968-2.784,19.028-7.856l183.96-183.952l183.952,183.952 c5.068,5.072,11.824,7.856,19.024,7.856h0.008c7.204,0,13.96-2.784,19.028-7.856l16.12-16.116 c5.06-5.064,7.852-11.824,7.852-19.028c0-7.204-2.792-13.96-7.852-19.028L300.188,246z" />
+            </g>
+          </g>
+        </g>
+
+      </svg>
+    </div>
+    <a href="/">Home</a>
+    <a href="/login">Sign Up</a>
+    <a href="/#integration">Integration</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/contact">Contact</a>
+  </div>
+
+  <nav class="p-4 d-flex" style="column-gap: 3rem;">
+    <div class="logo-container">
+      <div class="logo"></div>
+      <div class="name">Bloom AI</div>
+    </div>
+
+    <div class="menu-bar d-none d-md-flex">
+      <a href="/">Home</a>
+      <a href="#integration">Integration</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+    <div class="d-flex" style="align-items: center;">
+      <a href="/login"><button class="btn nav-btn anonymous">Get Started</button></a>
+
+      <a href="/dashboard">
+        <button class="btn nav-btn logged" style="display: none;">
+          <svg fill="#fff" height="15px" width="15px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" stroke="#000000">
+
+            <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+            <g id="SVGRepo_iconCarrier">
+              <g>
+                <g>
+                  <path
+                    d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M256,490.667 c-50.859,0-97.856-16.448-136.341-44.053l55.125-18.389c33.365-13.909,44.48-64,44.48-76.224c0-3.2-1.429-6.208-3.883-8.235 c-11.925-9.835-24.576-26.901-24.576-39.168c0-14.357-5.867-22.507-11.584-26.496c-2.667-7.381-6.976-20.821-7.339-29.291 c5.312-0.597,9.451-5.12,9.451-10.603v-56.896c0-30.443,29.077-74.667,74.667-74.667c42.837,0,54.123,18.453,55.552,25.749 c-0.384,1.365-0.533,2.709-0.405,3.904c0.619,5.781,4.949,8.533,7.275,10.005c3.669,2.325,12.245,7.787,12.245,35.029v56.896 c0,5.909,2.859,10.005,8.747,10.005c0.192,0.192,0.448,0.661,0.683,1.131c-0.512,8.512-4.651,21.397-7.317,28.736 c-5.696,3.989-11.584,12.139-11.584,26.496c0,12.267-12.651,29.333-24.576,39.168c-2.475,2.027-3.883,5.056-3.883,8.235 c0,12.203,11.136,62.315,45.227,76.48l54.379,18.133C353.877,474.219,306.859,490.667,256,490.667z M408.256,434.219 c-0.981-3.157-3.243-5.867-6.613-6.997l-56.149-18.688c-19.627-8.171-28.736-39.573-30.869-52.139 c14.528-13.504,27.947-33.621,27.947-51.797c0-6.165,1.749-8.555,1.408-8.619c3.328-0.832,6.037-3.2,7.317-6.379 c1.045-2.624,10.24-26.069,10.24-41.877c0-0.853-0.107-1.728-0.32-2.581c-1.344-5.355-4.48-10.752-9.173-14.123v-49.664 c0-30.72-9.365-43.563-19.243-51.008c-2.219-15.253-18.56-44.992-76.757-44.992c-59.477,0-96,55.915-96,96v49.664 c-4.693,3.371-7.829,8.768-9.173,14.123c-0.213,0.832-0.32,1.707-0.32,2.581c0,15.808,9.195,39.253,10.24,41.877 c1.28,3.179,2.965,5.205,6.293,6.037c0.683,0.405,2.432,2.773,2.432,8.96c0,18.176,13.419,38.293,27.947,51.797 c-2.133,12.565-11.157,43.925-30.144,51.861l-56.896,18.965c-3.392,1.131-5.653,3.861-6.635,7.04 C53.419,391.168,21.333,327.317,21.333,256c0-129.387,105.28-234.667,234.667-234.667S490.667,126.613,490.667,256 C490.667,327.275,458.603,391.125,408.256,434.219z" />
+                </g>
+              </g>
+            </g>
+
+          </svg> Dashboard
+        </button>
+      </a>
+
+      <!-- <div class="ms-3 logged" style="display: none;">LogOut</div> -->
+
+      <!-- <i class="fa-solid fa-bars d-md-none" style="margin-left: 1rem;" id="open-menu-icon"></i> -->
+      <div class="menu-icon d-md-none" id="open-menu-icon" style="margin-left: 1rem;">
+        <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+          <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+          <g id="SVGRepo_iconCarrier">
+            <path d="M4 6H20M4 12H20M4 18H20" stroke="#000000" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </g>
+
+        </svg>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Nav End -->
+
+  <div class="hero">
+    <div class="container">
+      <!-- <div class="d-fl" style="gap:2rem"> -->
+      <div class="content">
+        <div class="banner">
+          <span>First AI-powered Calculation Platform</span>
+        </div>
+        <div class="title">Skip the Math <br>Let PandaAI Do the Work!</div>
+        <div>Effortlessly tackle complex calculations with our AI-powered platform integrated with Spreadsheets. Save
+          time and boost accuracy while letting us handle the heavy lifting for you.</div>
+        <a href="/login"><button class="btn mt-4">Get Started Free</button></a>
+        <div class="no-credit-card">No credit card required.</div>
+      </div>
+      <div class="image-container">
+        <img src="./images/hero.png" alt="" class="w-100">
+      </div>
+      <!-- </div> -->
+    </div>
+  </div>
+
+  <section class="section" id="reviews">
+    <div class="container">
+      <div class="d-flex" style="justify-content: space-between;">
+        <div class="review">
+
+          <div class="d-flex">
+            <img src="./images/boy.jpeg" alt="">
+            <div class="content">
+              <div class="d-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              </div>
+              <div>"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                classical Latin literature from 45 BC"</div>
+              <div class="name">shan</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="review">
+
+          <div class="d-flex">
+            <img src="./images/boy.jpeg" alt="">
+            <div class="content">
+              <div class="d-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              </div>
+              <div>"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                classical Latin literature from 45 BC"</div>
+              <div class="name">shan</div>
+            </div>
+          </div>
+
+
+
+
+        </div>
+        <div class="review">
+
+          <div class="d-flex">
+            <img src="./images/boy.jpeg" alt="">
+            <div class="content">
+              <div class="d-flex">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              </div>
+              <div>"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                classical Latin literature from 45 BC"</div>
+              <div class="name">shan</div>
+            </div>
+          </div>
+
+
+
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ai">
+    <div class="container">
+      <div class="image-container" data-aos="fade-up">
+        <img src="https://screenshotone.com/_astro/stripe.DktQZYtB_2nk9Aw.webp" alt="" class="w-100">
+      </div>
+      <div class="content" data-aos="fade-up">
+        <div class="promo-text">Looks great</div>
+        <div class="title">AI powered calculations</div>
+        <div class="my-3">Remove annoying banners easily. ScreenshotOne can block complex GDPR and cookie consent forms.
+          Most cases are covered.</div>
+        <div class="my-3">
+          <ul>
+            <li>Remove ads. You only specify one parameter to blocks, and we do all the hard work of blocking ads for
+              you.</li>
+            <li>Block cookie banners. Always up-to-date database of 50,000+ rules and heuristics to block cookie banners
+              on any site.</li>
+            <li>And hide chat widgets. Our blocking engine not only blocks ads, cookie banners, and other pop-ups but
+              also social media and support chats.</li>
+          </ul>
+        </div>
+
+        <a href="/login"><button class="btn mt-4">Get Started Free</button></a>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="complex">
+    <div class="container">
+
+      <div class="content" data-aos="fade-up">
+        <div class="promo-text">Next-Level Efficiency: AI Modules in Action</div>
+        <div class="title">How Bloom AI Works</div>
+        <div class="my-3">With a suite of powerful modules, we cater to a variety of user needs, ensuring seamless functionality every step of the way:</div>
+        <div class="my-3">
+          <ul class="modules">
+            <li><span>Bloom Bucket</span> securely stores your spreadsheets for easy access and integration across the platform.</li>
+            <li><span>Bloom AI module</span> analyzes your uploaded spreadsheets to identify input, output, and configuration cells.</li>
+            <li><span>Bloom Calc</span> performs accurate calculations based on Bloom AI's insights, ensuring reliable results.</li>
+            <li><span>Bloom Req Validator</span> validates API inputs and outputs, passing any gaps to Bloom Calc for resolution.</li>
+            <li><span>Bloom Cache</span> optimizes performance by handling caching, while <span>Bloom Monitor</span> scales resources based on traffic demands.</li>
+          </ul>
+        </div>
+
+        <!-- <a href="/login"><button class="btn mt-4">Get Started Free</button></a> -->
+
+      </div>
+
+      <div class="image-container" data-aos="fade-up">
+        <img src="/images/how it works.jpg" alt="" class="w-100">
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="integration">
+    <div class="container text-center">
+      <div class="promo-text">Integrate Today</div>
+      <div class="title">Use the language you love</div>
+      <div>Send simple HTTP requests or use native libraries for your language of choice. You decide.</div>
+
+      <div class="code-container">
+        <div class="code">
+          <div class="header">Request</div>
+          <pre>
+curl --location 'https://xl-calculator.netlify.app/.netlify/functions/api/calculate' \
+  --header 'x-client-key: your-key' \
+  --header 'x-client-secret: your-secret' \
+  --header 'Content-Type: application/json' \
+  --data '{
+      "inputs": {
+          "Inputs AC-DC!B2": 12, 
+          "Inputs AC-DC!B3": 250000,
+          "Inputs AC-DC!B12": "Manitoba",
+          "Inputs AC-DC!B4": 0.3
+      },
+      "outputs": [
+          "Output Information!B5",
+          "Output Information!B6",
+          "Output Information!B7",
+          "Output Information!B8",
+          "Output Information!B9",
+          "Inputs AC-DC!B29:D30"
+      ]
+    }'</pre>
+
+        </div>
+      </div>
+
+      <!-- response -->
+      <div class="code-container">
+        <div class="code">
+          <div class="header">Response</div>
+          <pre>
+{
+  "statusCode":0,
+  "message":"Success",
+  "data":
+  {
+    "Output Information!B5":"$ 1,072,000.00",
+    "Output Information!B6":"$ 3,397,367.14",
+    "Output Information!B7":"3.44%",
+    "Output Information!B8":"$ 8",
+    "Output Information!B9":"$ 7.95",
+    "Inputs AC-DC!B29:D30":["$ 412,622.51","$ 438,055.72"]
+  }
+}
+</pre>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="ceo-msg">
+    <div class="container">
+      <div class="msg-container">
+
+        <div class="icon">
+          <svg fill="#81838d" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" width="150px" height="150px" viewBox="0 0 351.128 351.128"
+            xml:space="preserve" stroke="#81838d">
+
+            <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+            <g id="SVGRepo_iconCarrier">
+              <g>
+                <path
+                  d="M72.326,147.33c4.284-26.928,37.944-55.692,64.26-56.304c1.836,0,3.672-0.612,4.896-1.836 c1.224-0.612,2.448-1.224,3.06-3.06c9.18-17.136,4.284-30.6-11.016-41.616c-17.748-12.852-45.9,0-59.976,11.628 C38.054,85.518,1.946,136.313,3.782,184.662c-6.12,32.437-4.896,67.32,4.284,96.084c6.12,18.36,23.868,27.54,42.228,28.764 c18.36,1.225,56.304,6.732,72.828-4.283c16.524-11.017,17.748-32.437,19.584-50.796c1.836-20.196,7.344-58.141-9.792-74.053 C115.778,165.078,66.818,181.602,72.326,147.33z" />
+                <path
+                  d="M274.286,147.33c4.284-26.928,37.943-55.692,64.26-56.304c1.836,0,3.672-0.612,4.896-1.836 c1.225-0.612,2.448-1.224,3.061-3.06c9.18-17.136,4.284-30.6-11.016-41.616c-17.748-12.852-45.9,0-59.977,11.628 c-35.496,29.376-71.604,80.172-69.768,128.52c-6.12,32.437-4.896,67.32,4.283,96.084c6.12,18.36,23.868,27.54,42.229,28.764 c18.36,1.225,56.304,6.732,72.828-4.283c16.523-11.017,17.748-32.437,19.584-50.796c1.836-20.196,7.344-58.141-9.792-74.053 C317.738,165.078,268.166,181.602,274.286,147.33z" />
+              </g>
+            </g>
+
+          </svg>
+        </div>
+        At Bloom AI, our mission is to simplify complex tasks and empower users with intelligent solutions. With our suite of AI-powered modules, we've built a platform that enhances productivity, automates workflows, and provides reliable results-all in one place. We're dedicated to helping you achieve more with less effort, and we're excited to continue innovating and growing alongside you. Thank you for trusting us to be a part of your journey.
+
+        <div class="name">Prishan Niwanjaya</div>
+        <div class="post">Founder & CEO</div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="section" id="get-started">
+    <div class="container text-center" data-aos="zoom-in">
+      <div class="content">
+        <div class="title">Get Started Today</div>
+
+        <div class="my-3">Join us now and unlock the full potential of our AI-powered platform. Sign up today to access a seamless, efficient workflow that will transform the way you handle your data. Experience the power of automation, smart analysis, and accurate results—all in one place. It's time to take your productivity to the next level.</div>
+
+        <a href="/login"><button class="btn mt-4">Get Started Today</button></a>
+      </div>
+
+
+    </div>
+
+  </section>
+
+  <!-- Footer Start -->
+  <footer>
+    <div class="container">
+      <div class="columns">
+        <div id="column-1" class="column">
+          <img src="" alt="">
+          <div class="mt-3">ScreenshotOne is a screenshot <br>rendering platform for your business.</div>
+        </div>
+        <div id="column-2" class="column">
+          <a href="/">Home</a>
+          <a href="/login">Sign Up</a>
+          <a href="#integration">Integration</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/contact">Contact</a>
+        </div>
+        <div id="column-3" class="column">Column3</div>
+      </div>
+
+      <div class="permission">
+        <p>© 2022-2025 PandaAI. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer End -->
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+  <script>
+    AOS.init()
+
+    $('#open-menu-icon').click(() => {
+      $('.ham-menu').fadeIn()
+    })
+
+    $('.close-btn').click(() => {
+      $('.ham-menu').fadeOut()
+    })
+
+    $('.ham-menu a').click(() => {
+      $('.ham-menu').fadeOut()
+    })
+
+    if (localStorage.getItem('logged-in') === 'true') {
+      $('.anonymous').hide()
+      $('.logged').show()
+    } else {
+      $('.logged').hide()
+      $('.anonymous').show()
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sign-In</title>
+
+    <style>
+        body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin: 10px;
+    }
+
+    .login-box h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .login-box p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .login-btn {
+      background-color: #4285F4;
+      color: #fff;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #357ae8;
+    }
+
+    .login-btn:focus {
+      outline: none;
+    }
+
+    .google-icon {
+      width: 24px;
+      margin-right: 10px;
+    }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Container -->
+  <div class="login-container">
+    <div class="login-box">
+      <h3>Login to Your Account</h3>
+      <p>Welcome back! Please sign in to access your dashboard.</p>
+
+      <!-- Google Sign-In Button -->
+      <button id="googleSignIn" class="login-btn">
+        <svg width="15px" height="15px" viewBox="-3 0 262 262" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" fill="#000000" stroke="#000000">
+
+          <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+          
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+          
+          <g id="SVGRepo_iconCarrier"> <g> <path d="M255.878,133.451 C255.878,122.717 255.007,114.884 253.122,106.761 L130.55,106.761 L130.55,155.209 L202.497,155.209 C201.047,167.249 193.214,185.381 175.807,197.565 L175.563,199.187 L214.318,229.21 L217.003,229.478 C241.662,206.704 255.878,173.196 255.878,133.451" fill="#ffffff"> </path> <path d="M130.55,261.1 C165.798,261.1 195.389,249.495 217.003,229.478 L175.807,197.565 C164.783,205.253 149.987,210.62 130.55,210.62 C96.027,210.62 66.726,187.847 56.281,156.37 L54.75,156.5 L14.452,187.687 L13.925,189.152 C35.393,231.798 79.49,261.1 130.55,261.1" fill="#ffffff"> </path> <path d="M56.281,156.37 C53.525,148.247 51.93,139.543 51.93,130.55 C51.93,121.556 53.525,112.853 56.136,104.73 L56.063,103 L15.26,71.312 L13.925,71.947 C5.077,89.644 0,109.517 0,130.55 C0,151.583 5.077,171.455 13.925,189.152 L56.281,156.37" fill="#ffffff"> </path> <path d="M130.55,50.479 C155.064,50.479 171.6,61.068 181.029,69.917 L217.873,33.943 C195.245,12.91 165.798,0 130.55,0 C79.49,0 35.393,29.301 13.925,71.947 L56.136,104.73 C66.726,73.253 96.027,50.479 130.55,50.479" fill="#ffffff"> </path> </g> </g>
+          
+          </svg>
+        Sign in with Google
+      </button>
+    </div>
+  </div>
+
+    <!-- <h1>Sign in with Google</h1>
+    <button id="googleSignIn">Sign in with Google</button> -->
+
+    <script type="module">
+      const baseUrl = 'https://xl-calculator.netlify.app/.netlify/functions/bo'
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js'
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js'
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDTnXu9_v79boE-eggxFkZqhb5jEPMhZYY",
+            authDomain: "xlcalculator.firebaseapp.com",
+            projectId: "xlcalculator",
+            storageBucket: "xlcalculator.firebasestorage.app",
+            messagingSenderId: "765670692728",
+            appId: "1:765670692728:web:76dc9ac3ec3bcc975f9a8d"
+        };
+
+        initializeApp(firebaseConfig);
+        const auth = getAuth()
+
+        async function createNewUser(idToken) {
+            try {
+                const response = await fetch(`${baseUrl}/create-user`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${idToken}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const data = await response.json();
+                console.log(data)
+            } catch (error) {
+                console.log("error")
+            }
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log('User is logged in:', user);
+            } else {
+                console.log('No user is logged in');
+            }
+        });
+
+
+        document.getElementById('googleSignIn').addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const idToken = await result.user.getIdToken();
+
+                console.log(idToken)
+
+                await createNewUser(idToken)
+                localStorage.setItem('logged-in', true)
+                window.location.href = '/dashboard';
+            } catch (error) {
+                console.error('Error during Google Sign-In:', error);
+                alert('Sign-In failed. Please try again.');
+            }
+        });
+    </script>
+</body>
+
+</html>

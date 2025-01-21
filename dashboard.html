@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="https://kit.fontawesome.com/390d6573af.js" crossorigin="anonymous"></script>
+
+    <style>
+        .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(to right, #ffdd00, #28a745);
+            /* Yellow to green */
+            color: white;
+            /* Ensure text is visible */
+            border: none;
+        }
+
+        .btn-gradient:hover {
+            background: linear-gradient(to right, #28a745, #ffdd00);
+            /* Reverse gradient on hover */
+            color: white;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #ffdd00, #28a745);
+            /* Yellow to green */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* font-weight: bold; */
+        }
+
+        .key-text {
+            color: gray;
+            font-size: 0.75rem;
+        }
+
+        .delete-btn {
+            position: relative;
+            top: 15px;
+            right: 10px;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .reload-btn {
+            position: relative;
+            top: 15px;
+            right: 10px;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid transparent;
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            display: none;
+        }
+
+        .card-plan {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card-plan:hover {
+            transform: translateY(-5px);
+        }
+
+        .plan-badge {
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 50px;
+            text-transform: uppercase;
+        }
+
+        .btn-upgrade {
+            border-radius: 50px;
+        }
+
+        .premium-badge {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        .standard-badge {
+            background-color: #0d6efd;
+            color: #fff;
+        }
+
+        .trial-badge {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .image-container img {
+            max-width: 300px;
+            border-radius: 10px;
+        }
+
+        .modal-header,
+        .modal-footer {
+            border: none;
+        }
+
+        .btn-confirm-delete {
+            background-color: #dc3545;
+            /* Bootstrap's danger color */
+            border: none;
+        }
+
+        .btn-confirm-delete:hover {
+            background-color: #bb2d3b;
+        }
+
+        #pageLoader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            /* Semi-transparent background */
+            z-index: 1050;
+            /* Higher than modal */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .form-label {
+            font-size: 0.75rem;
+        }
+
+        .text-green {
+            color: rgb(12, 122, 12);
+        }
+
+        .text-red {
+            color: rgb(163, 32, 32);
+        }
+
+        .plan-container {
+            background: linear-gradient(90deg, #6a0dad, #000000);
+            color: white;
+        }
+
+        .btn-white {
+            background-color: white !important;
+            color: black !important;
+            font-size: 0.75rem;
+        }
+
+        .btn-close {
+            background-color: transparent !important;
+        }
+    </style>
+
+    <script>
+
+        const baseUrl = 'https://xl-calculator.netlify.app/.netlify/functions/bo'
+
+        let idToken = ''
+        function copyToClipDoard(key) {
+            navigator.clipboard.writeText(key) // Copy the full key
+                .then(() => {
+                    const toastElement = document.getElementById("copy-toast");
+                    const toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                })
+                .catch(err => {
+                    console.error("Failed to copy text: ", err);
+                });
+        }
+
+        function showClientLimitExeeded() {
+            const toastElement = document.getElementById("error-toast");
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show()
+        }
+
+        async function refreshSheet(spreadSheetId, dsId) {
+            try {
+                $('#pageLoader').css({ display: 'flex' });
+                $('#pageLoader').fadeIn();
+                const response = await fetch(`${baseUrl}/refresh`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${idToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        dsId: dsId,
+                        spreadSheetId: spreadSheetId
+                    }),
+                });
+                const resp = await response.json();
+                $('#pageLoader').fadeOut();
+
+                const toastElement = document.getElementById("refresh-toast");
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+
+                location.reload()
+            } catch (error) {
+                console.error('Error fetching API:', error);
+            }
+        }
+
+        let fileToDelete = '';
+        let clientNameToDelete = '';
+
+        function openDeleteModal(button) {
+            fileToDelete = button.parentElement.parentElement.parentElement.getAttribute('data-file')
+            clientNameToDelete = button.parentElement.parentElement.parentElement.getAttribute('data-name')
+
+            // Update the modal content with the image name
+            document.getElementById('imageName').textContent = clientNameToDelete;
+
+            // Show the modal
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+            deleteModal.show();
+        }
+
+        function openSpreadsheet(spreadsheetId) {
+            if (!spreadsheetId) {
+                console.error("Spreadsheet ID is required");
+                return;
+            }
+
+            const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}`;
+            window.open(url, "_blank");
+        }
+
+        // Function to handle the delete confirmation
+
+    </script>
+</head>
+
+<body>
+
+    <div id="pageLoader">
+        <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Nav Start -->
+    <div class="ham-menu" style="display: none;">
+        <div class="close-btn">
+            <svg fill="#808080" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 492 492" xml:space="preserve" stroke="#808080">
+
+                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                <g id="SVGRepo_iconCarrier">
+                    <g>
+                        <g>
+                            <path
+                                d="M300.188,246L484.14,62.04c5.06-5.064,7.852-11.82,7.86-19.024c0-7.208-2.792-13.972-7.86-19.028L468.02,7.872 c-5.068-5.076-11.824-7.856-19.036-7.856c-7.2,0-13.956,2.78-19.024,7.856L246.008,191.82L62.048,7.872 c-5.06-5.076-11.82-7.856-19.028-7.856c-7.2,0-13.96,2.78-19.02,7.856L7.872,23.988c-10.496,10.496-10.496,27.568,0,38.052 L191.828,246L7.872,429.952c-5.064,5.072-7.852,11.828-7.852,19.032c0,7.204,2.788,13.96,7.852,19.028l16.124,16.116 c5.06,5.072,11.824,7.856,19.02,7.856c7.208,0,13.968-2.784,19.028-7.856l183.96-183.952l183.952,183.952 c5.068,5.072,11.824,7.856,19.024,7.856h0.008c7.204,0,13.96-2.784,19.028-7.856l16.12-16.116 c5.06-5.064,7.852-11.824,7.852-19.028c0-7.204-2.792-13.96-7.852-19.028L300.188,246z" />
+                        </g>
+                    </g>
+                </g>
+
+            </svg>
+        </div>
+        <a href="/">Home</a>
+        <a href="/login">Sign Up</a>
+        <a href="/#integration">Integration</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/contact">Contact</a>
+    </div>
+
+    <nav class="p-2 d-flex" style="column-gap: 3rem;">
+        <div class="logo-container">
+            <div class="logo"></div>
+            <div class="name">Panda AI</div>
+        </div>
+
+        <div class="menu-bar d-none d-md-flex">
+            <a href="/">Home</a>
+            <a href="/#integration">Integration</a>
+            <a href=" /pricing">Pricing</a>
+            <a href="/contact">Contact</a>
+        </div>
+
+        <div class="d-flex" style="align-items: center;">
+            <a href="/login"><button class="btn nav-btn anonymous">Get Started</button></a>
+
+            <a href="/dashboard">
+                <button class="btn nav-btn logged" style="display: none;">
+                    <svg fill="#fff" height="15px" width="15px" version="1.1" id="Layer_1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        viewBox="0 0 512 512" xml:space="preserve" stroke="#000000">
+
+                        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                        <g id="SVGRepo_iconCarrier">
+                            <g>
+                                <g>
+                                    <path
+                                        d="M256,0C114.837,0,0,114.837,0,256s114.837,256,256,256s256-114.837,256-256S397.163,0,256,0z M256,490.667 c-50.859,0-97.856-16.448-136.341-44.053l55.125-18.389c33.365-13.909,44.48-64,44.48-76.224c0-3.2-1.429-6.208-3.883-8.235 c-11.925-9.835-24.576-26.901-24.576-39.168c0-14.357-5.867-22.507-11.584-26.496c-2.667-7.381-6.976-20.821-7.339-29.291 c5.312-0.597,9.451-5.12,9.451-10.603v-56.896c0-30.443,29.077-74.667,74.667-74.667c42.837,0,54.123,18.453,55.552,25.749 c-0.384,1.365-0.533,2.709-0.405,3.904c0.619,5.781,4.949,8.533,7.275,10.005c3.669,2.325,12.245,7.787,12.245,35.029v56.896 c0,5.909,2.859,10.005,8.747,10.005c0.192,0.192,0.448,0.661,0.683,1.131c-0.512,8.512-4.651,21.397-7.317,28.736 c-5.696,3.989-11.584,12.139-11.584,26.496c0,12.267-12.651,29.333-24.576,39.168c-2.475,2.027-3.883,5.056-3.883,8.235 c0,12.203,11.136,62.315,45.227,76.48l54.379,18.133C353.877,474.219,306.859,490.667,256,490.667z M408.256,434.219 c-0.981-3.157-3.243-5.867-6.613-6.997l-56.149-18.688c-19.627-8.171-28.736-39.573-30.869-52.139 c14.528-13.504,27.947-33.621,27.947-51.797c0-6.165,1.749-8.555,1.408-8.619c3.328-0.832,6.037-3.2,7.317-6.379 c1.045-2.624,10.24-26.069,10.24-41.877c0-0.853-0.107-1.728-0.32-2.581c-1.344-5.355-4.48-10.752-9.173-14.123v-49.664 c0-30.72-9.365-43.563-19.243-51.008c-2.219-15.253-18.56-44.992-76.757-44.992c-59.477,0-96,55.915-96,96v49.664 c-4.693,3.371-7.829,8.768-9.173,14.123c-0.213,0.832-0.32,1.707-0.32,2.581c0,15.808,9.195,39.253,10.24,41.877 c1.28,3.179,2.965,5.205,6.293,6.037c0.683,0.405,2.432,2.773,2.432,8.96c0,18.176,13.419,38.293,27.947,51.797 c-2.133,12.565-11.157,43.925-30.144,51.861l-56.896,18.965c-3.392,1.131-5.653,3.861-6.635,7.04 C53.419,391.168,21.333,327.317,21.333,256c0-129.387,105.28-234.667,234.667-234.667S490.667,126.613,490.667,256 C490.667,327.275,458.603,391.125,408.256,434.219z" />
+                                </g>
+                            </g>
+                        </g>
+
+                    </svg> Dashboard
+                </button>
+            </a>
+
+            <div class="ms-3 logged" style="display: none;cursor: pointer;" id="logoutButton">LogOut</div>
+
+            <!-- <i class="fa-solid fa-bars d-md-none" style="margin-left: 1rem;" id="open-menu-icon"></i> -->
+            <div class="menu-icon d-md-none" id="open-menu-icon" style="margin-left: 1rem;">
+                <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M4 6H20M4 12H20M4 18H20" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </g>
+
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Nav End -->
+
+    <div class="border-bottom py-2 plan-container">
+        <div class="container">
+            <div class="d-flex" style="gap: 20px;justify-content: center;align-items: center;">
+                <div>Your Current Plan <span>Free Trail</span> will end on <span class="fw-bold"
+                        id="validTill">Loading</span>.</div>
+                <!-- <button class="btn btn-white">Renew</button> -->
+                <a href="/pricing"><button class="btn btn-white">Upgrade</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-4" style="margin-top: 2rem;">
+        <div class="display-6">Welcome!</div>
+        <p class="display-6" id="userGreeting">Loading...</p>
+    </div>
+
+    <div class="container content">
+
+        <div class="container d-flex justify-content-center align-items-center vh-50">
+            <div class="text-center">
+                <h1 class="display-6 mb-3">Create New Client & Get Started</h1>
+                <p class="lead mb-4">Easily manage and add new clients to your system with just a click.</p>
+                <button class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#createApiKeyModal"
+                    id="create-client-btn">
+                    Create New Client
+                </button>
+                <button class="btn btn-gradient" onclick="showClientLimitExeeded()" id="fake-create-client-btn"
+                    style="display: none;">
+                    Create New Client
+                </button>
+            </div>
+        </div>
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="createApiKeyModal" tabindex="-1" aria-labelledby="createApiKeyModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createApiKeyModalLabel">Create New Client</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form to input API name -->
+                        <form id="apiKeyForm">
+                            <div class="mb-3">
+                                <label for="apiName" class="form-label">Client Name</label>
+                                <input type="text" class="form-control" id="clientName" placeholder="Enter Client name"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apiName" class="form-label">SpreadSheet Url</label>
+                                <input type="text" class="form-control" id="spreadSheetId"
+                                    placeholder="eg: https://docs.google.com/spreadsheets/d/1H0d9H0IURFbnl_ecfyh-lZBtpLvK-1FO45vfhXOi55c/edit?gid=511473429#gid=511473429"
+                                    required>
+                                <div class="loading-container" style="display: none;">
+                                    <div class="spinner-border mt-2" role="status" style="width: 30px;height: 30px;">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="text-green" style="display: none;">✔ <span id="green-msg">Spreadsheet is
+                                    ready</span></div>
+                            <div class="text-red" style="display: none;">❌ <span id="red-msg"></span></div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                        <!-- <div class="alert alert-danger">You have reach to maximum clients</div><br> -->
+                        <button type="button" class="btn btn-primary" id="createApiKey" disabled>Create Client</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmModalLabel">Confirm Deletion</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete <strong id="imageName">this image</strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-confirm-delete" id="confirmDeleteBtn">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="list-group" id="apiKeysList" style="padding-top: 4rem;overflow-x: auto;">
+            <!-- API keys will be populated here -->
+
+        </ul>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="copy-toast" class="toast align-items-center text-bg-primary border-0" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Copied to clipboard!
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="error-toast" class="toast align-items-center text-bg-danger border-0" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        You have reached to maximum clients allowed
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="refresh-toast" class="toast align-items-center text-bg-primary border-0" role="alert"
+                aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        SpreadSheet Refreshed Successfully
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="">API Documentation</h2>
+        <p class="">Below are the cURL requests to interact with the APIs, along with sample responses:</p>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="code-container">
+                    <div class="code">
+                        <div class="header">Request</div>
+                        <pre>
+curl --location 'https://xl-calculator.netlify.app/.netlify/functions/api/calculate' \
+--header 'x-client-key: your-key' \
+--header 'x-client-secret: your-secret' \
+--header 'Content-Type: application/json' \
+--data '{
+    "inputs": {
+    "Inputs AC-DC!B2": 12, 
+    "Inputs AC-DC!B3": 250000,
+    "Inputs AC-DC!B12": "Manitoba",
+                      "Inputs AC-DC!B4": 0.3
+                  },
+                  "outputs": [
+                      "Output Information!B5",
+                      "Output Information!B6",
+                      "Output Information!B7",
+                      "Output Information!B8",
+                      "Output Information!B9",
+                      "Inputs AC-DC!B29:D30"
+                  ]
+                }'</pre>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+
+    </div>
+
+    <!-- Footer Start -->
+    <footer>
+        <div class="container">
+            <div class="columns">
+                <div id="column-1" class="column">
+                    <img src="" alt="">
+                    <div class="mt-3">ScreenshotOne is a screenshot <br>rendering platform for your business.</div>
+                </div>
+                <div id="column-2" class="column">
+                    <a href="/">Home</a>
+                    <a href="/login">Sign Up</a>
+                    <a href="/#integration">Integration</a>
+                    <a href="/pricing">Pricing</a>
+                    <a href="/contact">Contact</a>
+                </div>
+                <div id="column-3" class="column">Column3</div>
+            </div>
+
+            <div class="permission">
+                <p>© 2022-2025 PandaAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Optional: Include Font Awesome for social media icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <script type="module">
+
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js'
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js'
+        let subscription = {}
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDTnXu9_v79boE-eggxFkZqhb5jEPMhZYY",
+            authDomain: "xlcalculator.firebaseapp.com",
+            projectId: "xlcalculator",
+            storageBucket: "xlcalculator.firebasestorage.app",
+            messagingSenderId: "765670692728",
+            appId: "1:765670692728:web:76dc9ac3ec3bcc975f9a8d"
+        };
+
+        initializeApp(firebaseConfig);
+        const auth = getAuth()
+
+        const apiKeysList = document.getElementById('apiKeysList')
+        let noOfAPIKeys = 0
+
+
+
+        async function fetchApiKeys() {
+            try {
+                const response = await fetch(`${baseUrl}/api-keys`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${idToken}`,
+                    },
+                });
+                const resp = await response.json()
+
+                noOfAPIKeys = resp.data.length
+                if (!resp.data || resp.data.length === 0) {
+                    document.getElementById('apiKeysList').innerHTML = '<li class="list-group-item">No API keys found.</li>';
+
+                    return;
+                }
+
+                apiKeysList.innerHTML = '';
+                resp.data.forEach(apiKey => {
+                    console.log(apiKey)
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('list-group-item');
+                    listItem.innerHTML = `
+                    <div class="row p-3" data-file='${apiKey.spreadSheetId}'' data-name='${apiKey.name}''>
+        <div class="col-2">
+            <strong>${apiKey.name}</strong><br>
+            <small>Created at: ${new Date(apiKey.createdAt).toDateString()}</small>
+        </div>
+        <div class="col-3"><span class="key-text">Spreadsheet</span><br>${apiKey.spreadSheetId != undefined ?
+                            apiKey.spreadSheetId.slice(0, 20) : ""}...<button class="btn btn-sm"
+                onclick="openSpreadsheet('${apiKey.spreadSheetId}')">
+                <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
+
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+
+<g id="SVGRepo_iconCarrier"> <title>icon/20/icon-open-in-new</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Output-svg" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="out" transform="translate(-838.000000, -29.000000)" fill="#808080"> <path d="M855,46 L841,46 L841,32 L848,32 L848,30 L841,30 C839.89,30 839,30.9 839,32 L839,46 C839,47.1 839.89,48 841,48 L855,48 C856.1,48 857,47.1 857,46 L857,39 L855,39 L855,46 L855,46 Z M850,30 L850,32 L853.59,32 L843.76,41.83 L845.17,43.24 L855,33.41 L855,37 L857,37 L857,30 L850,30 L850,30 Z" id="path"> </path> </g> </g> </g>
+
+</svg>
+            </button></div>
+        <div class="col-3"><span class="key-text">Client Key</span><br>${apiKey.key != undefined ? apiKey.key.slice(0,
+                                20) : ""}...<button class="btn btn-sm copy-icon" title="Copy to clipboard"
+                onclick="copyToClipDoard('${apiKey.key}')">
+                📋
+            </button></div>
+        <div class="col-3"><span class="key-text">Client Secret</span><br>${apiKey.secret != undefined ?
+                            apiKey.secret.slice(0, 20) : ""}...<button class="btn btn-sm copy-icon" title="Copy to clipboard"
+                onclick="copyToClipDoard('${apiKey.secret}')">
+                📋
+            </button></div>
+        <div class="col-1">
+            <div style="display: flex;gap:2px">
+            <button class="reload-btn" id="reloadBtn" onclick="refreshSheet('${apiKey.spreadSheetId}','${apiKey.dsId}')">
+                <i class="fa-solid fa-rotate" style="color: #3ea384;"></i>
+            </button>
+                <button class="delete-btn" onclick="openDeleteModal(this)"><i class="fa-solid fa-trash" style="color: #d81313;"></i></button>
+        </div>
+        </div>
+    </div>
+              `;
+                    apiKeysList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching API keys:', error);
+                document.getElementById('apiKeysList').innerHTML = '<li class="list-group-item">Failed to load API keys.</li>';
+            }
+        }
+
+        async function createApiKey() {
+            try {
+                const response = await fetch(`${baseUrl}/create-api-key`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${idToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: document.getElementById('clientName').value,
+                        spreadSheetId: getSpreadsheetId(document.getElementById('spreadSheetId').value)
+                    }),
+                });
+
+                const data = await response.json()
+
+                if (data.statusCode == 0) {
+                    console.log("Client created successfully")
+                } else {
+                    console.log("API key creation failure")
+                }
+            } catch (error) {
+                console.error('Error creating API key:', error);
+            }
+        }
+
+        function populatePlanSection(data) {
+            const userPlanBadge = document.getElementById("userPlanBadge");
+            const validTillElement = document.getElementById("validTill");
+            const upgradeBtn = document.getElementById("upgradeBtn");
+
+            validTillElement.textContent = data.validTill;
+
+            if (user.plan === "Free Trial") {
+                userPlanBadge.textContent = "Free Trial";
+                userPlanBadge.className = "plan-badge trial-badge";
+                upgradeBtn.textContent = "Upgrade to Standard or Premium";
+                upgradeBtn.href = "/upgrade?to=standard";
+            } else if (user.plan === "Standard") {
+                userPlanBadge.textContent = "Standard";
+                userPlanBadge.className = "plan-badge standard-badge";
+                upgradeBtn.textContent = "Upgrade to Premium";
+                upgradeBtn.href = "/upgrade?to=premium";
+            } else if (user.plan === "Premium") {
+                userPlanBadge.textContent = "Premium";
+                userPlanBadge.className = "plan-badge premium-badge";
+                upgradeBtn.textContent = "You're on the Best Plan!";
+                upgradeBtn.href = "#";
+                upgradeBtn.classList.add("disabled");
+            }
+        }
+
+        async function getSubscription() {
+            try {
+                console.log("Getting subscriptions")
+                const response = await fetch(`${baseUrl}/subscription`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${idToken}`,
+                    },
+                });
+
+                subscription = await response.json();
+                console.log("Getting subscriptions", subscription)
+                console.log(subscription)
+
+                $('#validTill').text(new Date(subscription.data.validTill).toDateString())
+
+                console.log(`No of Keys: ${noOfAPIKeys}`)
+                console.log(`No of Keys: ${subscription.data.clients}`)
+                if (subscription.data.clients === noOfAPIKeys) {
+                    $('#create-client-btn').hide()
+                    $('#fake-create-client-btn').show()
+                }
+
+                populatePlanSection(resp)
+            } catch (err) {
+
+            }
+        }
+
+        let sheetAccess = false
+
+        const enableBtn = () => {
+            if ($('#clientName').val() !== '' && $('#spreadsheetId').val() !== '' && sheetAccess) {
+                $('#createApiKey').prop('disabled', false);
+            } else {
+                $('#createApiKey').prop('disabled', true);
+            }
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const userName = user.displayName || "User";
+                document.getElementById('userGreeting').innerHTML = `Hello😎, <span class="gradient-text">${userName}!</span>`
+
+                localStorage.setItem('logged-in', true)
+
+                user.getIdToken().then(async token => {
+                    idToken = token
+                    await fetchApiKeys()
+                    getSubscription()
+
+                });
+            } else {
+                console.log('No user is logged in');
+                localStorage.setItem('logged-in', false)
+                window.location.href = "/";
+            }
+        });
+
+        $('#createApiKey').click(async () => {
+            $('#createApiKeyModal').hide()
+            $('#pageLoader').css({ display: 'flex' });
+            $('#pageLoader').fadeIn();
+            await createApiKey();
+            $('#pageLoader').fadeOut();
+            location.reload();
+        })
+
+        $('.text-green').hide()
+        $('.text-red').hide()
+        $('.loading-container').fadeOut()
+
+        function getSpreadsheetId(url) {
+            const regex = /\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/;
+            const match = url.match(regex);
+            console.log(match)
+            return match ? match[1] : null;
+        }
+
+        $('#spreadSheetId').change(async () => {
+
+            $('.loading-container').fadeIn()
+            const response = await fetch(`${baseUrl}/checkAccess?spreadSheetId=${getSpreadsheetId(document.querySelector('#spreadSheetId').value)}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${idToken}`,
+                },
+            });
+            const resp = await response.json();
+            sheetAccess = resp.hasAccess
+            $('.loading-container').fadeOut()
+
+            if (resp.hasAccess) {
+                $('#green-msg').text("Sheet is ready")
+                $('.text-green').show()
+            } else {
+                $('#red-msg').text(resp.message)
+                $('.text-red').show()
+            }
+
+            enableBtn()
+        })
+
+
+        $('#logoutButton').click(async () => {
+            try {
+                await auth.signOut();
+                localStorage.setItem('logged-in', false)
+                window.location.href = "/";
+            } catch (error) {
+                console.error("Error signing out:", error);
+                alert("Error during logout. Please try again.");
+            }
+        })
+
+        $('#confirmDeleteBtn').click(async () => {
+            if (!fileToDelete) return;
+
+            $('#deleteConfirmModal').hide()
+            $('#pageLoader').css({ display: 'flex' });
+            $('#pageLoader').fadeIn();
+
+            const response = await fetch(`${baseUrl}/delete-api-key`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${idToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    apiKey: `${fileToDelete}`
+                }),
+            });
+
+            $('#pageLoader').fadeOut();
+
+            location.reload()
+        })
+
+        $('#clientName').change(() => enableBtn())
+        $('#spreadsheetId').change(() => enableBtn())
+
+    </script>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <script>
+        AOS.init()
+
+        $('#open-menu-icon').click(() => {
+            $('.ham-menu').fadeIn()
+        })
+
+        $('.close-btn').click(() => {
+            $('.ham-menu').fadeOut()
+        })
+
+        $('.ham-menu a').click(() => {
+            $('.ham-menu').fadeOut()
+        })
+
+        if (localStorage.getItem('logged-in') === 'true') {
+            $('.anonymous').hide()
+            $('.logged').show()
+        } else {
+            $('.logged').hide()
+            $('.anonymous').show()
+        }
+    </script>
+</body>
+
+</html>
