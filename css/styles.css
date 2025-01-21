@@ -47,8 +47,8 @@ nav .menu-bar {
 .ham-menu .close-btn {
   position: absolute;
   float: right;
-  top: 2rem;
-  right: 3rem;
+  top: 1.2rem;
+  right: 1.5rem;
   font-size: 1.5rem;
   color: gray;
   cursor: pointer;
@@ -97,7 +97,7 @@ nav .menu-bar {
 }
 
 button {
-  background-color: rgb(98, 98, 174) !important;
+  background-color: rgb(54, 54, 117) !important;
   color: white !important;
   font-weight: 500;
   /* margin-top: 2rem; */
@@ -301,6 +301,16 @@ a:hover{
   height: 20px;
 }
 
+.review-container{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 1rem;
+}
+
+.review .name span{
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
   #ai .container {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -346,6 +356,11 @@ a:hover{
   }
 
   .packages{
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .review-container{
+    display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
@@ -461,12 +476,4 @@ li span{
   align-items: center;
 }
 
-.review-container{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: 1rem;
-}
 
-.review .name span{
-  font-weight: bold;
-}
