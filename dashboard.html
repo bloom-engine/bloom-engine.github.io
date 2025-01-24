@@ -975,33 +975,6 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                 }
             });
 
-            function processFile(response) {
-                console.log("File uploaded successfully:", response);
-
-                $.ajax({
-                    url: `${baseUrl}/processing`,
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${idToken}`,
-                    },
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        id: fileToRefresh,
-                        fileId: response.id,
-                        name: response.name
-                    }),
-                    success: function (response) {
-                        $('#pageLoader').fadeOut();
-                        location.reload()
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Upload error:", error);
-                        $('#pageLoader').fadeOut();
-                        alert("An error occurred while uploading the file.");
-                    },
-                });
-            }
-
 
             // Upload the selected file
             $uploadButton.on("click", function () {
@@ -1018,7 +991,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                 $('#pageLoader').fadeIn();
 
                 $.ajax({
-                    url: `${baseUrl}/upload`.replace('/bo', ''),
+                    url: fileToRefresh === '' ? `https://bloom-engine.netlify.app/.netlify/functions/upload` : `https://bloom-engine.netlify.app/.netlify/functions/upload?id=${fileToRefresh}`,
                     method: "POST",
                     data: formData,
                     processData: false,
