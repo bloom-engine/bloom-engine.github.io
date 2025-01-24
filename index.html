@@ -21,6 +21,21 @@
 
 <body>
 
+  <script>
+    function copyToClipDoard(ele) {
+      console.log(ele.parentNode.querySelector('pre').innerText)
+            navigator.clipboard.writeText(ele.parentNode.querySelector('pre').innerText) // Copy the full key
+                .then(() => {
+                    const toastElement = document.getElementById("copy-toast");
+                    const toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                })
+                .catch(err => {
+                    console.error("Failed to copy text: ", err);
+                });
+        }
+  </script>
+
   <!-- Nav Start -->
   <div class="ham-menu" style="display: none;">
     <div class="close-btn">
@@ -51,7 +66,7 @@
 
   <nav class="p-3 d-flex" style="column-gap: 3rem;">
     <div class="logo-container">
-      <div class="logo"><img src="./images/logo-black.webp" alt="" width="30"></div>
+      <div class="logo"><a href="/"><img src="./images/logo-black.webp" alt="" width="30"></a></div>
       <div class="name">Bloom Engine</div>
     </div>
 
@@ -273,12 +288,12 @@
 
       <div class="content" data-aos="fade-up">
         <div class="promo-text">Next-Level Efficiency: AI Modules in Action</div>
-        <div class="title">How Bloom AI Works</div>
+        <div class="title">How Bloom Engine Works</div>
         <div class="my-3">With a suite of powerful modules, we cater to a variety of user needs, ensuring seamless functionality every step of the way:</div>
         <div class="my-3">
           <ul class="modules">
             <li><span>Bloom Bucket</span> securely stores your spreadsheets for easy access and integration across the platform.</li>
-            <li><span>Bloom AI module</span> analyzes your uploaded spreadsheets to identify input, output, and configuration cells.</li>
+            <li><span>Bloom AI</span> analyzes your uploaded spreadsheets to identify input, output, and configuration cells.</li>
             <li><span>Bloom Calc</span> performs accurate calculations based on Bloom AI's insights, ensuring reliable results.</li>
             <li><span>Bloom Req Validator</span> validates API inputs and outputs, passing any gaps to Bloom Calc for resolution.</li>
             <li><span>Bloom Cache</span> optimizes performance by handling caching, while <span>Bloom Monitor</span> scales resources based on traffic demands.</li>
@@ -301,8 +316,136 @@
       <div class="title">Use the language you love</div>
       <div>Send simple HTTP requests or use native libraries for your language of choice. You decide.</div>
 
-      <div class="code-container">
+      <div class="language-selector">
+        <button class="btn" id="cURL"><svg fill="#ffffff" width="20px" height="20px" viewBox="0 0 24 24" role="img" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+
+          <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+          
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+          
+          <g id="SVGRepo_iconCarrier">
+          
+          <title>curl icon</title>
+          
+          <path d="M22.23,4.702c-0.535,0-0.967-0.433-0.967-0.967c0-0.535,0.433-0.967,0.967-0.967 c0.534,0,0.967,0.433,0.967,0.967C23.198,4.269,22.764,4.702,22.23,4.702 M12.622,21.233c-0.535,0-0.967-0.433-0.967-0.967 c0-0.535,0.433-0.967,0.967-0.967c0.534,0,0.967,0.433,0.967,0.967C13.588,20.799,13.156,21.233,12.622,21.233 M22.23,1.964 c-0.978,0-1.771,0.793-1.771,1.771c0,0.209,0.053,0.403,0.119,0.589l-8.309,14.241c-0.803,0.168-1.418,0.847-1.418,1.7 c0,0.978,0.793,1.771,1.771,1.771c0.977,0,1.77-0.793,1.77-1.771c0-0.197-0.053-0.376-0.111-0.553l8.351-14.288 c0.779-0.187,1.37-0.854,1.37-1.69C24.001,2.757,23.208,1.964,22.23,1.964 M14.983,4.702c-0.535,0-0.967-0.433-0.967-0.967 c0-0.535,0.433-0.967,0.967-0.967c0.534,0,0.967,0.433,0.967,0.967C15.95,4.269,15.517,4.702,14.983,4.702 M5.374,21.233 c-0.534,0-0.967-0.433-0.967-0.967c0-0.535,0.433-0.967,0.967-0.967c0.535,0,0.967,0.433,0.967,0.967 C6.341,20.799,5.908,21.233,5.374,21.233 M14.983,1.964c-0.979,0-1.771,0.793-1.771,1.771c0,0.209,0.053,0.403,0.119,0.589 L5.022,18.565c-0.804,0.168-1.419,0.847-1.419,1.7c0,0.978,0.793,1.771,1.771,1.771c0.978,0,1.771-0.793,1.771-1.771 c0-0.197-0.053-0.376-0.111-0.553l8.351-14.288c0.779-0.187,1.37-0.854,1.37-1.69C16.754,2.757,15.961,1.964,14.983,1.964 M1.749,7.663c0.534,0,0.967,0.433,0.967,0.967c0,0.534-0.433,0.967-0.967,0.967S0.782,9.165,0.782,8.631 C0.782,8.097,1.215,7.663,1.749,7.663 M1.749,6.883c-0.964,0-1.748,0.784-1.748,1.748s0.784,1.748,1.748,1.748 s1.748-0.784,1.748-1.748S2.713,6.883,1.749,6.883L1.749,6.883z M1.749,13.852c0.534,0,0.967,0.433,0.967,0.967 c0,0.534-0.433,0.967-0.967,0.967s-0.967-0.433-0.967-0.967C0.782,14.285,1.215,13.852,1.749,13.852 M1.749,13.072 c-0.964,0-1.748,0.784-1.748,1.748s0.784,1.748,1.748,1.748s1.748-0.784,1.748-1.748S2.713,13.072,1.749,13.072L1.749,13.072z"/>
+          
+          </g>
+          
+          </svg> cURL</button>
+        <button class="btn" id="nodejs"><svg fill="#fff" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" stroke="#000000">
+
+          <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+          
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+          
+          <g id="SVGRepo_iconCarrier"> <g id="5151e0c8492e5103c096af88a51f17e3"> <path display="inline" d="M482.585,147.869v216.113c0,14.025-7.546,27.084-19.672,34.143L275.665,506.241 c-5.989,3.474-12.782,5.259-19.719,5.259c-6.838,0-13.649-1.785-19.639-5.259l-62.521-36.99c-9.326-5.207-4.775-7.059-1.692-8.128 c12.454-4.322,14.973-5.318,28.268-12.863c1.387-0.793,3.216-0.483,4.647,0.343l48.031,28.519c1.741,0.981,4.2,0.981,5.801,0 l187.263-108.086c1.744-0.996,2.862-2.983,2.862-5.053V147.869c0-2.117-1.118-4.094-2.906-5.163L258.874,34.716 c-1.726-1.01-4.03-1.01-5.768,0L65.962,142.736c-1.818,1.04-2.965,3.079-2.965,5.133v216.113c0,2.069,1.146,4.009,2.954,4.99 l51.299,29.654c27.829,13.903,44.875-2.485,44.875-18.956V166.309c0-3.017,2.423-5.396,5.439-5.396h23.747 c2.969,0,5.429,2.378,5.429,5.396v213.362c0,37.146-20.236,58.454-55.452,58.454c-10.816,0-19.347,0-43.138-11.713l-49.098-28.287 c-12.133-6.995-19.638-20.117-19.638-34.143V147.869c0-14.043,7.505-27.15,19.638-34.135L236.308,5.526 c11.85-6.701,27.608-6.701,39.357,0l187.248,108.208C475.039,120.748,482.585,133.826,482.585,147.869z M321.171,343.367 c-55.88,0-68.175-14.048-72.294-41.836c-0.477-2.966-3.018-5.175-6.063-5.175h-27.306c-3.382,0-6.096,2.703-6.096,6.104 c0,35.56,19.354,77.971,111.759,77.971c66.906,0,105.269-26.339,105.269-72.343c0-45.623-30.827-57.76-95.709-66.35 c-65.579-8.678-72.243-13.147-72.243-28.508c0-12.661,5.643-29.581,54.216-29.581c43.374,0,59.365,9.349,65.94,38.576 c0.579,2.755,3.083,4.765,5.923,4.765h27.409c1.7,0,3.315-0.73,4.47-1.943c1.158-1.28,1.773-2.947,1.611-4.695 c-4.241-50.377-37.713-73.844-105.354-73.844c-60.209,0-96.118,25.414-96.118,68.002c0,46.217,35.729,59,93.5,64.702 c69.138,6.782,74.504,16.883,74.504,30.488C384.589,333.299,365.655,343.367,321.171,343.367z"> </path> </g> </g>
+          
+          </svg> Node.js</button>
+        <button class="btn" id="python"><svg fill="#ffffff" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" stroke="#ffffff">
+
+          <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+          
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+          
+          <g id="SVGRepo_iconCarrier"> <g id="5151e0c8492e5103c096af88a51ec286"> <path display="inline" d="M194.734,246.879h121.768c33.9,0,60.956-27.908,60.956-61.95V68.846c0-33.035-27.87-57.855-60.956-63.371 c-20.943-3.484-42.673-5.069-63.51-4.971c-20.845,0.097-40.74,1.874-58.258,4.971c-51.586,9.117-60.952,28.191-60.952,63.371 v46.463H255.69v15.486H133.782h-45.75c-35.434,0-66.459,21.295-76.158,61.808c-11.192,46.435-11.694,75.409,0,123.898 c8.666,36.088,29.359,61.807,64.79,61.807h41.917v-55.699C118.581,282.37,153.39,246.879,194.734,246.879z M187.063,84.333 c-12.636,0-22.877-10.355-22.877-23.161c0-12.849,10.241-23.3,22.877-23.3c12.594,0,22.873,10.451,22.873,23.3 C209.936,73.979,199.658,84.333,187.063,84.333z M499.37,192.603c-8.761-35.27-25.484-61.808-60.96-61.808h-45.75v54.134 c0,41.972-35.582,77.292-76.158,77.292H194.734c-33.349,0-60.952,28.547-60.952,61.954v116.079 c0,33.037,28.726,52.476,60.952,61.943c38.589,11.353,75.59,13.409,121.768,0c30.688-8.876,60.956-26.764,60.956-61.943v-46.461 H255.69v-15.486h121.768h60.952c35.431,0,48.638-24.715,60.96-61.807C512.092,278.314,511.549,241.589,499.37,192.603z M324.178,424.766c12.64,0,22.873,10.356,22.873,23.156c0,12.85-10.233,23.305-22.873,23.305 c-12.595,0-22.877-10.455-22.877-23.305C301.301,435.122,311.583,424.766,324.178,424.766z"> </path> </g> </g>
+          
+          </svg>
+          Python</button>
+      </div>
+
+      <div class="code-container cURL">
         <div class="code">
+          <div class="copy-icon" onclick="copyToClipDoard(this)"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+            
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+            
+            <g id="SVGRepo_iconCarrier"> <path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="#bbbdc3" stroke-width="1.5"/> <path d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="#bbbdc3" stroke-width="1.5"/> </g>
+            
+            </svg> Copy
+          </div>
+          <div class="header">Request</div>
+          <pre>
+curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calculate' \
+  --header 'x-client-key: your-key' \
+  --header 'x-client-secret: your-secret' \
+  --header 'Content-Type: application/json' \
+  --data '{
+      "inputs": {
+          "Inputs AC-DC!B2": 12, 
+          "Inputs AC-DC!B3": 250000,
+          "Inputs AC-DC!B12": "Manitoba",
+          "Inputs AC-DC!B4": 0.3
+      },
+      "outputs": [
+          "Output Information!B5",
+          "Output Information!B6",
+          "Output Information!B7",
+          "Output Information!B8",
+          "Output Information!B9",
+          "Inputs AC-DC!B29:D30"
+      ]
+    }'</pre>
+
+        </div>
+      </div>
+      <div class="code-container nodejs">
+        <div class="code">
+          <div class="copy-icon"  onclick="copyToClipDoard(this)"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+            
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+            
+            <g id="SVGRepo_iconCarrier"> <path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="#bbbdc3" stroke-width="1.5"/> <path d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="#bbbdc3" stroke-width="1.5"/> </g>
+            
+            </svg> Copy
+          </div>
+          <!-- <div class="header">Request</div> -->
+          <pre>
+            // npm i bloom-engine
+            const BloomClient = require('bloom-engine');
+            
+            (async () => {
+            const apiVersion = 'v3.0';
+            const clientKey = 'client-key';
+            const clientSecret = 'client-secret';
+            
+            const bloomClient = new BloomClient(apiVersion, clientKey, clientSecret)
+            
+            const results = await bloomClient
+            .inputs({
+            "Sheet1!A2": 10, // A2 cell in Sheet 1
+            "Sheet1!A3": 300000,
+            })
+            .outputs([
+            "Sheet2!B5:B7",
+            "Sheet2!B12",
+            ])
+            .calculate();
+            
+            console.log(results)
+            console.log('Output1', results.get("Sheet2!B5:B7"));
+            console.log('Output2:', results.get("Sheet2!B12"));
+            
+            })();
+</pre>
+
+        </div>
+      </div>
+      <div class="code-container python">
+        <div class="code">
+          <div class="copy-icon"  onclick="copyToClipDoard(this)"><svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+            
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+            
+            <g id="SVGRepo_iconCarrier"> <path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="#bbbdc3" stroke-width="1.5"/> <path d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="#bbbdc3" stroke-width="1.5"/> </g>
+            
+            </svg> Copy
+          </div>
           <div class="header">Request</div>
           <pre>
 curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calculate' \
@@ -330,7 +473,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
       </div>
 
       <!-- response -->
-      <div class="code-container">
+      <div class="code-container cURL">
         <div class="code">
           <div class="header">Response</div>
           <pre>
@@ -379,7 +522,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
 
           </svg>
         </div>
-        At Bloom AI, our mission is to simplify complex tasks and empower users with intelligent solutions. With our suite of AI-powered modules, we've built a platform that enhances productivity, automates workflows, and provides reliable results-all in one place. We're dedicated to helping you achieve more with less effort, and we're excited to continue innovating and growing alongside you. Thank you for trusting us to be a part of your journey.
+        At Bloom, our mission is to simplify complex tasks and empower users with intelligent solutions. With our suite of AI-powered modules, we've built a platform that enhances productivity, automates workflows, and provides reliable results-all in one place. We're dedicated to helping you achieve more with less effort, and we're excited to continue innovating and growing alongside you. Thank you for trusting us to be a part of your journey.
 
         <div class="name">Prishan Niwanjaya</div>
         <div class="post">Founder & CEO</div>
@@ -411,13 +554,26 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
 
   </section>
 
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="copy-toast" class="toast align-items-center text-bg-primary border-0" role="alert"
+        aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Copied to clipboard!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
   <!-- Footer Start -->
   <footer>
     <div class="container">
       <div class="columns">
         <div id="column-1" class="column">
           <img src="" alt="">
-          <div class="mt-3"><img src="./images/logo-white.webp" alt="" width="90"> <br>Bloom Engine<br>Spreadsheets into Action</div>
+          <div class="mt-3"><a href="/"><img src="./images/logo-white.webp" alt="" width="90"></a> <br>Bloom Engine<br>Spreadsheets into Action</div>
         </div>
         <div id="column-2" class="column">
           <a href="/">Home</a>
@@ -436,6 +592,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
   </footer>
   <!-- Footer End -->
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
   <script>
@@ -460,6 +617,22 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
       $('.logged').hide()
       $('.anonymous').show()
     }
+
+    $('.nodejs').hide()
+    $('.python').hide()
+
+    $('#cURL').click(()=>{
+      $('.code-container').hide()
+      $('.cURL').show()
+    })
+    $('#nodejs').click(()=>{
+      $('.code-container').hide()
+      $('.nodejs').show()
+    })
+    $('#python').click(()=>{
+      $('.code-container').hide()
+      $('.python').show()
+    })
   </script>
 
 </body>

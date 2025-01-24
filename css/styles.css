@@ -124,7 +124,7 @@ button svg{
 .code {
   background-color: #24292e;
   border-radius: 20px;
-  color: gray;
+  color: rgb(165, 165, 165);
   padding: 2rem;
   text-align: start;
 }
@@ -476,4 +476,17 @@ li span{
   align-items: center;
 }
 
+.language-selector{
+  padding-top: 2rem;
+}
 
+.code-container .copy-icon{
+  position: relative;
+  display: flex;
+  float: right ;
+  cursor: pointer;
+  gap: 5px;
+  font-size: 0.8rem;
+  /* right: 1px; */
+  /* top: 2px; */
+}

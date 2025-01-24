@@ -201,6 +201,32 @@
         .btn-close {
             background-color: transparent !important;
         }
+
+        #dropArea {
+            width: 80%;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            transition: background-color 0.2s;
+        }
+
+        #dropArea.dragover {
+            background-color: #e0f7fa;
+            border-color: #26c6da;
+        }
+
+        #dropArea p {
+            margin: 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        #fileInput {
+            display: none;
+        }
     </style>
 
     <script>
@@ -226,32 +252,9 @@
             toast.show()
         }
 
-        async function refreshSheet(spreadSheetId, dsId) {
-            try {
-                $('#pageLoader').css({ display: 'flex' });
-                $('#pageLoader').fadeIn();
-                const response = await fetch(`${baseUrl}/refresh`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${idToken}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        dsId: dsId,
-                        spreadSheetId: spreadSheetId
-                    }),
-                });
-                const resp = await response.json();
-                $('#pageLoader').fadeOut();
-
-                const toastElement = document.getElementById("refresh-toast");
-                const toast = new bootstrap.Toast(toastElement);
-                toast.show();
-
-                location.reload()
-            } catch (error) {
-                console.error('Error fetching API:', error);
-            }
+        let fileToRefresh = ''
+        async function setRefreshKey(id) {
+            fileToRefresh = id
         }
 
         let fileToDelete = '';
@@ -268,18 +271,6 @@
             const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
             deleteModal.show();
         }
-
-        function openSpreadsheet(spreadsheetId) {
-            if (!spreadsheetId) {
-                console.error("Spreadsheet ID is required");
-                return;
-            }
-
-            const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}`;
-            window.open(url, "_blank");
-        }
-
-        // Function to handle the delete confirmation
 
     </script>
 </head>
@@ -320,16 +311,16 @@
         <a href="/contact">Contact</a>
     </div>
 
-    <nav class="p-2 d-flex" style="column-gap: 3rem;">
+    <nav class="p-3 d-flex" style="column-gap: 3rem;">
         <div class="logo-container">
-            <div class="logo"></div>
-            <div class="name">Panda AI</div>
+            <div class="logo"><a href="/"><img src="./images/logo-black.webp" alt="" width="30"></a></div>
+            <div class="name">Bloom Engine</div>
         </div>
 
         <div class="menu-bar d-none d-md-flex">
             <a href="/">Home</a>
-            <a href="/#integration">Integration</a>
-            <a href=" /pricing">Pricing</a>
+            <a href="#integration">Integration</a>
+            <a href="/pricing">Pricing</a>
             <a href="/contact">Contact</a>
         </div>
 
@@ -359,7 +350,7 @@
                 </button>
             </a>
 
-            <div class="ms-3 logged" style="display: none;cursor: pointer;" id="logoutButton">LogOut</div>
+            <div class="ms-3 logged" style="display: none;" id="logoutButton">LogOut</div>
 
             <!-- <i class="fa-solid fa-bars d-md-none" style="margin-left: 1rem;" id="open-menu-icon"></i> -->
             <div class="menu-icon d-md-none" id="open-menu-icon" style="margin-left: 1rem;">
@@ -403,11 +394,10 @@
             <div class="text-center">
                 <h1 class="display-6 mb-3">Create New Client & Get Started</h1>
                 <p class="lead mb-4">Easily manage and add new clients to your system with just a click.</p>
-                <button class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#createApiKeyModal"
-                    id="create-client-btn">
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#uploadFileModel" id="create-client-btn">
                     Create New Client
                 </button>
-                <button class="btn btn-gradient" onclick="showClientLimitExeeded()" id="fake-create-client-btn"
+                <button class="btn" onclick="showClientLimitExeeded()" id="fake-create-client-btn"
                     style="display: none;">
                     Create New Client
                 </button>
@@ -455,6 +445,45 @@
                         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
                         <!-- <div class="alert alert-danger">You have reach to maximum clients</div><br> -->
                         <button type="button" class="btn btn-primary" id="createApiKey" disabled>Create Client</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="uploadFileModel" tabindex="-1" aria-labelledby="createApiKeyModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createApiKeyModalLabel">Upload New File</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form to input API name -->
+                        <form id="apiKeyForm">
+                            <!-- <div class="mb-3">
+                                <label for="apiName" class="form-label">Client Name</label>
+                                <input type="text" class="form-control" id="clientName" placeholder="Enter Client name"
+                                    required>
+                            </div> -->
+                            <div class="mb-3">
+                                <div id="dropArea">
+                                    <p>Drag & drop your file here, or <label for="fileInput"
+                                            style="color: #26c6da; cursor: pointer;">browse</label>.</p>
+                                    <input type="file" id="fileInput" />
+                                </div>
+
+                            </div>
+
+                            <div class="text-green" style="display: none;">✔ <span id="green-msg">Spreadsheet is
+                                    ready</span></div>
+                            <div class="text-red" style="display: none;">❌ <span id="red-msg"></span></div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                        <!-- <div class="alert alert-danger">You have reach to maximum clients</div><br> -->
+                        <button type="button" class="btn btn-primary" id="uploadButton">Upload</button>
                     </div>
                 </div>
             </div>
@@ -571,20 +600,21 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
             <div class="columns">
                 <div id="column-1" class="column">
                     <img src="" alt="">
-                    <div class="mt-3">ScreenshotOne is a screenshot <br>rendering platform for your business.</div>
+                    <div class="mt-3"><a href="/"><img src="./images/logo-white.webp" alt="" width="90"></a> <br>Bloom
+                        Engine<br>Spreadsheets into Action</div>
                 </div>
                 <div id="column-2" class="column">
                     <a href="/">Home</a>
                     <a href="/login">Sign Up</a>
-                    <a href="/#integration">Integration</a>
+                    <a href="#integration">Integration</a>
                     <a href="/pricing">Pricing</a>
                     <a href="/contact">Contact</a>
                 </div>
-                <div id="column-3" class="column">Column3</div>
+                <div id="column-3" class="column"></div>
             </div>
 
             <div class="permission">
-                <p>© 2022-2025 PandaAI. All rights reserved.</p>
+                <p>© 2022-2025 Bloom Engine. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -642,37 +672,25 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                     const listItem = document.createElement('li');
                     listItem.classList.add('list-group-item');
                     listItem.innerHTML = `
-                    <div class="row p-3" data-file='${apiKey.spreadSheetId}'' data-name='${apiKey.name}''>
-        <div class="col-2">
-            <strong>${apiKey.name}</strong><br>
+                    <div class="row p-3" data-file='${apiKey.id}'' data-name='${apiKey.name}''>
+        <div class="col-3">
+            <strong>${apiKey.name.slice(0, 30)}...</strong><br>
             <small>Created at: ${new Date(apiKey.createdAt).toDateString()}</small>
         </div>
-        <div class="col-3"><span class="key-text">Spreadsheet</span><br>${apiKey.spreadSheetId != undefined ?
-                            apiKey.spreadSheetId.slice(0, 20) : ""}...<button class="btn btn-sm"
-                onclick="openSpreadsheet('${apiKey.spreadSheetId}')">
-                <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
-
-<g id="SVGRepo_bgCarrier" stroke-width="0"/>
-
-<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-
-<g id="SVGRepo_iconCarrier"> <title>icon/20/icon-open-in-new</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Output-svg" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="out" transform="translate(-838.000000, -29.000000)" fill="#808080"> <path d="M855,46 L841,46 L841,32 L848,32 L848,30 L841,30 C839.89,30 839,30.9 839,32 L839,46 C839,47.1 839.89,48 841,48 L855,48 C856.1,48 857,47.1 857,46 L857,39 L855,39 L855,46 L855,46 Z M850,30 L850,32 L853.59,32 L843.76,41.83 L845.17,43.24 L855,33.41 L855,37 L857,37 L857,30 L850,30 L850,30 Z" id="path"> </path> </g> </g> </g>
-
-</svg>
-            </button></div>
-        <div class="col-3"><span class="key-text">Client Key</span><br>${apiKey.key != undefined ? apiKey.key.slice(0,
-                                20) : ""}...<button class="btn btn-sm copy-icon" title="Copy to clipboard"
+        
+        <div class="col-4"><span class="key-text">Client Key</span><br>${apiKey.key != undefined ? apiKey.key.slice(0,
+                        40) : ""}...<button class="btn btn-sm copy-icon" title="Copy to clipboard"
                 onclick="copyToClipDoard('${apiKey.key}')">
                 📋
             </button></div>
-        <div class="col-3"><span class="key-text">Client Secret</span><br>${apiKey.secret != undefined ?
-                            apiKey.secret.slice(0, 20) : ""}...<button class="btn btn-sm copy-icon" title="Copy to clipboard"
+        <div class="col-4"><span class="key-text">Client Secret</span><br>${apiKey.secret != undefined ?
+                            apiKey.secret.slice(0, 40) : ""}...<button class="btn btn-sm copy-icon" title="Copy to clipboard"
                 onclick="copyToClipDoard('${apiKey.secret}')">
                 📋
             </button></div>
         <div class="col-1">
             <div style="display: flex;gap:2px">
-            <button class="reload-btn" id="reloadBtn" onclick="refreshSheet('${apiKey.spreadSheetId}','${apiKey.dsId}')">
+            <button class="reload-btn" id="reloadBtn" onclick="setRefreshKey('${apiKey.id}')" data-bs-toggle="modal" data-bs-target="#uploadFileModel">
                 <i class="fa-solid fa-rotate" style="color: #3ea384;"></i>
             </button>
                 <button class="delete-btn" onclick="openDeleteModal(this)"><i class="fa-solid fa-trash" style="color: #d81313;"></i></button>
@@ -714,32 +732,6 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
             }
         }
 
-        function populatePlanSection(data) {
-            const userPlanBadge = document.getElementById("userPlanBadge");
-            const validTillElement = document.getElementById("validTill");
-            const upgradeBtn = document.getElementById("upgradeBtn");
-
-            validTillElement.textContent = data.validTill;
-
-            if (user.plan === "Free Trial") {
-                userPlanBadge.textContent = "Free Trial";
-                userPlanBadge.className = "plan-badge trial-badge";
-                upgradeBtn.textContent = "Upgrade to Standard or Premium";
-                upgradeBtn.href = "/upgrade?to=standard";
-            } else if (user.plan === "Standard") {
-                userPlanBadge.textContent = "Standard";
-                userPlanBadge.className = "plan-badge standard-badge";
-                upgradeBtn.textContent = "Upgrade to Premium";
-                upgradeBtn.href = "/upgrade?to=premium";
-            } else if (user.plan === "Premium") {
-                userPlanBadge.textContent = "Premium";
-                userPlanBadge.className = "plan-badge premium-badge";
-                upgradeBtn.textContent = "You're on the Best Plan!";
-                upgradeBtn.href = "#";
-                upgradeBtn.classList.add("disabled");
-            }
-        }
-
         async function getSubscription() {
             try {
                 console.log("Getting subscriptions")
@@ -763,11 +755,43 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                     $('#fake-create-client-btn').show()
                 }
 
-                populatePlanSection(resp)
             } catch (err) {
 
             }
         }
+
+        //         document.getElementById("uploadButton").addEventListener("click", async () => {
+        //   const fileInput = document.getElementById("fileInput");
+        //   const file = fileInput.files[0];
+
+        //   if (!file) {
+        //     alert("Please select a file first.");
+        //     return;
+        //   }
+
+        //   // Create FormData to send the file
+        //   const formData = new FormData();
+        //   formData.append("file", file);
+
+        //   try {
+        //     const response = await fetch(`${baseUrl}/.netlify/functions/upload`, {
+        //       method: "POST",
+        //       body: formData,
+        //     });
+
+        //     if (response.ok) {
+        //       const result = await response.json();
+        //       console.log("Uploaded File:", result.fileName);
+        //       alert(`File uploaded successfully: ${result.fileName}`);
+        //     } else {
+        //       console.error("Error uploading file:", response.statusText);
+        //       alert("Failed to upload file. Please try again.");
+        //     }
+        //   } catch (error) {
+        //     console.error("Error:", error);
+        //     alert("An error occurred while uploading the file.");
+        //   }
+        // });
 
         let sheetAccess = false
 
@@ -788,6 +812,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
 
                 user.getIdToken().then(async token => {
                     idToken = token
+                    console.log(token)
                     await fetchApiKeys()
                     getSubscription()
 
@@ -869,7 +894,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    apiKey: `${fileToDelete}`
+                    id: `${fileToDelete}`
                 }),
             });
 
@@ -907,6 +932,109 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
             $('.logged').hide()
             $('.anonymous').show()
         }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            const $dropArea = $("#dropArea");
+            const $fileInput = $("#fileInput");
+            const $uploadButton = $("#uploadButton");
+
+            let selectedFile = null;
+
+            // Highlight drop area on drag events
+            $dropArea.on("dragover", function (e) {
+                e.preventDefault();
+                $dropArea.addClass("dragover");
+            });
+
+            $dropArea.on("dragleave", function () {
+                $dropArea.removeClass("dragover");
+            });
+
+            // Handle file drop
+            $dropArea.on("drop", function (e) {
+                e.preventDefault();
+                $dropArea.removeClass("dragover");
+
+                const files = e.originalEvent.dataTransfer.files;
+                if (files.length) {
+                    selectedFile = files[0];
+                    console.log("File selected via drag & drop:", selectedFile.name);
+                    $dropArea.find("p").text(`Selected file: ${selectedFile.name}`);
+                }
+            });
+
+            // Handle file selection via browse button
+            $fileInput.on("change", function (e) {
+                const files = e.target.files;
+                if (files.length) {
+                    selectedFile = files[0];
+                    console.log("File selected via browse:", selectedFile.name);
+                    $dropArea.find("p").text(`Selected file: ${selectedFile.name}`);
+                }
+            });
+
+            function processFile(response) {
+                console.log("File uploaded successfully:", response);
+
+                $.ajax({
+                    url: `${baseUrl}/processing`,
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${idToken}`,
+                    },
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        id: fileToRefresh,
+                        fileId: response.id,
+                        name: response.name
+                    }),
+                    success: function (response) {
+                        $('#pageLoader').fadeOut();
+                        location.reload()
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Upload error:", error);
+                        $('#pageLoader').fadeOut();
+                        alert("An error occurred while uploading the file.");
+                    },
+                });
+            }
+
+
+            // Upload the selected file
+            $uploadButton.on("click", function () {
+                if (!selectedFile) {
+                    alert("Please select a file before uploading.");
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append("file", selectedFile);
+
+                $('#uploadFileModel').hide()
+                $('#pageLoader').css({ display: 'flex' });
+                $('#pageLoader').fadeIn();
+
+                $.ajax({
+                    url: `${baseUrl}/upload`.replace('/bo', ''),
+                    method: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    headers: {
+                        Authorization: `Bearer ${idToken}`, // Send the token in the Authorization header
+                    },
+                    success: processFile,
+                    error: function (xhr, status, error) {
+                        console.error("Upload error:", error);
+                        $('#pageLoader').fadeOut();
+                        alert("An error occurred while uploading the file.");
+                    },
+                });
+            });
+        });
     </script>
 </body>
 
