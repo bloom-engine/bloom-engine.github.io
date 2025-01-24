@@ -999,7 +999,9 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                     headers: {
                         Authorization: `Bearer ${idToken}`, // Send the token in the Authorization header
                     },
-                    success: processFile,
+                    success: function(response){
+                        console.log('Uploaded successfully', response)
+                    },
                     error: function (xhr, status, error) {
                         console.error("Upload error:", error);
                         $('#pageLoader').fadeOut();
