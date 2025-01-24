@@ -961,7 +961,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                 if (files.length) {
                     selectedFile = files[0];
                     console.log("File selected via drag & drop:", selectedFile.name);
-                    $dropArea.find("p").text(`Selected file: ${selectedFile.name}`);
+                    $dropArea.find("p").text(`${selectedFile.name}`);
                 }
             });
 
@@ -971,7 +971,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                 if (files.length) {
                     selectedFile = files[0];
                     console.log("File selected via browse:", selectedFile.name);
-                    $dropArea.find("p").text(`Selected file: ${selectedFile.name}`);
+                    $dropArea.find("p").text(`${selectedFile.name}`);
                 }
             });
 
@@ -1001,6 +1001,8 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                     },
                     success: function(response){
                         console.log('Uploaded successfully', response)
+                        $('#pageLoader').fadeOut();
+                        location.reload()
                     },
                     error: function (xhr, status, error) {
                         console.error("Upload error:", error);
