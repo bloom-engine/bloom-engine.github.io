@@ -30,6 +30,14 @@
       align-items: center;
       gap:1rem;
     }
+
+    .tile{
+      padding:1rem;
+      background-color: rgb(17 24 39);
+      width: fit-content;
+      border-radius: 2rem;
+      color: white;
+    }
   </style>
 </head>
 
@@ -267,26 +275,44 @@
     </div>
   </section>
 
+  <section id="ceo-msg" class="section">
+
+    <div class="container text-center  text-white py-4">
+      <!-- <div class="title">Simplify Your Business Calculations with Bloom Engine</div> -->
+      <div class="mt-2" style="font-size: 1.5rem;">
+        Need complex calculations fast? With Bloom Engine, businesses can effortlessly handle any calculation, from price estimations to intricate data analysis. Just upload your Excel file, send your requests, and let our powerful AI do the rest—in seconds.
+      </div>
+      
+    </div>
+    
+  </section>
+
+  <section class="section">
+<div class="container">
+  <div class="tile">Web Calculators</div>
+</div>
+  </section>
+
   <section class="section" id="ai">
     <div class="container">
       <div class="image-container" data-aos="fade-up">
-        <img src="https://screenshotone.com/_astro/stripe.DktQZYtB_2nk9Aw.webp" alt="" class="w-100">
+        <img src="images/business-calcualations.webp" alt="" class="w-100">
       </div>
       <div class="content" data-aos="fade-up">
-        <div class="promo-text">Looks great</div>
-        <div class="title">AI powered calculations</div>
-        <div class="my-3">Remove annoying banners easily. ScreenshotOne can block complex GDPR and cookie consent forms.
-          Most cases are covered.</div>
+        <div class="promo-text">Complex business calculations?  Done in seconds.</div>
+        <div class="title">Simplify Your Business Calculations with Bloom Engine</div>
+        <div class="my-3">
+          <p>At Bloom Engine, we help businesses streamline their day-to-day calculations, from price estimations to complex data analysis. Upload your Excel document and let us handle the heavy lifting.</p>
+
+          Whether you need real-time price calculations or detailed insights from your data, our AI-powered tools can analyze, validate, and calculate everything—quickly and accurately.</div>
         <div class="my-3">
           <ul>
-            <li>Remove ads. You only specify one parameter to blocks, and we do all the hard work of blocking ads for
-              you.</li>
-            <li>Block cookie banners. Always up-to-date database of 50,000+ rules and heuristics to block cookie banners
-              on any site.</li>
-            <li>And hide chat widgets. Our blocking engine not only blocks ads, cookie banners, and other pop-ups but
-              also social media and support chats.</li>
+            <li><strong>Effortless Uploads</strong>: Simply share your Excel document with us.</li>
+            <li><strong>Instant Calculations</strong>: Send requests for any calculations within your document.</li>
+            <li><strong>Precision at Scale:</strong> Handle even the most complex business data with ease.</li>
           </ul>
         </div>
+        <p>Start optimizing your calculations today—it's fast, easy, and reliable.</p>
 
         <a href="/login"><button class="btn mt-4">Get Started <svg width="20px" height="25px" viewBox="0 0 24 24"
               fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
@@ -429,18 +455,18 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
   --header 'Content-Type: application/json' \
   --data '{
       "inputs": {
-          "Inputs AC-DC!B2": 12, 
-          "Inputs AC-DC!B3": 250000,
-          "Inputs AC-DC!B12": "Manitoba",
-          "Inputs AC-DC!B4": 0.3
+          "Sheet1!B2": 12, 
+          "Sheet1!B3": 250000,
+          "Sheet1!B12": "Manitoba",
+          "Sheet1!B4": 0.3
       },
       "outputs": [
-          "Output Information!B5",
-          "Output Information!B6",
-          "Output Information!B7",
-          "Output Information!B8",
-          "Output Information!B9",
-          "Inputs AC-DC!B29:D30"
+          "Sheet2!B5",
+          "Sheet2!B6",
+          "Sheet2!B7",
+          "Sheet3!B8",
+          "Sheet3!B9",
+          "Sheet1!B29:D30"
       ]
     }'</pre>
 
@@ -468,32 +494,32 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
           </div>
           <!-- <div class="header">Request</div> -->
           <pre>
-            // npm i bloom-engine
-            const BloomClient = require('bloom-engine');
+// npm i bloom-engine
+const BloomClient = require('bloom-engine');
             
-            (async () => {
-            const apiVersion = 'v3.0';
-            const clientKey = 'client-key';
-            const clientSecret = 'client-secret';
+(async () => {
+const apiVersion = 'v3.0';
+const clientKey = 'client-key';
+const clientSecret = 'client-secret';
             
-            const bloomClient = new BloomClient(apiVersion, clientKey, clientSecret)
+const bloomClient = new BloomClient(apiVersion, clientKey, clientSecret)
             
-            const results = await bloomClient
-            .inputs({
-            "Sheet1!A2": 10, // A2 cell in Sheet 1
-            "Sheet1!A3": 300000,
-            })
-            .outputs([
-            "Sheet2!B5:B7",
-            "Sheet2!B12",
-            ])
-            .calculate();
+const results = await bloomClient
+.inputs({
+  "Sheet1!A2": 10,
+  "Sheet1!A3": 300000,
+})
+.outputs([
+  "Sheet2!B5:B7",
+  "Sheet2!B12",
+])
+.calculate();
             
-            console.log(results)
-            console.log('Output1', results.get("Sheet2!B5:B7"));
-            console.log('Output2:', results.get("Sheet2!B12"));
+console.log(results)
+console.log('Output1', results.get("Sheet2!B5:B7"));
+console.log('Output2:', results.get("Sheet2!B12"));
             
-            })();
+})();
 </pre>
 
         </div>
@@ -518,28 +544,32 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
 
             </svg> Copy
           </div>
-          <div class="header">Request</div>
+          <!-- <div class="header">Request</div> -->
           <pre>
-curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calculate' \
-  --header 'x-client-key: your-key' \
-  --header 'x-client-secret: your-secret' \
-  --header 'Content-Type: application/json' \
-  --data '{
-      "inputs": {
-          "Inputs AC-DC!B2": 12, 
-          "Inputs AC-DC!B3": 250000,
-          "Inputs AC-DC!B12": "Manitoba",
-          "Inputs AC-DC!B4": 0.3
-      },
-      "outputs": [
-          "Output Information!B5",
-          "Output Information!B6",
-          "Output Information!B7",
-          "Output Information!B8",
-          "Output Information!B9",
-          "Inputs AC-DC!B29:D30"
-      ]
-    }'</pre>
+# pip install bloom-client
+
+from bloom_client import BloomClient
+
+version = 'v3.0'
+key = 'your-key'
+secret = 'your-secret'
+client = BloomClient(version, key, secret)
+
+client.set_inputs({
+    "Sheet1!B2": 10,
+    "Sheet1!B3": 300000
+}).set_outputs([
+    "Sheet2!B5",
+    "Sheet2!B6"
+])
+
+client.add_input("Sheet1!B12", "Manitoba")
+client.add_output("Sheet3!B7")
+
+results = client.calculate()
+output_value = results.get("Sheet3!B57")
+print(output_value)
+</pre>
 
         </div>
       </div>
@@ -554,12 +584,12 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
   "message":"Success",
   "data":
   {
-    "Output Information!B5":"$ 1,072,000.00",
-    "Output Information!B6":"$ 3,397,367.14",
-    "Output Information!B7":"3.44%",
-    "Output Information!B8":"$ 8",
-    "Output Information!B9":"$ 7.95",
-    "Inputs AC-DC!B29:D30":["$ 412,622.51","$ 438,055.72"]
+    "Sheet2!B5":"$ 1,072,000.00",
+    "Sheet2!B6":"$ 3,397,367.14",
+    "Sheet2!B7":"3.44%",
+    "Sheet3!B8":"$ 8",
+    "Sheet3!B9":"$ 7.95",
+    "Sheet1!B29:D30":["$ 412,622.51","$ 438,055.72"]
   }
 }
 </pre>
