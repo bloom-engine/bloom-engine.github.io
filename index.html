@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bloom Engine - Spreadsheets into Action</title>
+  <title>Bloom Engine - Excel docs into Action</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -17,6 +17,20 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+  <style>
+    .custom-btn{
+      padding: 1rem 2rem;
+      text-decoration: none;
+      background-color: rgb(17 24 39);
+      border-radius: 2rem;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap:1rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -128,12 +142,8 @@
     <div class="container">
       <!-- <div class="d-fl" style="gap:2rem"> -->
       <div class="content">
-        <div class="banner">
-          <span>First AI-powered Calculation Platform</span>
-        </div>
-        <div class="title">Skip the Math <br>Let Bloom Engine Do the Work!</div>
-        <div>Effortlessly tackle complex calculations with our AI-powered platform integrated with Spreadsheets. Save
-          time and boost accuracy while letting us handle the heavy lifting for you.</div>
+        <div class="title">Revolutionize Your Business Calculations with Ease</div>
+        <div>Empower your team with our smart SaaS solution that simplifies complex business calculations. Share, collaborate, and analyze effortlessly—all through Excel.</div>
         <a href="/login"><button class="btn mt-4">Get Started <svg width="20px" height="25px" viewBox="0 0 24 24"
               fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
 
@@ -307,9 +317,9 @@
           functionality every step of the way:</div>
         <div class="my-3">
           <ul class="modules">
-            <li><span>Bloom Bucket</span> securely stores your spreadsheets for easy access and integration across the
+            <li><span>Bloom Bucket</span> securely stores your Excel docs for easy access and integration across the
               platform.</li>
-            <li><span>Bloom AI</span> analyzes your uploaded spreadsheets to identify input, output, and configuration
+            <li><span>Bloom AI</span> analyzes your uploaded Excel docs to identify input, output, and configuration
               cells.</li>
             <li><span>Bloom Calc</span> performs accurate calculations based on Bloom AI's insights, ensuring reliable
               results.</li>
@@ -557,6 +567,50 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
         </div>
       </div>
 
+
+      <div class="d-flex justify-content-center gap-3" style="margin-top: 3rem;">
+        <!-- NPM Button -->
+        <a href="https://www.npmjs.com/package/bloom-engine" target="_blank" class="custom-btn btn-npm">
+          <svg width="25px" height="25px" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+            
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+            
+            <g id="SVGRepo_iconCarrier"> <path fill-rule="nonzero" clip-rule="nonzero" d="M1 2.88462C1 1.84377 1.84377 1 2.88462 1H13.1154C14.1562 1 15 1.84377 15 2.88462V13.1154C15 14.1562 14.1562 15 13.1154 15H2.88462C1.84377 15 1 14.1562 1 13.1154V2.88462ZM2.88462 2.61538C2.73592 2.61538 2.61538 2.73592 2.61538 2.88462V13.1154C2.61538 13.2641 2.73592 13.3846 2.88462 13.3846H8.53846V6.38462C8.53846 5.93854 8.90008 5.57692 9.34615 5.57692C9.79223 5.57692 10.1538 5.93854 10.1538 6.38462V13.3846H13.1154C13.2641 13.3846 13.3846 13.2641 13.3846 13.1154V2.88462C13.3846 2.73592 13.2641 2.61538 13.1154 2.61538H2.88462Z" fill="#ffffff"/> </g>
+            
+            </svg> Install via NPM
+        </a>
+        <!-- PIP Button -->
+        <a href="https://pypi.org/project/bloom-client/" target="_blank" class="custom-btn btn-pip">
+            <i class="icon bi bi-code-slash"></i> <svg width="25px" height="25px" viewBox="0 0 24 24" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+
+              <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+              
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+              
+              <g id="SVGRepo_iconCarrier">
+              
+              <defs>
+              
+              <style>.cls-1{fill:none;stroke:#ffffff;stroke-miterlimit:10;stroke-width:1.95px;}</style>
+              
+              </defs>
+              
+              <polygon class="cls-1" points="12 22.22 21.77 17.34 21.77 6.59 12 1.78 2.23 6.59 2.23 17.34 12 22.22"/>
+              
+              <polyline class="cls-1" points="2.23 6.59 12 11.39 12 22.22"/>
+              
+              <polyline class="cls-1" points="12 22.22 12 11.39 21.77 6.59"/>
+              
+              <polyline class="cls-1" points="21.77 6.59 12 11.39 2.23 6.59"/>
+              
+              </g>
+              
+              </svg> Install via PIP
+        </a>
+    </div>
+
     </div>
   </section>
 
@@ -650,7 +704,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
         <div id="column-1" class="column">
           <img src="" alt="">
           <div class="mt-3"><a href="/"><img src="./images/logo-white.webp" alt="" width="90"></a> <br>Bloom
-            Engine<br>Spreadsheets into Action</div>
+            Engine<br>Excel docs into Action</div>
         </div>
         <div id="column-2" class="column">
           <a href="/">Home</a>

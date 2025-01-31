@@ -66,6 +66,9 @@ nav .menu-bar {
 }
 
 .hero .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   max-width: 36rem;
   flex-shrink: 0;
 }

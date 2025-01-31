@@ -10,8 +10,8 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/styles.css">
     <!-- <script src="https://kit.fontawesome.com/390d6573af.js" crossorigin="anonymous"></script> -->
-    <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> -->
 
     <style>
@@ -325,11 +325,15 @@
   </footer>
   <!-- Footer End -->
 
-
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
+  <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script> -->
     <script>
+// AOS.init()
+
+// jQuery(document).ready(function() {
 
         $('#open-menu-icon').click(() => {
-            $('.ham-menu').fadeIn()
+            $('.ham-menu').show()
         })
 
         $('.close-btn').click(() => {
@@ -347,6 +351,7 @@
             $('.logged').hide()
             $('.anonymous').show()
         }
+    // })
 
     </script>
 </body>
