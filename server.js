@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const PORT = 8080;
+const PORT = 8888;
 
 app.use(express.static(path.join(__dirname, '')));
 
@@ -21,6 +21,21 @@ app.get('/login', (req, res) => {
 });
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'dashboard.html'));
+});
+app.get('/payments', (req, res) => {
+    res.sendFile(path.join(__dirname, 'payments.html'));
+});
+app.get('/terms', (req, res) => {
+    res.sendFile(path.join(__dirname, 'terms-and-conditions.html'));
+});
+app.get('/privacy-policy', (req, res) => {
+    res.sendFile(path.join(__dirname, 'privacy-policy.html'));
+});
+app.get('/refund-policy', (req, res) => {
+    res.sendFile(path.join(__dirname, 'refund-policy.html'));
+});
+app.get('/cookie-policy', (req, res) => {
+    res.sendFile(path.join(__dirname, 'cookie-policy.html'));
 });
 
 // Start the server
