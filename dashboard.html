@@ -231,7 +231,7 @@
 
     <script>
 
-        const baseUrl = 'http://localhost:8080/bo'
+        const baseUrl = 'https://bloom-engine.netlify.app/.netlify/functions/bo'
 
         let idToken = ''
         function copyToClipDoard(key) {
@@ -1077,7 +1077,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                 $('#pageLoader').fadeIn();
 
                 $.ajax({
-                    url: fileToRefresh === '' ? `http://localhost:8080/upload` : `http://localhost:8080/upload?id=${fileToRefresh}`,
+                    url: fileToRefresh === '' ? `https://bloom-engine.netlify.app/.netlify/functions/upload` : `https://bloom-engine.netlify.app/.netlify/functions/upload?id=${fileToRefresh}`,
                     method: "POST",
                     data: formData,
                     processData: false,
