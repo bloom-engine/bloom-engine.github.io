@@ -25,7 +25,7 @@ app.get('/dashboard', (req, res) => {
 app.get('/payments', (req, res) => {
     res.sendFile(path.join(__dirname, 'payments.html'));
 });
-app.get('/terms', (req, res) => {
+app.get('/terms-and-conditions', (req, res) => {
     res.sendFile(path.join(__dirname, 'terms-and-conditions.html'));
 });
 app.get('/privacy-policy', (req, res) => {
