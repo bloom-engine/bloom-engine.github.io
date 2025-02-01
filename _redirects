@@ -1,6 +1,8 @@
 /contact /contact.html 301
 /dashboard /dashboard.html 301
-/login /login.html 301
+/login /sign-in.html 301
+/sign-up /sign-up.html 301
+/password-reset /password-reset.html 301
 /pricing /pricing.html 301
 /privacy-policy /privacy-policy.html 301
 /refund-policy /refund-policy.html 301

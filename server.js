@@ -37,6 +37,15 @@ app.get('/refund-policy', (req, res) => {
 app.get('/cookie-policy', (req, res) => {
     res.sendFile(path.join(__dirname, 'cookie-policy.html'));
 });
+app.get('/sign-in', (req, res) => {
+    res.sendFile(path.join(__dirname, 'sign-in.html'));
+});
+app.get('/sign-up', (req, res) => {
+    res.sendFile(path.join(__dirname, 'sign-up.html'));
+});
+app.get('/password-reset', (req, res) => {
+    res.sendFile(path.join(__dirname, 'password-reset.html'));
+});
 
 // Start the server
 app.listen(PORT, () => {
