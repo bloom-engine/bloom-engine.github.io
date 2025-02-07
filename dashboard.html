@@ -618,14 +618,16 @@
         <div class="container">
             <div class="sub-title">Autherized Domains</div>
 
-            <div class="list-group" id="domains">
+            <div class="list-group mb-3" id="domains">
             </div>
 
             <form action="" class="d-flex gap-3">
-                <input type="text" class="form-control" id="domain" style="max-width: 400px;" placeholder="Enter domain here | eg: https://bloom-engine.cloud">
+                <input type="text" class="form-control" id="domain" style="max-width: 400px;" placeholder="Enter domain here">
 
                 <button class="btn" id="add-domain" disabled>Add New Domain</button>
             </form>
+
+            <div>eg: https://bloom-engine.cloud, http://localhost:8080</div>
 
             <div class="text-danger" style="display: none;" id="invalid-domain">Please enter valid domain</div>
 
