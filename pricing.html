@@ -11,18 +11,104 @@
   <link rel="stylesheet" href="./css/styles.css">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 
   <style>
-    .accordion-button{
+    .accordion-button {
       background-color: #fff !important;
       color: black !important;
     }
   </style>
 
-  <script>
-    showAlert=()=>{
+  <script  type="text/javascript">
+
+const urlParams = new URLSearchParams(window.location.search)
+
+    const showAlert = () => {
       alert('You can subscribe to the Standard Plan 3 days after creating your account.')
     }
+
+    Paddle.Environment.set("production");
+    Paddle.Initialize({
+      token: "live_1d2bb53df066c5d1864cab0e986" // replace with a client-side token
+    })
+
+    let userId = ''
+    let userEmail = ''
+
+    function openCheckoutStandard() {
+      if (urlParams.has('test') && userId !== '' && userEmail != '') {
+        Paddle.Checkout.open({
+          items: [
+            {
+              priceId: "pri_01jkfmav1smj66sx1c272cp6ee",
+              quantity: 1
+            }
+          ],
+          customer: {
+            email: userEmail
+          },
+          customData: {
+            subscription: 'standard',
+            userId: userId
+          }
+        });
+      } else{
+        alert('You can subscribe to the Standard Plan 3 days after creating your account.')
+      }
+
+    }
+
+    function openCheckoutAdvanced() {
+      if (urlParams.has('test') && userId !== '' && userEmail != '') {
+        Paddle.Checkout.open({
+          items: [
+            {
+              priceId: "pri_01jkfmfe3e61t84wrcnwd2w0qv",
+              quantity: 1
+            }
+          ],
+          customer: {
+            email: userEmail
+          },
+          customData: {
+            subscription: 'advanced',
+            userId: userId
+          }
+        });
+      } else{
+        alert('You can subscribe to the Standard Plan 3 days after creating your account.')
+      }
+
+    }
+    </script>
+
+    <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js'
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js'
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDTnXu9_v79boE-eggxFkZqhb5jEPMhZYY",
+      authDomain: "xlcalculator.firebaseapp.com",
+      projectId: "xlcalculator",
+      storageBucket: "xlcalculator.firebasestorage.app",
+      messagingSenderId: "765670692728",
+      appId: "1:765670692728:web:76dc9ac3ec3bcc975f9a8d"
+    };
+
+    initializeApp(firebaseConfig);
+    const auth = getAuth()
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        userId = user.uid
+        userEmail = user.email
+
+        $('.subscribe-btn').prop('disabled', false)
+      } else {
+        console.log('No user is logged in');
+      }
+    });
   </script>
 
 </head>
@@ -128,7 +214,8 @@
     <div class="container">
       <div class="packages mt-3">
         <div class="package">
-          <div class="title">Free Trial <span style="font-size: 1rem;font-weight: 400;">(Valid only 30 days)</span></div>
+          <div class="title">Free Trial <span style="font-size: 1rem;font-weight: 400;">(Valid only 30 days)</span>
+          </div>
           <div class="sub-title">Get started with our essential features for free! Perfect for exploring our services
             without any commitment.</div>
           <div class="price"><span>$0</span>/month</div>
@@ -146,7 +233,7 @@
           <div class="sub-title">Unlock advanced features with our Standard plan, designed for individuals or small
             teams to boost productivity and efficiency.</div>
           <div class="price"><span>$9</span>/month</div>
-          <button class="btn" onclick="showAlert()">Subscribe</button>
+          <button class="btn subscribe-btn" disabled onclick="openCheckoutStandard()">Subscribe</button>
 
 
           <ul>
@@ -162,7 +249,7 @@
           <div class="sub-title">Experience the full potential with our Advanced plan, offering premium features,
             priority support, and scalability for growing businesses.</div>
           <div class="price"><span>$29</span>/month</div>
-          <button class="btn" onclick="showAlert()">Subscribe</button>
+          <button class="btn subscribe-btn" disabled onclick="openCheckoutAdvanced()">Subscribe</button>
 
           <ul>
             <li>Up to 10 Excel Spreadsheets</li>
@@ -182,133 +269,159 @@
       <!-- FAQ 1 -->
       <div class="accordion-item">
         <h2 class="accordion-header" id="faqHeading1">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
-                What is included in the Free Trial plan?
-            </button>
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1"
+            aria-expanded="true" aria-controls="faqCollapse1">
+            What is included in the Free Trial plan?
+          </button>
         </h2>
-        <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-                The Free Trial plan includes access to essential features, allowing you to explore our services risk-free for a limited period.
-            </div>
+        <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1"
+          data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            The Free Trial plan includes access to essential features, allowing you to explore our services risk-free
+            for a limited period.
+          </div>
         </div>
-    </div>
-    <!-- FAQ 2 -->
-    <div class="accordion-item">
+      </div>
+      <!-- FAQ 2 -->
+      <div class="accordion-item">
         <h2 class="accordion-header" id="faqHeading2">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
-                Can I upgrade or downgrade my plan later?
-            </button>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+            Can I upgrade or downgrade my plan later?
+          </button>
         </h2>
-        <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-                Yes, you can upgrade or downgrade your plan at any time based on your needs. Changes will be applied during the next billing cycle.
-            </div>
+        <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2"
+          data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, you can upgrade or downgrade your plan at any time based on your needs. Changes will be applied during
+            the next billing cycle.
+          </div>
         </div>
-    </div>
-    <!-- FAQ 3 -->
-    <div class="accordion-item">
+      </div>
+      <!-- FAQ 3 -->
+      <div class="accordion-item">
         <h2 class="accordion-header" id="faqHeading3">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
-                What payment methods do you accept?
-            </button>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+            What payment methods do you accept?
+          </button>
         </h2>
-        <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-                We accept major credit cards, debit cards, and online payment options such as PayPal.
-            </div>
+        <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3"
+          data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            We accept major credit cards, debit cards, and online payment options such as PayPal.
+          </div>
         </div>
-    </div>
-    <!-- FAQ 4 -->
-    <div class="accordion-item">
+      </div>
+      <!-- FAQ 4 -->
+      <div class="accordion-item">
         <h2 class="accordion-header" id="faqHeading4">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
-                Is there a money-back guarantee?
-            </button>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+            Is there a money-back guarantee?
+          </button>
         </h2>
-        <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-                Yes, we offer a 14-day money-back guarantee for all our paid plans. Terms and conditions apply.
-            </div>
+        <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4"
+          data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, we offer a 14-day money-back guarantee for all our paid plans. Terms and conditions apply.
+          </div>
         </div>
-    </div>
-    <!-- FAQ 5 -->
-    <div class="accordion-item">
+      </div>
+      <!-- FAQ 5 -->
+      <div class="accordion-item">
         <h2 class="accordion-header" id="faqHeading5">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
-                How secure is my data?
-            </button>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+            How secure is my data?
+          </button>
         </h2>
-        <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-                We prioritize data security using industry-standard encryption and regularly audit our systems for vulnerabilities.
-            </div>
+        <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5"
+          data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            We prioritize data security using industry-standard encryption and regularly audit our systems for
+            vulnerabilities.
+          </div>
         </div>
-    </div>
-    <!-- FAQ 6 -->
-    <div class="accordion-item">
+      </div>
+      <!-- FAQ 6 -->
+      <div class="accordion-item">
         <h2 class="accordion-header" id="faqHeading6">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6">
-                Do you offer support for all plans?
-            </button>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6">
+            Do you offer support for all plans?
+          </button>
         </h2>
-        <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHeading6" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-                Yes, we offer support for all plans. However, advanced support options are available only with the Standard and Advanced plans.
-            </div>
+        <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHeading6"
+          data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, we offer support for all plans. However, advanced support options are available only with the Standard
+            and Advanced plans.
+          </div>
         </div>
-    </div>
-    <!-- FAQ 7 -->
-    <div class="accordion-item">
+      </div>
+      <!-- FAQ 7 -->
+      <div class="accordion-item">
         <h2 class="accordion-header" id="faqHeading7">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse7" aria-expanded="false" aria-controls="faqCollapse7">
-                Are there any hidden fees?
-            </button>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faqCollapse7" aria-expanded="false" aria-controls="faqCollapse7">
+            Are there any hidden fees?
+          </button>
         </h2>
-        <div id="faqCollapse7" class="accordion-collapse collapse" aria-labelledby="faqHeading7" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-                No, there are no hidden fees. All charges are transparently listed in the pricing section.
-            </div>
+        <div id="faqCollapse7" class="accordion-collapse collapse" aria-labelledby="faqHeading7"
+          data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            No, there are no hidden fees. All charges are transparently listed in the pricing section.
+          </div>
         </div>
-    </div>
-    <!-- FAQ 8 -->
-    <div class="accordion-item">
+      </div>
+      <!-- FAQ 8 -->
+      <div class="accordion-item">
         <h2 class="accordion-header" id="faqHeading8">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse8" aria-expanded="false" aria-controls="faqCollapse8">
-                Can I cancel my subscription anytime?
-            </button>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faqCollapse8" aria-expanded="false" aria-controls="faqCollapse8">
+            Can I cancel my subscription anytime?
+          </button>
         </h2>
-        <div id="faqCollapse8" class="accordion-collapse collapse" aria-labelledby="faqHeading8" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-                Yes, you can cancel your subscription at any time. Your access will remain active until the end of the current billing cycle.
-            </div>
+        <div id="faqCollapse8" class="accordion-collapse collapse" aria-labelledby="faqHeading8"
+          data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, you can cancel your subscription at any time. Your access will remain active until the end of the
+            current billing cycle.
+          </div>
         </div>
-    </div>
-    <!-- FAQ 9 -->
-    <div class="accordion-item">
+      </div>
+      <!-- FAQ 9 -->
+      <div class="accordion-item">
         <h2 class="accordion-header" id="faqHeading9">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse9" aria-expanded="false" aria-controls="faqCollapse9">
-                Do you offer discounts for annual subscriptions?
-            </button>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faqCollapse9" aria-expanded="false" aria-controls="faqCollapse9">
+            Do you offer discounts for annual subscriptions?
+          </button>
         </h2>
-        <div id="faqCollapse9" class="accordion-collapse collapse" aria-labelledby="faqHeading9" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-                Yes, we offer discounts for annual subscriptions. Check our pricing section for details.
-            </div>
+        <div id="faqCollapse9" class="accordion-collapse collapse" aria-labelledby="faqHeading9"
+          data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, we offer discounts for annual subscriptions. Check our pricing section for details.
+          </div>
         </div>
-    </div>
-    <!-- FAQ 10 -->
-    <div class="accordion-item">
+      </div>
+      <!-- FAQ 10 -->
+      <div class="accordion-item">
         <h2 class="accordion-header" id="faqHeading10">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse10" aria-expanded="false" aria-controls="faqCollapse10">
-                Is there a limit to the number of users per plan?
-            </button>
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#faqCollapse10" aria-expanded="false" aria-controls="faqCollapse10">
+            Is there a limit to the number of users per plan?
+          </button>
         </h2>
-        <div id="faqCollapse10" class="accordion-collapse collapse" aria-labelledby="faqHeading10" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-                Each plan has specific user limits. Please review the plan details in the pricing section for more information.
-            </div>
+        <div id="faqCollapse10" class="accordion-collapse collapse" aria-labelledby="faqHeading10"
+          data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Each plan has specific user limits. Please review the plan details in the pricing section for more
+            information.
+          </div>
         </div>
-    </div>
+      </div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
