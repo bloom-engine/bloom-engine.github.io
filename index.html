@@ -73,6 +73,35 @@
       margin: 0.5rem;
     }
   </style>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
+  import { getAnalytics,logEvent } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDTnXu9_v79boE-eggxFkZqhb5jEPMhZYY",
+    authDomain: "xlcalculator.firebaseapp.com",
+    databaseURL: "https://xlcalculator-default-rtdb.firebaseio.com",
+    projectId: "xlcalculator",
+    storageBucket: "xlcalculator.firebasestorage.app",
+    messagingSenderId: "765670692728",
+    appId: "1:765670692728:web:76dc9ac3ec3bcc975f9a8d",
+    measurementId: "G-Y3SB7ZY2BD"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+  logEvent(analytics, "homepage_view");
+</script>
+
+
 </head>
 
 <body>
