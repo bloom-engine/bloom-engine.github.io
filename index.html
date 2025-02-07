@@ -183,9 +183,8 @@
     <div class="container">
       <!-- <div class="d-fl" style="gap:2rem"> -->
       <div class="content">
-        <div class="title">Revolutionize Your Business Calculations with Ease</div>
-        <div>Empower your team with our smart SaaS solution that simplifies complex business calculations. Share,
-          collaborate, and analyze effortlessly—all through Excel.</div>
+        <div class="title">Turn Your Excel Spreadsheet into a Powerful Web Calculator</div>
+        <div>Say goodbye to complex formulas hidden in cells and bring your calculations to life with an intuitive, user-friendly web experience. Whether you're a business owner or a developer, we've got the tools to make your calculations seamless and accessible.</div>
         <a href="/login"><button class="btn mt-4">Get Started <svg width="20px" height="25px" viewBox="0 0 24 24"
               fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
 
@@ -308,6 +307,7 @@
       </div>
     </div>
   </section>
+  
 
   <section id="ceo-msg" class="section">
 
@@ -546,9 +546,8 @@
           </div>
           <div class="header">Request</div>
           <pre>
-curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calculate' \
-  --header 'x-client-key: your-key' \
-  --header 'x-client-secret: your-secret' \
+curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
+  --header 'Authorization: Bearer your-token' \
   --header 'Content-Type: application/json' \
   --data '{
       "inputs": {

@@ -46,6 +46,12 @@ app.get('/sign-up', (req, res) => {
 app.get('/password-reset', (req, res) => {
     res.sendFile(path.join(__dirname, 'password-reset.html'));
 });
+app.get('/app', (req, res) => {
+    res.sendFile(path.join(__dirname, 'app.html'));
+});
+app.get('/test', (req, res) => {
+    res.sendFile(path.join(__dirname, 'test.html'));
+});
 
 // Start the server
 app.listen(PORT, () => {

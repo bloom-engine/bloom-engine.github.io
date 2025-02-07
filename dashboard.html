@@ -227,6 +227,33 @@
         #fileInput {
             display: none;
         }
+
+        .sub-title {
+            font-size: 1.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        #domains{
+            display: flex;
+            gap: 0.5rem;
+            flex-direction: row;
+        }
+
+        .domain{
+            padding: 0.5rem;
+            border: gray 1px solid;
+            border-radius: 3rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap:0.5rem
+        }
+
+        .domain svg{
+            cursor: pointer;
+        }
     </style>
 
     <script>
@@ -245,6 +272,19 @@
                     console.error("Failed to copy text: ", err);
                 });
         }
+
+        function copyToClipDoardCode(ele) {
+      console.log(ele.parentNode.querySelector('pre').innerText)
+      navigator.clipboard.writeText(ele.parentNode.querySelector('pre').innerText) // Copy the full key
+        .then(() => {
+          const toastElement = document.getElementById("copy-toast");
+          const toast = new bootstrap.Toast(toastElement);
+          toast.show();
+        })
+        .catch(err => {
+          console.error("Failed to copy text: ", err);
+        });
+    }
 
         function showClientLimitExeeded() {
             const toastElement = document.getElementById("error-toast");
@@ -272,6 +312,25 @@
             deleteModal.show();
         }
 
+        async function removeDomain(domain){
+            $('#pageLoader').css({ display: 'flex' });
+            $('#pageLoader').fadeIn();
+
+            const response = await fetch(`${baseUrl}/remove-domain`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${idToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    domain: domain
+                }),
+            });
+
+            $('#pageLoader').fadeOut();
+
+            location.reload()
+        }
     </script>
 </head>
 
@@ -554,157 +613,258 @@
         </div>
     </div>
 
+
+    <section>
+        <div class="container">
+            <div class="sub-title">Autherized Domains</div>
+
+            <div class="list-group" id="domains">
+            </div>
+
+            <form action="" class="d-flex gap-3">
+                <input type="text" class="form-control" id="domain" style="max-width: 400px;" placeholder="Enter domain here | eg: https://bloom-engine.cloud">
+
+                <button class="btn" id="add-domain" disabled>Add New Domain</button>
+            </form>
+
+            <div class="text-danger" style="display: none;" id="invalid-domain">Please enter valid domain</div>
+
+        </div>
+
+    </section>
+
     <div class="container mt-5">
-        <h2 class="">API Documentation</h2>
+        <div class="sub-title">API Documentation</div>
         <p class="">Below are the cURL requests to interact with the APIs, along with sample responses:</p>
 
-        <div class="row">
-            <div class="col-md-8">
-                <div class="code-container">
+        <!-- <div class="row">
+            <div class="col-md-12"> -->
+                <div class="code-container cURL" style="max-width: 100%;">
                     <div class="code">
-                        <div class="header">Request</div>
-                        <pre>
-curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calculate' \
---header 'x-client-key: your-key' \
---header 'x-client-secret: your-secret' \
+                      <div class="copy-icon" onclick="copyToClipDoardCode(this)"><svg width="20px" height="20px" viewBox="0 0 24 24"
+                          fill="none" xmlns="http://www.w3.org/2000/svg">
+            
+                          <g id="SVGRepo_bgCarrier" stroke-width="0" />
+            
+                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+            
+                          <g id="SVGRepo_iconCarrier">
+                            <path
+                              d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z"
+                              stroke="#bbbdc3" stroke-width="1.5" />
+                            <path
+                              d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5"
+                              stroke="#bbbdc3" stroke-width="1.5" />
+                          </g>
+            
+                        </svg> Copy
+                      </div>
+                      <div class="header">Request</div>
+                      <pre>
+curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/initialize?apiKey=your-api-key'
+ </pre>
+
+ <div class="header">Response</div>
+                      <pre>
+{
+    "statusCode": 0,
+    "message": "Success",
+    "expiresIn": 3600,
+    "requestsRemaining": 18,
+    "token": "token"
+}
+ </pre>
+            
+                    </div>
+                  </div>
+
+
+                  <div class="code-container cURL" style="max-width: 100%;">
+                    <div class="code">
+                      <div class="copy-icon" onclick="copyToClipDoardCode(this)"><svg width="20px" height="20px" viewBox="0 0 24 24"
+                          fill="none" xmlns="http://www.w3.org/2000/svg">
+            
+                          <g id="SVGRepo_bgCarrier" stroke-width="0" />
+            
+                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+            
+                          <g id="SVGRepo_iconCarrier">
+                            <path
+                              d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z"
+                              stroke="#bbbdc3" stroke-width="1.5" />
+                            <path
+                              d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5"
+                              stroke="#bbbdc3" stroke-width="1.5" />
+                          </g>
+            
+                        </svg> Copy
+                      </div>
+                      <div class="header">Request</div>
+                      <pre>
+curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
+--header 'Authorization: Bearer your-token' \
 --header 'Content-Type: application/json' \
 --data '{
     "inputs": {
-    "Inputs AC-DC!B2": 12, 
-    "Inputs AC-DC!B3": 250000,
-    "Inputs AC-DC!B12": "Manitoba",
-                      "Inputs AC-DC!B4": 0.3
-                  },
-                  "outputs": [
-                      "Output Information!B5",
-                      "Output Information!B6",
-                      "Output Information!B7",
-                      "Output Information!B8",
-                      "Output Information!B9",
-                      "Inputs AC-DC!B29:D30"
-                  ]
-                }'</pre>
+        "Sheet1!B2": 12, 
+        "Sheet1!B3": 250000,
+        "Sheet1!B12": "Manitoba",
+        "Sheet1!B4": 0.3
+    },
+    "outputs": [
+        "Sheet2!B5",
+        "Sheet2!B6",
+        "Sheet2!B7",
+        "Sheet3!B8",
+        "Sheet3!B9",
+        "Sheet1!B29:D30"
+    ]
+  }'
+ </pre>
 
+ <div class="header">Response</div>
+                      <pre>
+{
+  "statusCode":0,
+  "message":"Success",
+  "data":
+  {
+    "Sheet2!B5":"$ 1,072,000.00",
+    "Sheet2!B6":"$ 3,397,367.14",
+    "Sheet2!B7":"3.44%",
+    "Sheet3!B8":"$ 8",
+    "Sheet3!B9":"$ 7.95",
+    "Sheet1!B29:D30":["$ 412,622.51","$ 438,055.72"]
+  }
+}
+ </pre>
+            
                     </div>
-                </div>
+                  </div>
+            <!-- </div>
+            <div class="col-md-4">
+                
             </div>
-            <div class="col-md-4"></div>
-        </div>
+        </div> -->
 
 
     </div>
 
     <!-- Footer Start -->
-  <footer>
-    <div class="container">
-      <div class="columns">
-        <div id="column-1" class="column">
-          <img src="" alt="">
-          <div class="mt-3"><a href="/"><img src="./images/logo-white.webp" alt="" width="90"></a> <br>Bloom
-            Engine<br>Spreadsheets into Action</div>
+    <footer>
+        <div class="container">
+            <div class="columns">
+                <div id="column-1" class="column">
+                    <img src="" alt="">
+                    <div class="mt-3"><a href="/"><img src="./images/logo-white.webp" alt="" width="90"></a> <br>Bloom
+                        Engine<br>Spreadsheets into Action</div>
+                </div>
+                <div id="column-2" class="column">
+                    <a href="/">Home</a>
+                    <a href="/login">Sign Up</a>
+                    <a href="#integration">Integration</a>
+                    <a href="/pricing">Pricing</a>
+                    <a href="/contact">Contact</a>
+                </div>
+                <div id="column-3" class="column">
+                    <a href="/terms-and-conditions">Terms & Conditions</a>
+                    <a href="/privacy-policy">Privacy Policy</a>
+                    <a href="/refund-policy">Refund Policy</a>
+                    <a href="/cookie-policy">Cookie Policy</a>
+
+                    <div class="d-flex mt-4" style="gap:1rem">
+                        <a href=""><svg fill="#ffffff" width="25px" height="25px" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <path
+                                        d="M12 2.03998C6.5 2.03998 2 6.52998 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.84998C10.44 7.33998 11.93 5.95998 14.22 5.95998C15.31 5.95998 16.45 6.14998 16.45 6.14998V8.61998H15.19C13.95 8.61998 13.56 9.38998 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C15.9164 21.5878 18.0622 20.3855 19.6099 18.57C21.1576 16.7546 22.0054 14.4456 22 12.06C22 6.52998 17.5 2.03998 12 2.03998Z" />
+                                </g>
+
+                            </svg></a>
+
+                        <a href=""><svg width="25px" height="25px" viewBox="0 -3 20 20" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                fill="#000000">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <title>youtube [#ffffff]</title>
+                                    <desc>Created with Sketch.</desc>
+                                    <defs> </defs>
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="Dribbble-Light-Preview" transform="translate(-300.000000, -7442.000000)"
+                                            fill="#ffffff">
+                                            <g id="icons" transform="translate(56.000000, 160.000000)">
+                                                <path
+                                                    d="M251.988432,7291.58588 L251.988432,7285.97425 C253.980638,7286.91168 255.523602,7287.8172 257.348463,7288.79353 C255.843351,7289.62824 253.980638,7290.56468 251.988432,7291.58588 M263.090998,7283.18289 C262.747343,7282.73013 262.161634,7282.37809 261.538073,7282.26141 C259.705243,7281.91336 248.270974,7281.91237 246.439141,7282.26141 C245.939097,7282.35515 245.493839,7282.58153 245.111335,7282.93357 C243.49964,7284.42947 244.004664,7292.45151 244.393145,7293.75096 C244.556505,7294.31342 244.767679,7294.71931 245.033639,7294.98558 C245.376298,7295.33761 245.845463,7295.57995 246.384355,7295.68865 C247.893451,7296.0008 255.668037,7296.17532 261.506198,7295.73552 C262.044094,7295.64178 262.520231,7295.39147 262.895762,7295.02447 C264.385932,7293.53455 264.28433,7285.06174 263.090998,7283.18289"
+                                                    id="youtube-[#ffffff]"> </path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+
+                            </svg></a>
+
+                        <a href=""><svg width="25px" height="25px" viewBox="0 0 20 20" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                fill="#000000">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <title>github [#ffffff]</title>
+                                    <desc>Created with Sketch.</desc>
+                                    <defs> </defs>
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)"
+                                            fill="#ffffff">
+                                            <g id="icons" transform="translate(56.000000, 160.000000)">
+                                                <path
+                                                    d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399"
+                                                    id="github-[#ffffff]"> </path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+
+                            </svg></a>
+
+                        <a href="">
+                            <svg fill="#ffffff" width="25px" height="25px" viewBox="0 0 32 32" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
+
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                <g id="SVGRepo_iconCarrier">
+                                    <title>linkedin</title>
+                                    <path
+                                        d="M28.778 1.004h-25.56c-0.008-0-0.017-0-0.027-0-1.199 0-2.172 0.964-2.186 2.159v25.672c0.014 1.196 0.987 2.161 2.186 2.161 0.010 0 0.019-0 0.029-0h25.555c0.008 0 0.018 0 0.028 0 1.2 0 2.175-0.963 2.194-2.159l0-0.002v-25.67c-0.019-1.197-0.994-2.161-2.195-2.161-0.010 0-0.019 0-0.029 0h0.001zM9.9 26.562h-4.454v-14.311h4.454zM7.674 10.293c-1.425 0-2.579-1.155-2.579-2.579s1.155-2.579 2.579-2.579c1.424 0 2.579 1.154 2.579 2.578v0c0 0.001 0 0.002 0 0.004 0 1.423-1.154 2.577-2.577 2.577-0.001 0-0.002 0-0.003 0h0zM26.556 26.562h-4.441v-6.959c0-1.66-0.034-3.795-2.314-3.795-2.316 0-2.669 1.806-2.669 3.673v7.082h-4.441v-14.311h4.266v1.951h0.058c0.828-1.395 2.326-2.315 4.039-2.315 0.061 0 0.121 0.001 0.181 0.003l-0.009-0c4.5 0 5.332 2.962 5.332 6.817v7.855z" />
+                                </g>
+
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="permission">
+                <p>© 2025 Bloom Engine. All rights reserved.</p>
+            </div>
         </div>
-        <div id="column-2" class="column">
-          <a href="/">Home</a>
-          <a href="/login">Sign Up</a>
-          <a href="#integration">Integration</a>
-          <a href="/pricing">Pricing</a>
-          <a href="/contact">Contact</a>
-        </div>
-        <div id="column-3" class="column">
-          <a href="/terms-and-conditions">Terms & Conditions</a>
-          <a href="/privacy-policy">Privacy Policy</a>
-          <a href="/refund-policy">Refund Policy</a>
-          <a href="/cookie-policy">Cookie Policy</a>
-
-          <div class="d-flex mt-4" style="gap:1rem">
-            <a href=""><svg fill="#ffffff" width="25px" height="25px" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-
-                <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-
-                <g id="SVGRepo_iconCarrier">
-                  <path
-                    d="M12 2.03998C6.5 2.03998 2 6.52998 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.84998C10.44 7.33998 11.93 5.95998 14.22 5.95998C15.31 5.95998 16.45 6.14998 16.45 6.14998V8.61998H15.19C13.95 8.61998 13.56 9.38998 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C15.9164 21.5878 18.0622 20.3855 19.6099 18.57C21.1576 16.7546 22.0054 14.4456 22 12.06C22 6.52998 17.5 2.03998 12 2.03998Z" />
-                </g>
-
-              </svg></a>
-
-            <a href=""><svg width="25px" height="25px" viewBox="0 -3 20 20" version="1.1"
-                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
-
-                <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-
-                <g id="SVGRepo_iconCarrier">
-                  <title>youtube [#ffffff]</title>
-                  <desc>Created with Sketch.</desc>
-                  <defs> </defs>
-                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Dribbble-Light-Preview" transform="translate(-300.000000, -7442.000000)" fill="#ffffff">
-                      <g id="icons" transform="translate(56.000000, 160.000000)">
-                        <path
-                          d="M251.988432,7291.58588 L251.988432,7285.97425 C253.980638,7286.91168 255.523602,7287.8172 257.348463,7288.79353 C255.843351,7289.62824 253.980638,7290.56468 251.988432,7291.58588 M263.090998,7283.18289 C262.747343,7282.73013 262.161634,7282.37809 261.538073,7282.26141 C259.705243,7281.91336 248.270974,7281.91237 246.439141,7282.26141 C245.939097,7282.35515 245.493839,7282.58153 245.111335,7282.93357 C243.49964,7284.42947 244.004664,7292.45151 244.393145,7293.75096 C244.556505,7294.31342 244.767679,7294.71931 245.033639,7294.98558 C245.376298,7295.33761 245.845463,7295.57995 246.384355,7295.68865 C247.893451,7296.0008 255.668037,7296.17532 261.506198,7295.73552 C262.044094,7295.64178 262.520231,7295.39147 262.895762,7295.02447 C264.385932,7293.53455 264.28433,7285.06174 263.090998,7283.18289"
-                          id="youtube-[#ffffff]"> </path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-
-              </svg></a>
-
-            <a href=""><svg width="25px" height="25px" viewBox="0 0 20 20" version="1.1"
-                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
-
-                <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-
-                <g id="SVGRepo_iconCarrier">
-                  <title>github [#ffffff]</title>
-                  <desc>Created with Sketch.</desc>
-                  <defs> </defs>
-                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" fill="#ffffff">
-                      <g id="icons" transform="translate(56.000000, 160.000000)">
-                        <path
-                          d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399"
-                          id="github-[#ffffff]"> </path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-
-              </svg></a>
-
-            <a href="">
-              <svg fill="#ffffff" width="25px" height="25px" viewBox="0 0 32 32" version="1.1"
-                xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
-
-                <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-
-                <g id="SVGRepo_iconCarrier">
-                  <title>linkedin</title>
-                  <path
-                    d="M28.778 1.004h-25.56c-0.008-0-0.017-0-0.027-0-1.199 0-2.172 0.964-2.186 2.159v25.672c0.014 1.196 0.987 2.161 2.186 2.161 0.010 0 0.019-0 0.029-0h25.555c0.008 0 0.018 0 0.028 0 1.2 0 2.175-0.963 2.194-2.159l0-0.002v-25.67c-0.019-1.197-0.994-2.161-2.195-2.161-0.010 0-0.019 0-0.029 0h0.001zM9.9 26.562h-4.454v-14.311h4.454zM7.674 10.293c-1.425 0-2.579-1.155-2.579-2.579s1.155-2.579 2.579-2.579c1.424 0 2.579 1.154 2.579 2.578v0c0 0.001 0 0.002 0 0.004 0 1.423-1.154 2.577-2.577 2.577-0.001 0-0.002 0-0.003 0h0zM26.556 26.562h-4.441v-6.959c0-1.66-0.034-3.795-2.314-3.795-2.316 0-2.669 1.806-2.669 3.673v7.082h-4.441v-14.311h4.266v1.951h0.058c0.828-1.395 2.326-2.315 4.039-2.315 0.061 0 0.121 0.001 0.181 0.003l-0.009-0c4.5 0 5.332 2.962 5.332 6.817v7.855z" />
-                </g>
-
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="permission">
-        <p>© 2025 Bloom Engine. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-  <!-- Footer End -->
+    </footer>
+    <!-- Footer End -->
 
     <!-- Optional: Include Font Awesome for social media icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -716,7 +876,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
 
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js'
         import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js'
-        let subscription = {}
+        let user = {}
 
         const firebaseConfig = {
             apiKey: "AIzaSyDTnXu9_v79boE-eggxFkZqhb5jEPMhZYY",
@@ -735,43 +895,30 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
 
 
 
-        async function fetchApiKeys() {
+        function populateApiKeys() {
             try {
-                const response = await fetch(`${baseUrl}/api-keys`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${idToken}`,
-                    },
-                });
-                const resp = await response.json()
 
-                noOfAPIKeys = resp.data.length
-                if (!resp.data || resp.data.length === 0) {
+                noOfAPIKeys = user.apiKeys.length
+                if (noOfAPIKeys === 0) {
                     document.getElementById('apiKeysList').innerHTML = '<li class="list-group-item">No API keys found.</li>';
-
                     return;
                 }
 
                 apiKeysList.innerHTML = '';
-                resp.data.forEach(apiKey => {
+                user.apiKeys.forEach(apiKey => {
                     console.log(apiKey)
                     const listItem = document.createElement('li');
                     listItem.classList.add('list-group-item');
                     listItem.innerHTML = `
                     <div class="row p-3" data-file='${apiKey.id}'' data-name='${apiKey.name}''>
-        <div class="col-3">
-            <strong>${apiKey.name.slice(0, 30)}...</strong><br>
+        <div class="col-5">
+            <strong>${apiKey.name.slice(0, 50)}...</strong><br>
             <small>Created at: ${new Date(apiKey.createdAt).toDateString()}</small>
         </div>
         
-        <div class="col-4"><span class="key-text">Client Key</span><br>${apiKey.key != undefined ? apiKey.key.slice(0,
-                        40) : ""}...<button class="btn btn-sm copy-icon" title="Copy to clipboard"
-                onclick="copyToClipDoard('${apiKey.key}')">
-                📋
-            </button></div>
-        <div class="col-4"><span class="key-text">Client Secret</span><br>${apiKey.secret != undefined ?
-                            apiKey.secret.slice(0, 40) : ""}...<button class="btn btn-sm copy-icon" title="Copy to clipboard"
-                onclick="copyToClipDoard('${apiKey.secret}')">
+        <div class="col-6"><span class="key-text">API Key</span><br>${apiKey.apiKey != undefined ? apiKey.apiKey.slice(0,
+                        50) : ""}...<button class="btn btn-sm copy-icon" title="Copy to clipboard"
+                onclick="copyToClipDoard('${apiKey.apiKey}')">
                 📋
             </button></div>
         <div class="col-1">
@@ -792,51 +939,58 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
             }
         }
 
-        async function createApiKey() {
+        const domainContainer = document.getElementById('domains')
+        function populateDomains() {
             try {
-                const response = await fetch(`${baseUrl}/create-api-key`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${idToken}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        name: document.getElementById('clientName').value,
-                        spreadSheetId: getSpreadsheetId(document.getElementById('spreadSheetId').value)
-                    }),
-                });
 
-                const data = await response.json()
-
-                if (data.statusCode == 0) {
-                    console.log("Client created successfully")
-                } else {
-                    console.log("API key creation failure")
+                const domains = user.authorizedDomains || []
+                if (domains.length === 0) {
+                    const listItem = document.createElement('div');
+                    listItem.innerHTML = `No domains found.`
+                    domainContainer.appendChild(listItem);
+                    return;
                 }
+                
+
+                $('#domains').html()
+                user.authorizedDomains.forEach(domain => {
+                    console.log(domain)
+                    const listItem = document.createElement('div');
+                    listItem.classList.add('domain');
+                    listItem.innerHTML = `${domain} <svg fill="#000000" onclick="removeDomain('${domain}')" width="25px" height="25px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+
+                        <g id="SVGRepo_iconCarrier"> <title>remove</title> <path d="M11.188 4.781c6.188 0 11.219 5.031 11.219 11.219s-5.031 11.188-11.219 11.188-11.188-5-11.188-11.188 5-11.219 11.188-11.219zM11.25 17.625l3.563 3.594c0.438 0.438 1.156 0.438 1.594 0 0.406-0.406 0.406-1.125 0-1.563l-3.563-3.594 3.563-3.594c0.406-0.438 0.406-1.156 0-1.563-0.438-0.438-1.156-0.438-1.594 0l-3.563 3.594-3.563-3.594c-0.438-0.438-1.156-0.438-1.594 0-0.406 0.406-0.406 1.125 0 1.563l3.563 3.594-3.563 3.594c-0.406 0.438-0.406 1.156 0 1.563 0.438 0.438 1.156 0.438 1.594 0z"/> </g>
+
+                        </svg>`;
+                    domainContainer.appendChild(listItem);
+                });
             } catch (error) {
-                console.error('Error creating API key:', error);
+                console.error('Error fetching API keys:', error);
+                document.getElementById('apiKeysList').innerHTML = '<li class="list-group-item">Failed to load API keys.</li>';
             }
         }
 
-        async function getSubscription() {
+        async function getLoggedUser() {
             try {
-                console.log("Getting subscriptions")
-                const response = await fetch(`${baseUrl}/subscription`, {
+                const response = await fetch(`${baseUrl}/user`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${idToken}`,
                     },
                 });
 
-                subscription = await response.json();
-                console.log("Getting subscriptions", subscription)
-                console.log(subscription)
+                const resp = await response.json()
+                user = resp.data
+                console.log(user)
 
-                $('#validTill').text(new Date(subscription.data.validTill).toDateString())
+                $('#userGreeting').html(`Hello😎, <span class="gradient-text">${user.fname}!</span>`)
+                $('#validTill').text(new Date(user.validTill).toDateString())
 
-                console.log(`No of Keys: ${noOfAPIKeys}`)
-                console.log(`No of Keys: ${subscription.data.clients}`)
-                if (subscription.data.clients === noOfAPIKeys) {
+                if (user.allowedClients <= user.apiKeys.length) {
                     $('#create-client-btn').hide()
                     $('#fake-create-client-btn').show()
                 }
@@ -846,61 +1000,14 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
             }
         }
 
-        //         document.getElementById("uploadButton").addEventListener("click", async () => {
-        //   const fileInput = document.getElementById("fileInput");
-        //   const file = fileInput.files[0];
-
-        //   if (!file) {
-        //     alert("Please select a file first.");
-        //     return;
-        //   }
-
-        //   // Create FormData to send the file
-        //   const formData = new FormData();
-        //   formData.append("file", file);
-
-        //   try {
-        //     const response = await fetch(`${baseUrl}/.netlify/functions/upload`, {
-        //       method: "POST",
-        //       body: formData,
-        //     });
-
-        //     if (response.ok) {
-        //       const result = await response.json();
-        //       console.log("Uploaded File:", result.fileName);
-        //       alert(`File uploaded successfully: ${result.fileName}`);
-        //     } else {
-        //       console.error("Error uploading file:", response.statusText);
-        //       alert("Failed to upload file. Please try again.");
-        //     }
-        //   } catch (error) {
-        //     console.error("Error:", error);
-        //     alert("An error occurred while uploading the file.");
-        //   }
-        // });
-
-        let sheetAccess = false
-
-        const enableBtn = () => {
-            if ($('#clientName').val() !== '' && $('#spreadsheetId').val() !== '' && sheetAccess) {
-                $('#createApiKey').prop('disabled', false);
-            } else {
-                $('#createApiKey').prop('disabled', true);
-            }
-        }
-
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                const userName = user.displayName || "User";
-                document.getElementById('userGreeting').innerHTML = `Hello😎, <span class="gradient-text">${userName}!</span>`
-
                 localStorage.setItem('logged-in', true)
-
                 user.getIdToken().then(async token => {
                     idToken = token
-                    console.log(token)
-                    await fetchApiKeys()
-                    getSubscription()
+                    await getLoggedUser()
+                    populateApiKeys()
+                    populateDomains()
 
                 });
             } else {
@@ -919,41 +1026,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
             location.reload();
         })
 
-        $('.text-green').hide()
-        $('.text-red').hide()
         $('.loading-container').fadeOut()
-
-        function getSpreadsheetId(url) {
-            const regex = /\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/;
-            const match = url.match(regex);
-            console.log(match)
-            return match ? match[1] : null;
-        }
-
-        $('#spreadSheetId').change(async () => {
-
-            $('.loading-container').fadeIn()
-            const response = await fetch(`${baseUrl}/checkAccess?spreadSheetId=${getSpreadsheetId(document.querySelector('#spreadSheetId').value)}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${idToken}`,
-                },
-            });
-            const resp = await response.json();
-            sheetAccess = resp.hasAccess
-            $('.loading-container').fadeOut()
-
-            if (resp.hasAccess) {
-                $('#green-msg').text("Sheet is ready")
-                $('.text-green').show()
-            } else {
-                $('#red-msg').text(resp.message)
-                $('.text-red').show()
-            }
-
-            enableBtn()
-        })
-
 
         $('#logoutButton').click(async () => {
             try {
@@ -989,8 +1062,41 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
             location.reload()
         })
 
-        $('#clientName').change(() => enableBtn())
-        $('#spreadsheetId').change(() => enableBtn())
+        function isValidDomain(domain) {
+            const domainRegex = /^(https?:\/\/)((localhost(:\d+)?)|(([a-zA-Z\d]([a-zA-Z\d-]*[a-zA-Z\d])*)\.)+[a-zA-Z]{2,})(:\d+)?$/;
+            return domainRegex.test(domain);
+        }
+
+        $('#domain').change(function () {
+            if ($(this).val() !== '' && isValidDomain($(this).val())){
+                $('#add-domain').prop('disabled', false)
+                $('#invalid-domain').hide()
+            }
+            else{
+                $('#add-domain').prop('disabled', true)
+                $('#invalid-domain').show()
+            }
+        })
+
+        $('#add-domain').click(async () => {
+            $('#pageLoader').css({ display: 'flex' });
+            $('#pageLoader').fadeIn();
+
+            const response = await fetch(`${baseUrl}/add-domain`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${idToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    domain: $('#domain').val()
+                }),
+            });
+
+            $('#pageLoader').fadeOut();
+
+            location.reload()
+        })
 
     </script>
 
@@ -1077,7 +1183,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                 $('#pageLoader').fadeIn();
 
                 $.ajax({
-                    url: fileToRefresh === '' ? `https://bloom-engine.netlify.app/.netlify/functions/upload` : `https://bloom-engine.netlify.app/.netlify/functions/upload?id=${fileToRefresh}`,
+                    url: fileToRefresh === '' ? `${baseUrl}/upload` : `${baseUrl}/upload?id=${fileToRefresh}`,
                     method: "POST",
                     data: formData,
                     processData: false,
@@ -1085,7 +1191,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/calcula
                     headers: {
                         Authorization: `Bearer ${idToken}`, // Send the token in the Authorization header
                     },
-                    success: function(response){
+                    success: function (response) {
                         console.log('Uploaded successfully', response)
                         $('#pageLoader').fadeOut();
                         location.reload()

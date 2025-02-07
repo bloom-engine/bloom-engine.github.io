@@ -368,7 +368,12 @@
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
     <script type="module">
 
+if (localStorage.getItem('logged-in') === 'true'){
+    window.location.href = "/dashboard";
+}
+
 $('.text-danger').hide()
+const baseUrl = 'https://bloom-engine.netlify.app/.netlify/functions/bo'
 
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js'
         import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js'
@@ -406,14 +411,14 @@ $('.text-danger').hide()
             }
         }
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                console.log('User is logged in:', user);
-                window.location.href = '/dashboard';
-            } else {
-                console.log('No user is logged in');
-            }
-        });
+        // onAuthStateChanged(auth, (user) => {
+        //     if (user) {
+        //         console.log('User is logged in:', user);
+        //         // window.location.href = '/dashboard';
+        //     } else {
+        //         console.log('No user is logged in');
+        //     }
+        // });
 
         $('#sign-up-btn').click(async () => {
 
@@ -426,11 +431,10 @@ $('.text-danger').hide()
                     // Signed up 
                     const user = userCredential.user;
                     const idToken = await user.getIdToken()
-                    await createNewUser(idToken,$('#fname').val(),$('#lname').val())
+                    const resp = await createNewUser(idToken, $('#fname').val(), $('#lname').val())
                     localStorage.setItem('logged-in', true)
-                    $('#pageLoader').fadeOut();
-                    window.location.href = '/dashboard';
-                    // ...
+                    $('#pageLoader').fadeOut()
+                    window.location.href = '/dashboard'
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -452,7 +456,7 @@ $('.text-danger').hide()
                 const result = await signInWithPopup(auth, provider);
                 const idToken = await result.user.getIdToken()
 
-                const [firstName, lastName] = result.user.displayName.split(" ");
+                const [fname, lname] = result.user.displayName.split(" ");
                 await createNewUser(idToken, fname, lname)
                 localStorage.setItem('logged-in', true)
                 $('#pageLoader').fadeOut();
@@ -461,7 +465,7 @@ $('.text-danger').hide()
                 console.error('Error during Google Sign-In:', error);
                 alert('Sign-In failed. Please try again.');
             }
-        });
+        })
 
 
     </script>
