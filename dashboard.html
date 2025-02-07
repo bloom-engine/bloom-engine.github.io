@@ -621,11 +621,11 @@
             <div class="list-group mb-3" id="domains">
             </div>
 
-            <form action="" class="d-flex gap-3">
+            <div action="" class="d-flex gap-3">
                 <input type="text" class="form-control" id="domain" style="max-width: 400px;" placeholder="Enter domain here">
 
                 <button class="btn" id="add-domain" disabled>Add New Domain</button>
-            </form>
+            </div>
 
             <div>eg: https://bloom-engine.cloud, http://localhost:8080</div>
 
@@ -1019,14 +1019,14 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
             }
         });
 
-        $('#createApiKey').click(async () => {
-            $('#createApiKeyModal').hide()
-            $('#pageLoader').css({ display: 'flex' });
-            $('#pageLoader').fadeIn();
-            await createApiKey();
-            $('#pageLoader').fadeOut();
-            location.reload();
-        })
+        // $('#createApiKey').click(async () => {
+        //     $('#createApiKeyModal').hide()
+        //     $('#pageLoader').css({ display: 'flex' });
+        //     $('#pageLoader').fadeIn();
+        //     await createApiKey();
+        //     $('#pageLoader').fadeOut();
+        //     location.reload();
+        // })
 
         $('.loading-container').fadeOut()
 
@@ -1083,8 +1083,9 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
         $('#add-domain').click(async () => {
             $('#pageLoader').css({ display: 'flex' });
             $('#pageLoader').fadeIn();
+            console.log('click add domain button')
 
-            const response = await fetch(`${baseUrl}/add-domain`, {
+            await fetch(`${baseUrl}/add-domain`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${idToken}`,
@@ -1093,11 +1094,12 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
                 body: JSON.stringify({
                     domain: $('#domain').val()
                 }),
-            });
+            })
+                // console.log('Add domain resp: ',res)
+                $('#pageLoader').fadeOut()
+                location.reload()
 
-            $('#pageLoader').fadeOut();
-
-            location.reload()
+            
         })
 
     </script>
