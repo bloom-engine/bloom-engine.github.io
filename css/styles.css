@@ -65,6 +65,13 @@ nav .menu-bar {
   padding-bottom: 1rem;
 }
 
+h1 {
+  font-size: 3rem;
+  line-height: 3.5rem;
+  font-weight: bold;
+  padding-bottom: 1rem;
+}
+
 .hero .content {
   display: flex;
   flex-direction: column;
