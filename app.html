@@ -153,67 +153,46 @@
 
     <script>
 
-const data= [
-    {
-        value: 'Sheet1!A2',
-        label: 'Investment',
-        type: 'number',
-        min: 0,
-        max: 100000,
-        default: 1000,
-        id: 'investment',
-        class: 'form-control'
-    },
-    {
-        value: 'Sheet1!A2',
-        label: 'Years',
-        type: 'text',
-        min: 0,
-        max: 100000,
-        default: 1000,
-        id: 'investment',
-        class: 'form-control'
-    },
-    {
-        value: 'Sheet1!A2',
-        label: 'Years',
-        type: 'range',
-        min: 0,
-        max: 100000,
-        default: 1000,
-        id: 'investment',
-        class: ''
-    },
-    {
-        value: 'Calculate',
-        // label: 'Years',
-        type: 'submit',
-        min: 0,
-        max: 100000,
-        default: 'Calculate',
-        id: 'investment',
-        class: 'btn'
-    }
-]
+const fetchInitialize = async () => {
+  try {
+    const response = await fetch('http://localhost:8888/.netlify/functions/api/initialize?apiKey=603b5da563ebe42b01e1b8ba995bfcff0ca5cc8f1ac7d9b935e5d95b3f3fc91fedac5296c6c895d5f0c28a30a95b0924&withUI=true', {
+      method: 'GET', // This is the default method for fetch
+    });
 
-const calForm = $('<form>').appendTo('#calculator');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json()
+
+    const calForm = $('<form>').appendTo('#calculator');
 
 // Iterate over the data array and append input fields to the form
-data.forEach(ele => {
+data.data.inputs.forEach(ele => {
     calForm.append(`
         <div class="form-group">
-            <label for="${ele.id}">${ele.label?ele.label:''}</label>
+            <label for="${ele.attributes.id}">${ele.attributes.label?ele.attributes.label:''}</label>
             <input 
                 type="${ele.type}" 
-                class="${ele.class}" 
-                min="${ele.min}" 
-                max="${ele.max}" 
-                value="${ele.default}" 
-                id="${ele.id}"
+                class="${ele.attributes.class}" 
+                min="${ele.attributes.min}" 
+                max="${ele.attributes.max}" 
+                value="${ele.attributes.default}" 
+                id="${ele.attributes.id}"
+                data-mapping="${ele.mapping}"
             />
         </div>
     `);
 });
+    // return data
+  } catch (error) {
+    console.error('Error fetching API:', error);
+  }
+};
+
+fetchInitialize()
+
+
     
 
     </script>
