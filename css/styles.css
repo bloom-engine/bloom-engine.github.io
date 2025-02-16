@@ -260,7 +260,7 @@ a:hover{
 
 .packages{
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   column-gap: 1rem;
   row-gap: 1rem;
 }
@@ -271,8 +271,8 @@ a:hover{
   border-radius: 2rem;
 }
 
-.package:nth-child(2){
-  border: solid rgb(55, 102, 196) 1px;
+.package:nth-child(2), .package:nth-child(3){
+  border: solid rgb(2, 52, 151) 1px;
 }
 
 .package .title{

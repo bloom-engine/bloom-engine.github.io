@@ -234,13 +234,13 @@
             margin-bottom: 1rem;
         }
 
-        #domains{
+        #domains {
             display: flex;
             gap: 0.5rem;
             flex-direction: row;
         }
 
-        .domain{
+        .domain {
             padding: 0.5rem;
             border: gray 1px solid;
             border-radius: 3rem;
@@ -248,10 +248,10 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap:0.5rem
+            gap: 0.5rem
         }
 
-        .domain svg{
+        .domain svg {
             cursor: pointer;
         }
     </style>
@@ -274,17 +274,17 @@
         }
 
         function copyToClipDoardCode(ele) {
-      console.log(ele.parentNode.querySelector('pre').innerText)
-      navigator.clipboard.writeText(ele.parentNode.querySelector('pre').innerText) // Copy the full key
-        .then(() => {
-          const toastElement = document.getElementById("copy-toast");
-          const toast = new bootstrap.Toast(toastElement);
-          toast.show();
-        })
-        .catch(err => {
-          console.error("Failed to copy text: ", err);
-        });
-    }
+            console.log(ele.parentNode.querySelector('pre').innerText)
+            navigator.clipboard.writeText(ele.parentNode.querySelector('pre').innerText) // Copy the full key
+                .then(() => {
+                    const toastElement = document.getElementById("copy-toast");
+                    const toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                })
+                .catch(err => {
+                    console.error("Failed to copy text: ", err);
+                });
+        }
 
         function showClientLimitExeeded() {
             const toastElement = document.getElementById("error-toast");
@@ -312,7 +312,7 @@
             deleteModal.show();
         }
 
-        async function removeDomain(domain){
+        async function removeDomain(domain) {
             $('#pageLoader').css({ display: 'flex' });
             $('#pageLoader').fadeIn();
 
@@ -431,9 +431,9 @@
 
     <!-- Nav End -->
 
-    <div class="border-bottom py-2 plan-container">
+    <div class="border-bottom py-2 plan-container" id="free-trial-banner" style="display: none;">
         <div class="container">
-            <div class="d-flex" style="gap: 20px;justify-content: center;align-items: center;">
+            <div style="display:flex;gap: 20px;justify-content: center;align-items: center;">
                 <div>Your Current Plan <span>Free Trail</span> will end on <span class="fw-bold"
                         id="validTill">Loading</span>.</div>
                 <!-- <button class="btn btn-white">Renew</button> -->
@@ -622,7 +622,8 @@
             </div>
 
             <div action="" class="d-flex gap-3">
-                <input type="text" class="form-control" id="domain" style="max-width: 400px;" placeholder="Enter domain here">
+                <input type="text" class="form-control" id="domain" style="max-width: 400px;"
+                    placeholder="Enter domain here">
 
                 <button class="btn" id="add-domain" disabled>Add New Domain</button>
             </div>
@@ -639,70 +640,28 @@
         <div class="sub-title">API Documentation</div>
         <p class="">Below are the cURL requests to interact with the APIs, along with sample responses:</p>
 
-        <!-- <div class="row">
-            <div class="col-md-12"> -->
-                <div class="code-container cURL" style="max-width: 100%;">
-                    <div class="code">
-                      <div class="copy-icon" onclick="copyToClipDoardCode(this)"><svg width="20px" height="20px" viewBox="0 0 24 24"
-                          fill="none" xmlns="http://www.w3.org/2000/svg">
-            
-                          <g id="SVGRepo_bgCarrier" stroke-width="0" />
-            
-                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-            
-                          <g id="SVGRepo_iconCarrier">
-                            <path
-                              d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z"
-                              stroke="#bbbdc3" stroke-width="1.5" />
-                            <path
-                              d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5"
-                              stroke="#bbbdc3" stroke-width="1.5" />
-                          </g>
-            
-                        </svg> Copy
-                      </div>
-                      <div class="header">Request</div>
-                      <pre>
-curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/initialize?apiKey=your-api-key'
- </pre>
+        <div class="code-container cURL" style="max-width: 100%;">
+            <div class="code">
+                <div class="copy-icon" onclick="copyToClipDoardCode(this)"><svg width="20px" height="20px"
+                        viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
- <div class="header">Response</div>
-                      <pre>
-{
-    "statusCode": 0,
-    "message": "Success",
-    "expiresIn": 3600,
-    "requestsRemaining": 18,
-    "token": "token"
-}
- </pre>
-            
-                    </div>
-                  </div>
+                        <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
 
-                  <div class="code-container cURL" style="max-width: 100%;">
-                    <div class="code">
-                      <div class="copy-icon" onclick="copyToClipDoardCode(this)"><svg width="20px" height="20px" viewBox="0 0 24 24"
-                          fill="none" xmlns="http://www.w3.org/2000/svg">
-            
-                          <g id="SVGRepo_bgCarrier" stroke-width="0" />
-            
-                          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-            
-                          <g id="SVGRepo_iconCarrier">
+                        <g id="SVGRepo_iconCarrier">
                             <path
-                              d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z"
-                              stroke="#bbbdc3" stroke-width="1.5" />
+                                d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z"
+                                stroke="#bbbdc3" stroke-width="1.5" />
                             <path
-                              d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5"
-                              stroke="#bbbdc3" stroke-width="1.5" />
-                          </g>
-            
-                        </svg> Copy
-                      </div>
-                      <div class="header">Request</div>
-                      <pre>
+                                d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5"
+                                stroke="#bbbdc3" stroke-width="1.5" />
+                        </g>
+
+                    </svg> Copy
+                </div>
+                <div class="header">Request</div>
+                <pre>
 curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
 --header 'Authorization: Bearer your-token' \
 --header 'Content-Type: application/json' \
@@ -724,8 +683,8 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
   }'
  </pre>
 
- <div class="header">Response</div>
-                      <pre>
+                <div class="header">Response</div>
+                <pre>
 {
   "statusCode":0,
   "message":"Success",
@@ -740,10 +699,10 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
   }
 }
  </pre>
-            
-                    </div>
-                  </div>
-            <!-- </div>
+
+            </div>
+        </div>
+        <!-- </div>
             <div class="col-md-4">
                 
             </div>
@@ -952,7 +911,7 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
                     domainContainer.appendChild(listItem);
                     return;
                 }
-                
+
 
                 $('#domains').html()
                 user.authorizedDomains.forEach(domain => {
@@ -987,6 +946,10 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
 
                 const resp = await response.json()
                 user = resp.data
+
+                if(user.subscription === 'free'){
+                    $('#free-trial-banner').show()
+                }
                 console.log(user)
 
                 $('#userGreeting').html(`Hello😎, <span class="gradient-text">${user.fname}!</span>`)
@@ -1070,11 +1033,11 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
         }
 
         $('#domain').change(function () {
-            if ($(this).val() !== '' && isValidDomain($(this).val())){
+            if ($(this).val() !== '' && isValidDomain($(this).val())) {
                 $('#add-domain').prop('disabled', false)
                 $('#invalid-domain').hide()
             }
-            else{
+            else {
                 $('#add-domain').prop('disabled', true)
                 $('#invalid-domain').show()
             }
@@ -1095,11 +1058,11 @@ curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
                     domain: $('#domain').val()
                 }),
             })
-                // console.log('Add domain resp: ',res)
-                $('#pageLoader').fadeOut()
-                location.reload()
+            // console.log('Add domain resp: ',res)
+            $('#pageLoader').fadeOut()
+            location.reload()
 
-            
+
         })
 
     </script>

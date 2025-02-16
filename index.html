@@ -641,7 +641,7 @@
           <div class="header">Request</div>
           <pre>
 curl --location 'https://bloom-engine.netlify.app/.netlify/functions/api/v3.0' \
-  --header 'Authorization: Bearer your-token' \
+  --header 'x-api-key: api-key' \
   --header 'Content-Type: application/json' \
   --data '{
       "inputs": {
