@@ -3,7 +3,7 @@ const url = new URL(script.src)
 const apiKey = url.searchParams.get("apiKey")
 
 // const baseUrl = 'https://bloom-engine.netlify.app/.netlify/functions/api'
-const baseUrl = 'http://localhost:8888/api'
+const baseUrl = 'https://bloom-engine.netlify.app/api'
 
 const getInputData = () => {
     const inputData = {};
