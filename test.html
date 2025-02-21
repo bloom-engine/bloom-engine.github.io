@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Call API Example</title>
+    <title>Document</title>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/bloom-engine/files/script.js?apiKey=603b5da563ebe42b01e1b8ba995bfcff0ca5cc8f1ac7d9b935e5d95b3f3fc91fedac5296c6c895d5f0c28a30a95b0924&test=1"></script> -->
+    <script src="./script1.js?apiKey=603b5da563ebe42b01e1b8ba995bfcff0ca5cc8f1ac7d9b935e5d95b3f3fc91fedac5296c6c895d5f0c28a30a95b0924"></script>
 </head>
+
 <body>
-    <h1>API Call Example</h1>
-    <button id="callApiBtn">Call Initialize API</button>
-    <pre id="responseOutput"></pre>
+    <!-- <div id="bloom-container">
+        <div class="loader"></div>
+    </div> -->
 
-    <script>
-        document.getElementById("callApiBtn").addEventListener("click", async () => {
-            const url = 'http://localhost:8888/.netlify/functions/api/initialize?apiKey=ff8ce634d0b6b03ba9ad087c6e4523d40ad8e630bd2240e2905b876cdcfde24a16194cce171ea52e75611e19b880da8b';
-
-            try {
-                const response = await fetch(url, {
-                    method: 'GET'
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                document.getElementById("responseOutput").textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById("responseOutput").textContent = `Error: ${error.message}`;
-            }
-        });
-    </script>
+    <div  id="bloom-container">
+        <form action="">
+            <div class="form-group">
+                <label for="">Number of EV Chargers</label>
+                <input type="number" name="" id="" data-label="Inputs AC-DC!B2" value="10">
+            </div>
+            <div class="form-group">
+                <label for="">Installed Cost Per EV Charger</label>
+                <input type="number" name="" id="" data-label="Inputs AC-DC!B3" value="200000">
+            </div>
+            <div class="form-group">
+                <label for="">Cost per kWh</label>
+                <input type="text" name="" id="" data-label="Inputs AC-DC!B4" value="0.4">
+            </div>
+            <div class="form-group">
+                <label for="">Sell Price per kWh</label>
+                <input type="text" name="" id="" data-label="Inputs AC-DC!B5" value="0.5">
+            </div>
+            <div class="form-group">
+                <label for="">Usage (Hours Per Day)</label>
+                <input type="text" name="" id="" data-label="Inputs AC-DC!B6" value="5">
+            </div>
+            <button type="submit">Calculate</button>
+            <p>Total Funding: <span data-label="Output Information!B5"></span></p>
+            <p>Total Revenue: <span data-label="Output Information!B6"></span></p>
+        </form>
+    </div>
 </body>
+
 </html>
