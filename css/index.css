@@ -1,0 +1,72 @@
+.c-step-container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.c-step{
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 2rem;
+    flex: 1;
+    padding: 0rem 2rem;
+}
+
+.mac-header{
+    display: flex;
+    gap:5px;
+}
+
+.mac-header .icon{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.mac-header .icon:nth-child(1){
+    background-color: red;
+}
+.mac-header .icon:nth-child(2){
+    background-color: yellow;
+}
+.mac-header .icon:nth-child(3){
+    background-color: green;
+}
+
+#step-line{
+    margin-top: 4rem;
+}
+#step-line .step-line{
+    border-bottom: 3px solid white;
+    margin-left: 16%;
+    margin-right: 16%;
+}
+#step-line .step-container{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top:-15px
+}
+#step-line .step{
+    width: 30px;
+    height: 30px;
+    background-color: rgb(17 24 39);
+    /* color: initial; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    border-radius: 50%;
+    border: solid white 2px;
+}
+
+@media (max-width: 768px) {
+    .c-step-container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .c-step{
+        margin-top: 2rem;
+    }
+}

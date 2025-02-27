@@ -52,6 +52,9 @@ app.get('/app', (req, res) => {
 app.get('/test', (req, res) => {
     res.sendFile(path.join(__dirname, 'test.html'));
 });
+app.get('/docs', (req, res) => {
+    res.sendFile(path.join(__dirname, 'docs.html'));
+});
 
 // Start the server
 app.listen(PORT, () => {

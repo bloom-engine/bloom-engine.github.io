@@ -5,73 +5,490 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Bloom Engine | Turn Your Excel Spreadsheet into a Powerful Web Calculator</title>
+  <title>Bloom Engine | An API for Microsoft Excel Spreadsheet Calculations</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
 
   <meta name="description"
-    content="Transform your Excel spreadsheets into dynamic web calculators. Use AI-powered APIs to automate calculations, scale efficiently, and enhance your business processes.">
+    content="We empower developers and designers to build applications and web-based solutions without the complexity of handling Excel calculations.">
   <meta name="keywords"
-    content="Excel calculator, spreadsheet to web calculator, automate Excel, AI-powered spreadsheet API, business automation, bloom, engine">
+    content="Excel to web calculator, bloom, engine, Excel API, Excel Spreadsheet API, Excel calculator, spreadsheet to web calculator">
   <link rel="canonical" href="https://bloom-engine.cloud">
 
   <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Bloom Engine",
-      "url": "https://bloom-engine.cloud",
-      "description": "Transform your Excel spreadsheets into dynamic web calculators. Use AI-powered APIs to automate calculations, scale efficiently, and enhance your business processes.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Bloom Engine",
-        "logo": "https://bloom-engine.cloud/images/logo-black.webp"
-      }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Bloom Engine",
-      "url": "https://bloom-engine.cloud",
-      "logo": "https://bloom-engine.cloud/images/logo-black.webp",
-      "sameAs": [
-        "https://twitter.com/BloomEngine",
-        "https://linkedin.com/company/BloomEngine",
-        "https://facebook.com/BloomEngine"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+94-76-41-73-688",
-        "contactType": "customer support",
-        "areaServed": "Global",
-        "availableLanguage": ["English"]
-      }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Bloom Engine",
-      "operatingSystem": "All",
-      "applicationCategory": "BusinessApplication",
-      "url": "https://bloom-engine.cloud",
-      "description": "Transform your Excel spreadsheets into dynamic web calculators. Use AI-powered APIs to automate calculations, scale efficiently, and enhance your business processes.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0.0",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://bloom-engine.cloud/pricing"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "112"
-      }
-    }
-    
-  </script>
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": "https://bloom-engine.cloud/#/schema/organization/1",
+                "name": "Bloom Engine",
+                "url": "https://bloom-engine.cloud/",
+                "sameAs": [
+                    "https://twitter.com/bloom-engine",
+                    "https://www.linkedin.com/company/bloom-engine/",
+                    "https://github.com/bloom-engine"
+                ],
+                "logo": {
+                    "@type": "ImageObject",
+                    "@id": "https://bloom-engine.cloud/#/schema/image/1",
+                    "url": "https://bloom-engine.cloud/apple-touch-icon.png",
+                    "width": 48,
+                    "height": 48,
+                    "caption": "Bloom Engine"
+                },
+                "image": {
+                    "@id": "https://bloom-engine.cloud/#/schema/image/1"
+                }
+            },
+            {
+                "@type": "SoftwareApplication",
+                "@id": "https://bloom-engine.cloud/#/schema/website/1",
+                "url": "https://bloom-engine.cloud/",
+                "name": "Bloom Engine",
+                "description": "We empower developers and designers to build applications and web-based solutions without the complexity of handling Excel calculations.",
+                "operatingSystem": "All",
+                "applicationCategory": "DeveloperApplication",
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "5",
+                    "ratingCount": "31"
+                },
+                "offers": {
+                    "@type": "AggregateOffer",
+                    "lowPrice": "0",
+                    "highPrice": "",
+                    "priceCurrency": "USD"
+                },
+                "review": [
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Mike Roberts"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Sam Shore"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Alex Rainey"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Matthias Neumayer"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Elias Stråvik"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Ilias Ism"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "John Rush"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Bjarn Bronsveld"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Luvian Cotak"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Chris Jayden"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Ben Machek"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Alexandr Bezhan"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Lawrence Alexander"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Gregory Borelli"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Zawwad Ul Sami"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Aleksandar Balalovski"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Justin Phillips"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Sebastian Graz"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Guillaume Barillot"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Lukas Hermann"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Sukh"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Danny Postma"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Rishi Mohan"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Jannis Fedoruk-Betschki"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Tim Wheeler"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Sankeerth Julapally"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Dan Kulkov"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Stefan Wirth"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"
+                        },
+                        "author": {
+                            "@type": "Person",
+                            "name": "Beto Vides"
+                        }
+                    },
+                    {
+                        "@type": "Review",
+                        "reviewRating": {
+                            "@type": "Rating",
+                            "ratingValue": "5"},
+                            "author": {
+                                "@type": "Person",
+                                "name": "Sergey Karakhanyan"
+                            }
+                        },
+                        {
+                            "@type": "Review",
+                            "reviewRating": {
+                                "@type": "Rating",
+                                "ratingValue": "5"
+                            },
+                            "author": {
+                                "@type": "Person",
+                                "name": "Bohdan Shulha"
+                            }
+                        }
+                    ],
+                    "publisher": {
+                        "@id": "https://bloom-engine.cloud/#/schema/organization/1"
+                    }
+                },
+                {
+                    "@context": "https://schema.org",
+                    "@graph": [
+                        {
+                            "@type": "Person",
+                            "@id": "https://bloom-engine.cloud/#/schema/person/2",
+                            "name": "Prishan Niwanjaya",
+                            "sameAs": [
+                                "https://twitter.com/prishan",
+                                "https://www.linkedin.com/in/prishanniwanjaya",
+                                "https://github.com/prishanniwanjaya"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "@context": "https://schema.org",
+                    "@graph": [
+                        {
+                            "@type": "ImageObject",
+                            "@id": "https://bloom-engine.cloud//#/schema/image/2",
+                            "url": "https://bloom-engine.cloud/excel-workbook.webp",
+                            "contentUrl": "https://bloom-engine.cloud/og.png",
+                            "caption": "Better and more extensible PDF rendering"
+                        }
+                    ]
+                },
+                {
+                    "@type": "WebPage",
+                    "@id": "https://bloom-engine.cloud/",
+                    "url": "https://bloom-engine.cloud/",
+                    "name": "A Comprehensive API for Calculations",
+                    "description": "With the support of Bloom CDN and the Bloom REST API, we empower to build web-based solutions without the complexity of handling Excel calculations.",
+                    "isPartOf": {
+                        "@id": "https://bloom-engine.cloud/#/schema/website/1"
+                    },
+                    "about": {
+                        "@id": "https://bloom-engine.cloud/#/schema/organization/1"
+                    },
+                    "breadcrumb": {
+                        "@id": "https://bloom-engine.cloud/#/schema/breadcrumb/1"
+                    },
+                    "primaryImageOfPage": {"@id": "https://bloom-engine.cloud/#/schema/image/2"
+                },
+                "inLanguage": "en-US",
+                "potentialAction": [
+                    {
+                        "@type": "ReadAction",
+                        "target": [
+                            "https://bloom-engine.cloud/"
+                        ]
+                    }
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": "https://bloom-engine.cloud/#/schema/breadcrumb/1",
+                "name": "Breadcrumbs",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "item": {
+                            "@type": "WebPage",
+                            "@id": "https://bloom-engine.cloud/",
+                            "url": "https://bloom-engine.cloud/",
+                            "name": "The Excel Spreadsheet API"
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "item": {
+                            "@type": "WebPage",
+                            "@id": "https://bloom-engine.cloud/",
+                            "url": "https://bloom-engine.cloud/",
+                            "name": "The Excel Spreadsheet API for developers"}}
+                        ]
+                    }
+                ]
+            }</script>
 
 
   <!-- Open Graph Metadata -->
@@ -98,10 +515,18 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/styles.css">
-  <script src="https://kit.fontawesome.com/390d6573af.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css/index.css">
+  <!-- <script src="https://kit.fontawesome.com/390d6573af.js" crossorigin="anonymous"></script> -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+
 
   <style>
     .custom-btn {
@@ -201,20 +626,22 @@
     </div>
     <a href="/">Home</a>
     <a href="/login">Sign Up</a>
-    <a href="/#integration">Integration</a>
+    <a href="/docs">Bloom CDN</a>
+    <a href="/#integration">Bloom Rest API</a>
     <a href="/pricing">Pricing</a>
     <a href="/contact">Contact</a>
   </div>
 
   <nav class="p-3 d-flex" style="column-gap: 3rem;">
     <div class="logo-container">
-      <div class="logo"><a href="/"><img src="./images/logo-black.webp" alt="" width="30"></a></div>
+      <div class="logo"><a href="/"><img src="./images/logo-black.webp" alt="Bloom Engine Logo" width="30"></a></div>
       <div class="name">Bloom Engine</div>
     </div>
 
     <div class="menu-bar d-none d-md-flex">
       <a href="/">Home</a>
-      <a href="#integration">Integration</a>
+      <a href="/docs">Bloom CDN</a>
+      <a href="#integration">Bloom Rest API</a>
       <a href="/pricing">Pricing</a>
       <a href="/contact">Contact</a>
     </div>
@@ -270,10 +697,8 @@
     <div class="container">
       <!-- <div class="d-fl" style="gap:2rem"> -->
       <div class="content">
-        <h1>Turn Your Excel Spreadsheet into a Powerful Web Calculator</h1>
-        <div>Say goodbye to complex formulas hidden in cells and bring your calculations to life with an intuitive,
-          user-friendly web experience. Whether you're a business owner or a developer, we've got the tools to make your
-          calculations seamless and accessible.</div>
+        <h1>A Comprehensive API for Excel Calculations</h1>
+        <div>With the support of Bloom CDN and the Bloom REST API, we empower developers and designers to build applications and web-based solutions without the complexity of handling Excel calculations.</div>
         <a href="/login"><button class="btn mt-4">Get Started <svg width="20px" height="25px" viewBox="0 0 24 24"
               fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
 
@@ -293,7 +718,7 @@
         <div class="no-credit-card">No credit card required.</div>
       </div>
       <div class="image-container">
-        <img src="./images/hero.webp" alt="" class="w-100">
+        <img src="./images/excel-workbook.webp" alt="bloom engine blank excel workbook hero" class="w-100">
       </div>
       <!-- </div> -->
     </div>
@@ -305,7 +730,7 @@
         <div class="review">
 
           <div class="d-flex">
-            <img src="./images/Emily.webp" alt="">
+            <img src="./images/Emily.webp" alt="Bloom Engine review Emily R. - Product Manager">
             <div class="content">
               <div class="d-flex">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
@@ -333,7 +758,7 @@
         <div class="review">
 
           <div class="d-flex">
-            <img src="./images/James.webp" alt="">
+            <img src="./images/James.webp" alt="Bloom Engine review James T. - Freelancer">
             <div class="content">
               <div class="d-flex">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
@@ -364,7 +789,7 @@
         <div class="review">
 
           <div class="d-flex">
-            <img src="./images/Sophia.webp" alt="">
+            <img src="./images/Sophia.webp" alt="Bloom Engine review Sophia L. - Startup Founder">
             <div class="content">
               <div class="d-flex">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold" width="24px" height="24px">
@@ -387,10 +812,6 @@
               <div class="name"><span>Sophia L.</span>, Startup Founder</div>
             </div>
           </div>
-
-
-
-
         </div>
 
       </div>
@@ -400,112 +821,93 @@
 
   <section id="ceo-msg" class="section">
 
-    <div class="container text-center  text-white py-4">
+    <div class="container text-white" style="padding: 4rem 0rem;">
       <!-- <div class="title">Simplify Your Business Calculations with Bloom Engine</div> -->
-      <div class="mt-2" style="font-size: 1.5rem;">
-        Need complex calculations fast? With Bloom Engine, businesses can effortlessly handle any calculation, from
-        price estimations to intricate data analysis. Just upload your Excel file, send your requests, and let our
-        powerful AI do the rest—in seconds.
+      <div class="mt-2">
+
+        <div class="title">3 Step Process...</div>
+
+        <div id="step-line" style="position: relative;" class="d-none d-md-block">
+          <div class="step-line"></div>
+          <div class="step-container">
+            <div class="step">1</div>
+            <div class="step">2</div>
+            <div class="step">3</div>
+          </div>
+        </div>
+        
+
+        <div class="c-step-container">
+          <div class="c-step"><!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+            <svg width="60px" height="60px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            
+            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+            
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+            
+            <g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M8 10C8 7.79086 9.79086 6 12 6C14.2091 6 16 7.79086 16 10V11H17C18.933 11 20.5 12.567 20.5 14.5C20.5 16.433 18.933 18 17 18H16C15.4477 18 15 18.4477 15 19C15 19.5523 15.4477 20 16 20H17C20.0376 20 22.5 17.5376 22.5 14.5C22.5 11.7793 20.5245 9.51997 17.9296 9.07824C17.4862 6.20213 15.0003 4 12 4C8.99974 4 6.51381 6.20213 6.07036 9.07824C3.47551 9.51997 1.5 11.7793 1.5 14.5C1.5 17.5376 3.96243 20 7 20H8C8.55228 20 9 19.5523 9 19C9 18.4477 8.55228 18 8 18H7C5.067 18 3.5 16.433 3.5 14.5C3.5 12.567 5.067 11 7 11H8V10ZM15.7071 13.2929L12.7071 10.2929C12.3166 9.90237 11.6834 9.90237 11.2929 10.2929L8.29289 13.2929C7.90237 13.6834 7.90237 14.3166 8.29289 14.7071C8.68342 15.0976 9.31658 15.0976 9.70711 14.7071L11 13.4142V19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19V13.4142L14.2929 14.7071C14.6834 15.0976 15.3166 15.0976 15.7071 14.7071C16.0976 14.3166 16.0976 13.6834 15.7071 13.2929Z" fill="#ffffff"/> </g>
+            
+            </svg> 
+            <div>Upload Excel Spreadsheet</div>
+            <div class="text-white-50">Upload your Excel spreadsheet to receive an API key, then include it when making calculation requests.</div>
+          </div>
+          <div class="c-step">
+            <svg width="60px" height="60px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+              <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+              
+              <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+              
+              <g id="SVGRepo_iconCarrier"> <path d="M11.5003 12H5.41872M5.24634 12.7972L4.24158 15.7986C3.69128 17.4424 3.41613 18.2643 3.61359 18.7704C3.78506 19.21 4.15335 19.5432 4.6078 19.6701C5.13111 19.8161 5.92151 19.4604 7.50231 18.7491L17.6367 14.1886C19.1797 13.4942 19.9512 13.1471 20.1896 12.6648C20.3968 12.2458 20.3968 11.7541 20.1896 11.3351C19.9512 10.8529 19.1797 10.5057 17.6367 9.81135L7.48483 5.24303C5.90879 4.53382 5.12078 4.17921 4.59799 4.32468C4.14397 4.45101 3.77572 4.78336 3.60365 5.22209C3.40551 5.72728 3.67772 6.54741 4.22215 8.18767L5.24829 11.2793C5.34179 11.561 5.38855 11.7019 5.407 11.8459C5.42338 11.9738 5.42321 12.1032 5.40651 12.231C5.38768 12.375 5.34057 12.5157 5.24634 12.7972Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </g>
+              
+              </svg>
+              <div>Make Requests</div>
+              <div class="text-white-50">Make API calls using Bloom CDN and the Bloom REST API to get results in seconds.</div>
+          </div>
+          <div class="c-step"><svg width="60px" height="60px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+            
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+            
+            <g id="SVGRepo_iconCarrier"> <path d="M3.67981 11.3333H2.92981H3.67981ZM3.67981 13L3.15157 13.5324C3.44398 13.8225 3.91565 13.8225 4.20805 13.5324L3.67981 13ZM5.88787 11.8657C6.18191 11.574 6.18377 11.0991 5.89203 10.8051C5.60029 10.511 5.12542 10.5092 4.83138 10.8009L5.88787 11.8657ZM2.52824 10.8009C2.2342 10.5092 1.75933 10.511 1.46759 10.8051C1.17585 11.0991 1.17772 11.574 1.47176 11.8657L2.52824 10.8009ZM18.6156 7.39279C18.8325 7.74565 19.2944 7.85585 19.6473 7.63892C20.0001 7.42199 20.1103 6.96007 19.8934 6.60721L18.6156 7.39279ZM12.0789 2.25C7.03155 2.25 2.92981 6.3112 2.92981 11.3333H4.42981C4.42981 7.15072 7.84884 3.75 12.0789 3.75V2.25ZM2.92981 11.3333L2.92981 13H4.42981L4.42981 11.3333H2.92981ZM4.20805 13.5324L5.88787 11.8657L4.83138 10.8009L3.15157 12.4676L4.20805 13.5324ZM4.20805 12.4676L2.52824 10.8009L1.47176 11.8657L3.15157 13.5324L4.20805 12.4676ZM19.8934 6.60721C18.287 3.99427 15.3873 2.25 12.0789 2.25V3.75C14.8484 3.75 17.2727 5.20845 18.6156 7.39279L19.8934 6.60721Z" fill="#ffffff"/> <path d="M20.3139 11L20.8411 10.4666C20.549 10.1778 20.0788 10.1778 19.7867 10.4666L20.3139 11ZM18.1004 12.1333C17.8058 12.4244 17.8031 12.8993 18.0942 13.1939C18.3854 13.4885 18.8603 13.4913 19.1549 13.2001L18.1004 12.1333ZM21.4729 13.2001C21.7675 13.4913 22.2424 13.4885 22.5335 13.1939C22.8247 12.8993 22.822 12.4244 22.5274 12.1332L21.4729 13.2001ZM5.31794 16.6061C5.1004 16.2536 4.6383 16.1442 4.28581 16.3618C3.93331 16.5793 3.82391 17.0414 4.04144 17.3939L5.31794 16.6061ZM11.8827 21.75C16.9451 21.75 21.0639 17.6915 21.0639 12.6667H19.5639C19.5639 16.8466 16.1332 20.25 11.8827 20.25V21.75ZM21.0639 12.6667V11H19.5639V12.6667H21.0639ZM19.7867 10.4666L18.1004 12.1333L19.1549 13.2001L20.8411 11.5334L19.7867 10.4666ZM19.7867 11.5334L21.4729 13.2001L22.5274 12.1332L20.8411 10.4666L19.7867 11.5334ZM4.04144 17.3939C5.65405 20.007 8.56403 21.75 11.8827 21.75V20.25C9.10023 20.25 6.66584 18.7903 5.31794 16.6061L4.04144 17.3939Z" fill="#ffffff"/> </g>
+            
+            </svg>
+              <div>Make Changes and Re-upload</div>
+              <div class="text-white-50">Modify your Excel spreadsheet and re-upload it to see the changes reflected instantly.</div>
+          </div>
+        </div>
       </div>
 
     </div>
 
   </section>
 
-  <section class="section d-none">
-    <div class="container d-flex">
-      <div class="tile"><svg width="40px" height="40px" viewBox="0 0 24 24" fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-
-          <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-
-          <g id="SVGRepo_iconCarrier">
-            <path
-              d="M4.31802 20.5355C5.63604 22 7.75736 22 12 22C16.2426 22 18.364 22 19.682 20.5355C21 19.0711 21 16.714 21 12C21 7.28595 21 4.92893 19.682 3.46447C18.364 2 16.2426 2 12 2C7.75736 2 5.63604 2 4.31802 3.46447C3 4.92893 3 7.28595 3 12C3 16.714 3 19.0711 4.31802 20.5355Z"
-              stroke="#ffffff" stroke-width="1.5" />
-            <path
-              d="M7 8C7 7.53501 7 7.30252 7.05111 7.11177C7.18981 6.59413 7.59413 6.18981 8.11177 6.05111C8.30252 6 8.53501 6 9 6H15C15.465 6 15.6975 6 15.8882 6.05111C16.4059 6.18981 16.8102 6.59413 16.9489 7.11177C17 7.30252 17 7.53501 17 8C17 8.46499 17 8.69748 16.9489 8.88823C16.8102 9.40587 16.4059 9.81019 15.8882 9.94889C15.6975 10 15.465 10 15 10H9C8.53501 10 8.30252 10 8.11177 9.94889C7.59413 9.81019 7.18981 9.40587 7.05111 8.88823C7 8.69748 7 8.46499 7 8Z"
-              stroke="#ffffff" stroke-width="1.5" />
-            <circle cx="8" cy="13" r="1" fill="#ffffff" />
-            <circle cx="8" cy="17" r="1" fill="#ffffff" />
-            <circle cx="12" cy="13" r="1" fill="#ffffff" />
-            <circle cx="12" cy="17" r="1" fill="#ffffff" />
-            <circle cx="16" cy="13" r="1" fill="#ffffff" />
-            <circle cx="16" cy="17" r="1" fill="#ffffff" />
-          </g>
-
-        </svg> Web Calculators</div>
-
-      <div class="tile"><svg fill="#ffffff" height="40px" width="40px" version="1.1" id="Layer_1"
-          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
-          xml:space="preserve" stroke="#ffffff">
-
-          <g id="SVGRepo_bgCarrier" stroke-width="0" />
-
-          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
-
-          <g id="SVGRepo_iconCarrier">
-            <g>
-              <g>
-                <path
-                  d="M256,0C114.512,0,0,114.497,0,256c0,141.488,114.497,256,256,256c141.488,0,256-114.497,256-256 C512,114.512,397.503,0,256,0z M256,477.867c-122.337,0-221.867-99.529-221.867-221.867S133.663,34.133,256,34.133 S477.867,133.663,477.867,256S378.337,477.867,256,477.867z" />
-              </g>
-            </g>
-            <g>
-              <g>
-                <path
-                  d="M322.843,238.933h131.528C445.686,137.103,360.041,56.889,256,56.889S66.314,137.103,57.628,238.933h156.367 c6.278-35.487,31.481-38.769,105.013-68.12c13.9-5.542,27.723,8.288,22.176,22.179L322.843,238.933z" />
-              </g>
-            </g>
-            <g>
-              <g>
-                <path
-                  d="M258.038,231.903c-11.08,4.418-14.492,18.978-5.706,27.765c5.737,5.733,21.099,11.05,29.464-9.977l0.133-0.333v-0.001 l12.819-32.107L258.038,231.903z" />
-              </g>
-            </g>
-            <g>
-              <g>
-                <path
-                  d="M308.175,273.067c-22.709,37.447-70.159,31.333-88.206,0H57.628C66.315,374.897,151.959,455.111,256,455.111 s189.686-80.214,198.372-182.044H308.175z" />
-              </g>
-            </g>
-          </g>
-
-        </svg> Business Price Estimators</div>
-    </div>
-  </section>
 
   <section class="section" id="ai">
     <div class="container">
-      <div class="image-container" data-aos="fade-up">
-        <img src="images/business-calcualations.webp" alt="" class="w-100">
-      </div>
       <div class="content" data-aos="fade-up">
-        <div class="promo-text">Complex business calculations? Done in seconds.</div>
-        <div class="title">Turn Your Excel into a Powerful Web Calculator</div>
+        <div class="promo-text">Integrate with your website</div>
+        <div class="title">Bloom CDN</div>
+
         <div class="my-3">
-          <p>Easily transform your Excel spreadsheets into interactive web calculators with Bloom Engine. Upload your
-            Excel file, and we’ll handle the rest—enabling you to share dynamic calculators with clients or integrate
-            them seamlessly into your website. Perfect for pricing tools, financial models, or any calculation-based
-            workflows.</p>
+          <p>Bloom CDN is designed for web-based projects such as web calculators. It seamlessly integrates with
+            any static website, including WordPress, Joomla, Drupal, and other popular CMS platforms.</p>
         </div>
         <div class="my-3">
           <ul>
-            <li><strong>Effortless Uploads</strong>: Simply share your Excel document with us.</li>
-            <li><strong>Instant Calculations</strong>: Send requests for any calculations within your document.</li>
-            <li><strong>Precision at Scale:</strong> Handle even the most complex business data with ease.</li>
-            <li><strong>Support for Multiple Sheets</strong>: Work with complex spreadsheets containing multiple tabs.
+            <li><strong>Seamless Integration</strong>: Easily integrates with static websites and popular CMS platforms like WordPress, Joomla, and Drupal.</li>
+            <li><strong>Instant Calculations</strong>: Processes spreadsheet-based calculations in real time, ensuring quick results.</li>
+            <li><strong>Dynamic Input & Output Handling</strong>: Automatically detects input fields and updates output elements based on spreadsheet logic.</li>
+            <li><strong>Range Support</strong>: Supports single-cell values as well as multi-cell ranges for complex calculations.
             </li>
-            <li><strong>Custom Inputs & Outputs</strong>: Define which cells users can interact with for tailored
-              calculations.</li>
-            <li><strong>Easy Integration</strong>: Embed your calculator directly into your website</li>
+            <li><strong>Lightweight & Fast</strong>: Optimized for performance, ensuring minimal load time and efficient resource usage.</li>
+            <li><strong>Secure API Access</strong>: Uses API keys for authentication, ensuring secure and controlled access to spreadsheet calculations.</li>
           </ul>
         </div>
         <p>Start optimizing your calculations today—it's fast, easy, and reliable.</p>
 
-        <a href="/login"><button class="btn mt-4">Get Started <svg width="20px" height="25px" viewBox="0 0 24 24"
+        <a href="/docs"><button class="btn mt-4">Documentation <svg width="20px" height="25px" viewBox="0 0 24 24"
               fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
 
               <g id="SVGRepo_bgCarrier" stroke-width="0" />
@@ -522,45 +924,55 @@
 
             </svg></button></a>
       </div>
-    </div>
-  </section>
-  <section class="section" id="complex">
-    <div class="container">
 
-      <div class="content" data-aos="fade-up">
-        <div class="promo-text">Next-Level Efficiency: AI Modules in Action</div>
-        <div class="title">How Bloom Engine Works</div>
-        <div class="my-3">With a suite of powerful modules, we cater to a variety of user needs, ensuring seamless
-          functionality every step of the way:</div>
-        <div class="my-3">
-          <ul class="modules">
-            <li><span>Bloom Bucket</span> securely stores your Excel docs for easy access and integration across the
-              platform.</li>
-            <li><span>Bloom AI</span> analyzes your uploaded Excel docs to identify input, output, and configuration
-              cells.</li>
-            <li><span>Bloom Calc</span> performs accurate calculations based on Bloom AI's insights, ensuring reliable
-              results.</li>
-            <li><span>Bloom Req Validator</span> validates API inputs and outputs, passing any gaps to Bloom Calc for
-              resolution.</li>
-            <li><span>Bloom Cache</span> optimizes performance by handling caching, while <span>Bloom Monitor</span>
-              scales resources based on traffic demands.</li>
-          </ul>
-        </div>
+      <div class="content">
+        <!-- <div class="code-container">-->
 
-        <!-- <a href="/login"><button class="btn mt-4">Get Started Free</button></a> -->
+          
 
+          <div class="code"  data-aos="fade-up">
+            <div class="mac-header">
+              <div class="icon"></div>
+              <div class="icon"></div>
+              <div class="icon"></div>
+            </div>
+            <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;script src="https://cdn.jsdelivr.net/gh/bloom-engine/files/script.js?apiKey=your-api-key"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div id="bloom-container"&gt;
+        &lt;form&gt;
+            &lt;div class="form-group"&gt;
+              &lt;label&gt;Investment&lt;/label&gt;
+              &lt;input type="text" data-label="Sheet1!B2"&gt;
+            &lt;/div&gt;
+
+            &lt;button&gt;Calculate&lt;/button&gt;
+
+            &lt;div&gt;ROI: &lt;span data-label="Sheet1!B5"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+    </code></pre>
+          </div>
+        <!-- </div> -->
       </div>
-
-      <div class="image-container" data-aos="fade-up">
-        <img src="/images/how it works.jpg" alt="" class="w-100">
-      </div>
+      
     </div>
   </section>
 
   <section class="section" id="integration">
     <div class="container text-center">
       <div class="promo-text">Integrate Today</div>
-      <div class="title">Use the language you love</div>
+      <div class="title">Bloom Rest API</div>
       <div>Send simple HTTP requests or use native libraries for your language of choice. You decide.</div>
 
       <div class="language-selector">
@@ -846,6 +1258,41 @@ print(output_value)
     </div>
   </section>
 
+  <section class="section" id="complex">
+    <div class="container">
+
+      <div class="content" data-aos="fade-up">
+        <div class="promo-text">Next-Level Efficiency: AI Modules in Action</div>
+        <div class="title">How Bloom Engine Works</div>
+        <div class="my-3">With a suite of powerful modules, we cater to a variety of user needs, ensuring seamless
+          functionality every step of the way:</div>
+        <div class="my-3">
+          <ul class="modules">
+            <li><span>Bloom Bucket</span> securely stores your Excel docs for easy access and integration across the
+              platform.</li>
+            <li><span>Bloom AI</span> analyzes your uploaded Excel docs to identify input, output, and configuration
+              cells.</li>
+            <li><span>Bloom Calc</span> performs accurate calculations based on Bloom AI's insights, ensuring reliable
+              results.</li>
+            <li><span>Bloom Req Validator</span> validates API inputs and outputs, passing any gaps to Bloom Calc for
+              resolution.</li>
+            <li><span>Bloom Cache</span> optimizes performance by handling caching, while <span>Bloom Monitor</span>
+              scales resources based on traffic demands.</li>
+          </ul>
+        </div>
+
+        <!-- <a href="/login"><button class="btn mt-4">Get Started Free</button></a> -->
+
+      </div>
+
+      <div class="image-container" data-aos="fade-up">
+        <img src="/images/how it works.jpg" alt="Bloom Engine how it work" class="w-100">
+      </div>
+    </div>
+  </section>
+
+  
+
   <section class="section" id="ceo-msg">
     <div class="container">
       <div class="msg-container">
@@ -888,10 +1335,7 @@ print(output_value)
       <div class="content">
         <div class="title">Get Started Today</div>
 
-        <div class="my-3">Join us now and unlock the full potential of our AI-powered platform. Sign up today to access
-          a seamless, efficient workflow that will transform the way you handle your data. Experience the power of
-          automation, smart analysis, and accurate results—all in one place. It's time to take your productivity to the
-          next level.</div>
+        <div class="my-3">Join now to unlock our AI-powered platform! Sign up today for seamless automation, smart analysis, and accurate results—all in one place. Boost your productivity effortlessly!</div>
 
         <a href="/login"><button class="btn mt-4">Get Started <svg width="20px" height="25px" viewBox="0 0 24 24"
               fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff">
@@ -935,13 +1379,14 @@ print(output_value)
       <div class="columns">
         <div id="column-1" class="column">
           <img src="" alt="">
-          <div class="mt-3"><a href="/"><img src="./images/logo-white.webp" alt="" width="90"></a> <br>Bloom
+          <div class="mt-3"><a href="/"><img src="./images/logo-white.webp" alt="Bloom Engine Logo" width="90"></a> <br>Bloom
             Engine<br>Excel docs into Action</div>
         </div>
         <div id="column-2" class="column">
           <a href="/">Home</a>
           <a href="/login">Sign Up</a>
-          <a href="#integration">Integration</a>
+          <a href="/docs">Bloom CDN</a>
+          <a href="#integration">Bloom Rest API</a>
           <a href="/pricing">Pricing</a>
           <a href="/contact">Contact</a>
         </div>

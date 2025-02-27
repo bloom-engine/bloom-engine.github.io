@@ -4,48 +4,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloom Engine | Pricing</title>
+    <title>Bloom Engine - Docs</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/styles.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
 
     <style>
-        .no-focus {
-            pointer-events: none;
-            /* opacity: 0.5; Optional: Make it look disabled */
+        .sub-title {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
         }
 
-        .icon-setting {
-            position: absolute;
-            width: 0px;
-            height: 0px;
-            right: 3rem;
+        .instructions {
+            margin-top: 1rem;
         }
 
-        .icon-remove {
-            position: absolute;
-            width: 0px;
-            height: 0px;
-            right: 1px;
-        }
-
-        .setting-panel {
-            padding: 1rem;
-            border: solid 1px gray;
-            border-radius: 2rem;
-            position: absolute;
-            z-index: 10;
-            right: -10rem;
-            display: none;
-        }
-
-        #form-canvas .draggable-field:hover {
-            background-color: blue;
+        .instructions span {
+            background-color: rgb(227, 227, 227);
+            padding: .3rem;
+            border-radius: .3rem;
+            font-size: 0.9rem;
         }
     </style>
+
+    <!-- <style>
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+        }
+
+        ul {
+            list-style: disc;
+            padding-left: 2rem;
+        }
+
+        li {
+            position: relative;
+            padding-left: 10px;
+            padding-bottom: 0.5rem;
+        }
+
+        li::before {
+            content: url('');
+            position: absolute;
+            top: 1rem;
+            left: 0;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+        }
+
+        form {
+            margin-top: 3rem;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* width:450px !important; */
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        #pageLoader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            /* Semi-transparent background */
+            z-index: 1050;
+            /* Higher than modal */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+    </style> -->
 
 </head>
 
@@ -73,7 +132,8 @@
         </div>
         <a href="/">Home</a>
         <a href="/login">Sign Up</a>
-        <a href="/#integration">Integration</a>
+        <a href="/docs">Bloom CDN</a>
+        <a href="/#integration">Bloom Rest API</a>
         <a href="/pricing">Pricing</a>
         <a href="/contact">Contact</a>
     </div>
@@ -86,7 +146,8 @@
 
         <div class="menu-bar d-none d-md-flex">
             <a href="/">Home</a>
-            <a href="#integration">Integration</a>
+            <a href="/docs">Bloom CDN</a>
+            <a href="/#integration">Bloom Rest API</a>
             <a href="/pricing">Pricing</a>
             <a href="/contact">Contact</a>
         </div>
@@ -141,61 +202,190 @@
 
     <section class="section">
         <div class="container">
+            <div class="title">Bloom CDN</div>
+            <div class="mt-4">
+                <p>Bloom CDN is designed for web-based projects such as web calculators. It seamlessly integrates with
+                    any static website, including WordPress, Joomla, Drupal, and other popular CMS platforms.</p>
 
-            <div class="form-group">
-                <label for=""></label>
-            </div>
+                <div>
+                    <div class="sub-title">Installation</div>
 
-<div id="calculator"></div>
+                    <div class="mb-2 instructions">To install Bloom CDN on your website, copy and paste the following code within the head section. Replace <span>your-api-key</span> with your own API key.</div>
+                    <p class="instructions">All input and output elements must be placed within the <span>bloom-container</span> element. The CDN detects a submit action inside #bloom-container as a trigger for calculation.</p>
+                    <div class="code">
+                        <div class="mac-header">
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                        </div>
+                        <pre><code class="language-html">&lt;script src="https://cdn.jsdelivr.net/gh/bloom-engine/files/script.js?apiKey=your-api-key"&gt;&lt;/script&gt;
+</code></pre>
+                    </div>
 
-        </div>
-    </section>
+                </div>
 
-    <script>
+                <div class="mt-4">
+                    <div class="sub-title">Set Cell values of Spreadsheet</div>
+                    <div class="mt-2 instructions">You can easily set spreadsheet cells using the <span>data-label</span> attribute. Specify it in the format <span>SheetName!Cell</span>. For example, to set cell <span>A2</span> of <span>Sheet1</span> use <span>data-label="Sheet1!A2"</span></div>
+                    <p class="instructions">If the element type is input or select, Bloom CDN treats it as an input cell. For non-input elements, it is considered an output cell.</p>
+                    <p>When defining output cells, you can also specify ranges, such as</p>
 
-const fetchInitialize = async () => {
-  try {
-    const response = await fetch('http://localhost:8888/.netlify/functions/api/initialize?apiKey=603b5da563ebe42b01e1b8ba995bfcff0ca5cc8f1ac7d9b935e5d95b3f3fc91fedac5296c6c895d5f0c28a30a95b0924&withUI=true', {
-      method: 'GET', // This is the default method for fetch
-    });
+                    <p class="instructions"><span>Sheet1!A2</span> - Single value output <a href="#sample-1">Check sample here</a></p>
+                    <p class="instructions"><span>Sheet1!A2:A5</span> - 1D array output <a href="#sample-2">Check sample here</a></p>
+                    <p class="instructions"><span>Sheet1!A2:b4</span> - 2D array output <a href="#sample-3">Check sample here</a></p>
+                </div>
+                <div id="sample-1" class="mt-4">
+                    <div class="sub-title">
+                        Sample #1 (Single Value Output)
+                    </div>
+                    <div class="code" data-aos="fade-up">
+                        <div class="mac-header">
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                        </div>
+                        <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;script src="https://cdn.jsdelivr.net/gh/bloom-engine/files/script.js?apiKey=your-api-key"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json()
-
-    const calForm = $('<form>').appendTo('#calculator');
-
-// Iterate over the data array and append input fields to the form
-data.data.inputs.forEach(ele => {
-    calForm.append(`
-        <div class="form-group">
-            <label for="${ele.attributes.id}">${ele.attributes.label?ele.attributes.label:''}</label>
-            <input 
-                type="${ele.type}" 
-                class="${ele.attributes.class}" 
-                min="${ele.attributes.min}" 
-                max="${ele.attributes.max}" 
-                value="${ele.attributes.default}" 
-                id="${ele.attributes.id}"
-                data-mapping="${ele.mapping}"
-            />
-        </div>
-    `);
-});
-    // return data
-  } catch (error) {
-    console.error('Error fetching API:', error);
-  }
-};
-
-fetchInitialize()
-
-
+    &lt;div id="bloom-container"&gt;
+        &lt;form&gt;
+            &lt;div class="form-group"&gt;
+                &lt;label&gt;Investment&lt;/label&gt;
+                &lt;input type="text" data-label="Sheet1!B2"&gt;
+            &lt;/div&gt;
     
+            &lt;button&gt;Calculate&lt;/button&gt;
+    
+            &lt;div&gt;ROI: &lt;span data-label="Sheet1!B5"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+    
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+                    </div>
 
-    </script>
+                    <div class="instructions">
+                        <div class="code-snippest">
+                            <p><span>input type="text" data-label="Sheet1!B2"</span> - CDN consider as the input value
+                                for B2 cell of the Sheet1</p>
+                            <p><span>span data-label="Sheet1!B5"</span> - CDN set B5 cell value of the Sheet1 after
+                                doing calculation with new B2 cell value</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="sample-2">
+                    <div class="sub-title">
+                        Sample #2 (1D Array)
+                    </div>
+
+                    <p class="instructions">When you set output cell as <span>Sheet1!C2:C4</span>, Result will be a 1D array. To set each output correctly use both <span>data-label</span> and <span>data-col</span></p>
+                    <div class="code" data-aos="fade-up">
+                        <div class="mac-header">
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                        </div>
+                        <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;script src="https://cdn.jsdelivr.net/gh/bloom-engine/files/script.js?apiKey=your-api-key"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div id="bloom-container"&gt;
+        &lt;form&gt;
+            &lt;div class="form-group"&gt;
+                &lt;label&gt;Investment&lt;/label&gt;
+                &lt;input type="text" data-label="Sheet1!B2"&gt;
+            &lt;/div&gt;
+    
+            &lt;button&gt;Calculate&lt;/button&gt;
+    
+            &lt;div data-label="Sheet1!C2:C4"&gt;
+                &lt;p&gt;ROI after 1 year: &lt;span data-col="1"&gt;&lt;/span&gt;&lt;/p&gt;
+                &lt;p&gt;ROI after 5 year: &lt;span data-col="2"&gt;&lt;/span&gt;&lt;/p&gt;
+                &lt;p&gt;ROI after 10 year: &lt;span data-col="3"&gt;&lt;/span&gt;&lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+    
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+                    </div>
+
+                    <div class="instructions">
+                        <div class="code-snippest">
+                            <p><span>input type="text" data-label="Sheet1!B2"</span> - CDN consider as the input value
+                                for B2 cell of the Sheet1</p>
+                            <p><span>span data-label="Sheet1!B5"</span> - CDN set B5 cell value of the Sheet1 after
+                                doing calculation with new B2 cell value</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="sample-3">
+                    <div class="sub-title">
+                        Sample #3 (2D Array)
+                    </div>
+                    <div class="code" data-aos="fade-up">
+                        <div class="mac-header">
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                            <div class="icon"></div>
+                        </div>
+                        <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;script src="https://cdn.jsdelivr.net/gh/bloom-engine/files/script.js?apiKey=your-api-key"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div id="bloom-container"&gt;
+        &lt;form&gt;
+            &lt;div class="form-group"&gt;
+                &lt;label&gt;Investment&lt;/label&gt;
+                &lt;input type="text" data-label="Sheet1!B2"&gt;
+            &lt;/div&gt;
+    
+            &lt;button&gt;Calculate&lt;/button&gt;
+    
+            &lt;div&gt;ROI: &lt;span data-label="Sheet1!B5"&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+    
+&lt;/body&gt;
+&lt;/html&gt;
+        </code></pre>
+                    </div>
+
+                    <div class="instructions">
+                        <div class="code-snippest">
+                            <p><span>input type="text" data-label="Sheet1!B2"</span> - CDN consider as the input value
+                                for B2 cell of the Sheet1</p>
+                            <p><span>span data-label="Sheet1!B5"</span> - CDN set B5 cell value of the Sheet1 after
+                                doing calculation with new B2 cell value</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </section>
 
     <!-- Footer Start -->
     <footer>
@@ -209,7 +399,8 @@ fetchInitialize()
                 <div id="column-2" class="column">
                     <a href="/">Home</a>
                     <a href="/login">Sign Up</a>
-                    <a href="#integration">Integration</a>
+                    <a href="/docs">Bloom CDN</a>
+                    <a href="/#integration">Bloom Rest API</a>
                     <a href="/pricing">Pricing</a>
                     <a href="/contact">Contact</a>
                 </div>
@@ -313,10 +504,7 @@ fetchInitialize()
     </footer>
     <!-- Footer End -->
 
-    <!-- <script src="https://unpkg.com/aos@next/dist/aos.js"></script> -->
-
     <script>
-        // AOS.init()
 
         $('#open-menu-icon').click(() => {
             $('.ham-menu').fadeIn()
