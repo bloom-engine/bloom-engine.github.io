@@ -329,8 +329,8 @@
                         <div class="code-snippest">
                             <p><span>input type="text" data-label="Sheet1!B2"</span> - CDN consider as the input value
                                 for B2 cell of the Sheet1</p>
-                            <p><span>span data-label="Sheet1!B5"</span> - CDN set B5 cell value of the Sheet1 after
-                                doing calculation with new B2 cell value</p>
+                            <p><span>div data-label="Sheet1!C2:C4"</span> - Output range</p>
+                            <p><span>span data-col="1"</span> - Set 1st value of the array</p>
                         </div>
                     </div>
                 </div>
@@ -357,13 +357,17 @@
     &lt;div id="bloom-container"&gt;
         &lt;form&gt;
             &lt;div class="form-group"&gt;
-                &lt;label&gt;Investment&lt;/label&gt;
+                &lt;label&gt;Loan Amount&lt;/label&gt;
                 &lt;input type="text" data-label="Sheet1!B2"&gt;
             &lt;/div&gt;
     
             &lt;button&gt;Calculate&lt;/button&gt;
     
-            &lt;div&gt;ROI: &lt;span data-label="Sheet1!B5"&gt;&lt;/span&gt;&lt;/div&gt;
+            &lt;div data-label="Sheet2!A2:C13"&gt;
+                &lt;p&gt;Month: &lt;span data-col="1"&gt;&lt;/span&gt;&lt;/p&gt;
+                &lt;p&gt;Interest Payment: &lt;span data-col="2"&gt;&lt;/span&gt;&lt;/p&gt;
+                &lt;p&gt;Monthly Installment: &lt;span data-col="3"&gt;&lt;/span&gt;&lt;/p&gt;
+            &lt;/div&gt;
         &lt;/form&gt;
     &lt;/div&gt;
     
@@ -376,8 +380,8 @@
                         <div class="code-snippest">
                             <p><span>input type="text" data-label="Sheet1!B2"</span> - CDN consider as the input value
                                 for B2 cell of the Sheet1</p>
-                            <p><span>span data-label="Sheet1!B5"</span> - CDN set B5 cell value of the Sheet1 after
-                                doing calculation with new B2 cell value</p>
+                            <p><span>div data-label="Sheet2!A2:C13"</span> - Output range</p>
+                            <p><span>span data-col="1"</span> - Set 1st value of 1st array of 2D array</p>
                         </div>
                     </div>
                 </div>
