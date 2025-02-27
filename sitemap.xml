@@ -6,6 +6,11 @@
       <priority>0.8</priority>
    </url>
    <url>
+      <loc>https://bloom-engine.cloud/docs</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
       <loc>https://bloom-engine.cloud/contact</loc>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
