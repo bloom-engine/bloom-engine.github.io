@@ -144,6 +144,7 @@
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js'
     import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js'
+    import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDTnXu9_v79boE-eggxFkZqhb5jEPMhZYY",
@@ -151,11 +152,15 @@
       projectId: "xlcalculator",
       storageBucket: "xlcalculator.firebasestorage.app",
       messagingSenderId: "765670692728",
-      appId: "1:765670692728:web:76dc9ac3ec3bcc975f9a8d"
+      appId: "1:765670692728:web:76dc9ac3ec3bcc975f9a8d",
+      measurementId: "G-Y3SB7ZY2BD"
     };
 
-    initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
     const auth = getAuth()
+    const analytics = getAnalytics();
+
+    logEvent(analytics, "pricing_view");
 
     onAuthStateChanged(auth, (user) => {
       if (user) {

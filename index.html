@@ -581,6 +581,16 @@
     const analytics = getAnalytics(app);
 
     logEvent(analytics, "homepage_view");
+
+    function getRefParam() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('promotion');
+    }
+
+    const ref = getRefParam();
+    if (ref) {
+        logEvent(analytics, 'promotion');
+    }
   </script>
 
 
