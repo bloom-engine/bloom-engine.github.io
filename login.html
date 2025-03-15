@@ -202,7 +202,7 @@
                             <input type="password" name="" id="password" class="form-control">
                         </div>
 
-                        <div class="text-danger">The email and password you entered do not match our records. Please try again.</div>
+                        <div class="text-danger" style="display: none;">The email and password you entered do not match our records. Please try again.</div>
                         <button class="btn" id="sign-in-btn">Sign in</button>
                         <!-- </form> -->
 
@@ -364,7 +364,7 @@ if (localStorage.getItem('logged-in') === 'true'){
     window.location.href = "/dashboard";
 }
 
-        $('.text-danger').hide()
+        // $('.text-danger').hide()
         const baseUrl = 'https://bloom-engine.netlify.app/.netlify/functions/bo'
 
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js'

@@ -207,7 +207,7 @@
                             <input type="email" name="" id="email" class="form-control">
                         </div>
 
-                        <div class="text-danger">An account associated with the provided email address was found.</div>
+                        <div class="text-danger" style="display: none;">An account associated with the provided email address was found.</div>
                         <div class="form-group">
                             <label for="">Password</label>
                             <!-- <div style="position: relative;float: right;"><a href="">Forgot password?</a></div> -->
@@ -375,7 +375,7 @@ if (localStorage.getItem('logged-in') === 'true'){
     window.location.href = "/dashboard";
 }
 
-$('.text-danger').hide()
+// $('.text-danger').hide()
 const baseUrl = 'https://bloom-engine.netlify.app/.netlify/functions/bo'
 
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js'
